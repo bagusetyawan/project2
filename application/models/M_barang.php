@@ -6,9 +6,18 @@ class M_barang extends CI_Model{
 		return $hasil->result();
 	}
 
+    function getSuggestionBarang($nama){
+        $this->db->select("id_barang,nama_barang, kategori, harga");
+        $this->db->like('nama_barang', $nama , 'both');
+        $this->db->from('mst_barang');
+        $this->db->where("1","1");
+        return $this->db->get()->result();
+
+        
+    }
+
 	function simpan_barang($nama_barang,$kategori,$satuan,$stok){
         $hasil=$this->db->query("INSERT INTO mst_barang (nama_barang,kategori,satuan,stok)VALUES('$nama_barang','$kategori','$satuan','$stok')");
-        // print_r($hasil);
         return $hasil;
     }
  

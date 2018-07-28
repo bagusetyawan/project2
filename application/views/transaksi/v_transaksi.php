@@ -26,6 +26,8 @@
 
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url(); ?>assets/build/css/custom.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/build/css/jquery-ui.css">
     
   </head>
 
@@ -280,19 +282,8 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Data Barang</h3>
+                <h3>Transaksi Penjualan</h3>
               </div>
-
-              <!--<div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
-              </div> -->
             </div>
 
             <div class="clearfix"></div>
@@ -301,7 +292,34 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <div class="pull-left"><a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#ModalaAdd"><span class="fa fa-plus"></span> Tambah Barang</a></div>
+                    <div class="col-md-12 center-margin">
+                      <form class="form-vertical form-label-left">
+                        <div class="form-group col-md-3">
+                          <label>Nama Barang</label>
+                          <input type="hidden" id="idBarang" name="id">
+                          <input type="text" name="title" class="form-control" id="tags" placeholder="Masukkan Nama Barang">
+                        </div>
+                        <div class="form-group col-md-1">
+                          <label>Jumlah</label>
+                          <input type="text" name="jumlah" class="form-control" id="jumlah" placeholder="...">
+                        </div>
+                        <div class="form-group col-md-3">
+                          <label>Harga</label>
+                          <input type="text" name="harga" readonly="" class="form-control" id="harga" placeholder="Rp.">
+                        </div>
+                        <div class="form-group col-md-3">
+                          <label>Sub-Total</label>
+                          <input type="text" name="subTotal" readonly="" class="form-control" id="subTotal" placeholder="Rp.">
+                        </div>
+                        <div class="form-group col-md-1">
+                          <label>&nbsp;</label>
+                          <button class="btn btn-info" id="btn_simpan">Simpan</button>
+                        </div>
+                        
+                        
+                      </form>
+                    </div>
+                    
                      <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -340,57 +358,6 @@
                           </table>
                           </div>
                       </div>
-
-                      <!-- MODAL ADD -->
-                      <div class="modal fade" id="ModalaAdd" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
-                          <div class="modal-dialog">
-                          <div class="modal-content">
-                          <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                              <h3 class="modal-title" id="myModalLabel">Tambah Barang</h3>
-                          </div>
-                          <form class="form-horizontal">
-                              <div class="modal-body">
-               
-                                  <div class="form-group">
-                                      <label class="control-label col-xs-3" >Nama Barang</label>
-                                      <div class="col-xs-9">
-                                          <input name="nabar" id="nama_barang" class="form-control" type="text" placeholder="Nama Barang" style="width:335px;" required>
-                                      </div>
-                                  </div>
-               
-                                  <div class="form-group">
-                                      <label class="control-label col-xs-3" >Kategori</label>
-                                      <div class="col-xs-9">
-                                          <input name="kat" id="kategori" class="form-control" type="text" placeholder="Kategori" style="width:335px;" required>
-                                      </div>
-                                  </div>
-               
-                                  <div class="form-group">
-                                      <label class="control-label col-xs-3" >Satuan</label>
-                                      <div class="col-xs-9">
-                                          <input name="sat" id="satuan" class="form-control" type="text" placeholder="Satuan" style="width:335px;" required>
-                                      </div>
-                                  </div>
-
-                                  <div class="form-group">
-                                      <label class="control-label col-xs-3" >Stok</label>
-                                      <div class="col-xs-9">
-                                          <input name="stk" id="stok" class="form-control" type="text" placeholder="Stok" style="width:335px;" required>
-                                      </div>
-                                  </div>
-               
-                              </div>
-               
-                              <div class="modal-footer">
-                                  <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-                                  <button class="btn btn-info" id="btn_simpan">Simpan</button>
-                              </div>
-                          </form>
-                          </div>
-                          </div>
-                      </div>
-                      <!--END MODAL ADD-->
 
                       <!-- MODAL EDIT -->
                       <div class="modal fade" id="ModalaEdit" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
@@ -495,7 +462,7 @@
     </div>
 
     <!-- jQuery -->
-    <script src="<?php echo base_url(); ?>assets/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- <script src="<?php echo base_url(); ?>assets/vendors/jquery/dist/jquery.min.js"></script> -->
     <!-- Bootstrap -->
     <script src="<?php echo base_url(); ?>assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
@@ -522,6 +489,61 @@
     <script src="<?php echo base_url(); ?>assets/vendors/pdfmake/build/vfs_fonts.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url(); ?>assets/build/js/custom.min.js"></script>
+
+    <script src="<?php echo base_url(); ?>assets/build/js/jquery-1.12.4.js"></script>
+    <script src="<?php echo base_url(); ?>assets/build/js/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(
+        resetForm()
+        );
+
+      //reset form
+      function resetForm(){
+        $('[name="id"]').val('');
+        $('[name="title"]').val('');
+        $('[name="harga"]').val('');
+        $('[name="jumlah"]').val('');
+        $('[name="subTotal"]').val('');
+      }
+
+      //setting autocomplete
+      $(document).ready(function(){
+        $('#tags').autocomplete({
+              source: "<?php echo site_url('Transaksi/getAutocomplete');?>",
+    
+              select: function (event, ui) {
+                  $('[name="title"]').val(ui.item.label);
+                  $('[name="id"]').val('');
+                  $('[name="harga"]').val('');
+                  $('[name="jumlah"]').val('');
+                  $('[name="subTotal"]').val('');
+                  $('[name="id"]').val(ui.item.id);
+                  $('[name="harga"]').val(ui.item.harga); 
+              }
+          });
+          
+      });
+
+      //calculate harga
+      // $(document).ready(function(){
+      //   $('#jumlah').keypress(function(e){
+      //     if(e.which == 13){
+      //       var maths = $('#jumlah').val() * $('#harga').val();
+      //     $('#subTotal').val(maths);
+      //     }
+      //   });
+      // });
+
+      $(document).ready(function(){
+        $('#jumlah').on('change paste keyup', function(){
+          var maths = $('#jumlah').val() * $('#harga').val();
+          $('#subTotal').val(maths);
+        })
+      })
+        
+    </script>
+    
     <script type="text/javascript">
     $(document).ready(function(){
         tampil_data_barang();   //pemanggilan fungsi tampil barang.
@@ -615,7 +637,7 @@
             var stk=$('#stok').val();
             $.ajax({
                 type : "POST",
-                url  : "<?php echo base_url('index.php/barang/simpan_barang')?>",
+                url  : "<?php echo site_url('transaksi/simpan_barang')?>",
                 dataType : "JSON",
                 data : {nabar:nabar , kat:kat, sat:sat, stk:stk},
                 success: function(data){
