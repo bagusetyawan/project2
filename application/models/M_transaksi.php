@@ -2,7 +2,7 @@
 class M_transaksi extends CI_Model{
 
 	function tmp_trans_list(){
-		$hasil=$this->db->query("SELECT * FROM mst_barang order by id_barang desc");
+		$hasil=$this->db->query("SELECT * FROM tmp_transaksi where 1 = 1 order by id_barang desc");
 		return $hasil->result();
 	}
 
@@ -24,9 +24,6 @@ class M_transaksi extends CI_Model{
     }
 
     function getSuggestionBarang($nama){
-        // $this->db->like('nama_barang', $nama , 'both');
-        // $this->db->order_by('nama_barang', 'ASC');
-        // $this->db->limit(50);
         $this->db->select("id_barang,nama_barang, kategori, harga");
         $this->db->like('nama_barang', $nama , 'both');
         $this->db->from('mst_barang');
@@ -36,34 +33,36 @@ class M_transaksi extends CI_Model{
         
     }
 
-	function simpan_barang($nama_barang,$kategori,$satuan,$stok){
-        $hasil=$this->db->query("INSERT INTO mst_barang (nama_barang,kategori,satuan,stok)VALUES('$nama_barang','$kategori','$satuan','$stok')");
+	function add_barang($id_transaksi, $id_barang, $nama_barang, $jumlah, $harga_satuan, $subtotal){
+        $hasil = $this->db->query("INSERT INTO tmp_transaksi (id_transaksi, id_barang, nama_barang, jumlah, harga_satuan, subtotal, created_at) VALUES ('$id_transaksi', '$id_barang', '$nama_barang', '$jumlah', '$harga_satuan', '$subtotal', NOW())");
+        
         return $hasil;
     }
  
     function get_barang_by_kode($kobar){
-        $hsl=$this->db->query("SELECT * FROM mst_barang WHERE id_barang='$kobar'");
+        $hsl=$this->db->query("SELECT * FROM tmp_transaksi WHERE id='$kobar'");
         if($hsl->num_rows()>0){
             foreach ($hsl->result() as $data) {
                 $hasil=array(
+                    'id' => $data->id,
                     'id_barang' => $data->id_barang,
                     'nama_barang' => $data->nama_barang,
-                    'kategori' => $data->kategori,
-                    'satuan' => $data->satuan,
-                    'stok' => $data->stok
+                    'jumlah' => $data->jumlah,
+                    'harga_satuan' => $data->harga_satuan,
+                    'subtotal' => $data->subtotal
                     );
             }
         }
         return $hasil;
     }
  
-    function update_barang($kobar,$nabar,$kategori,$satuan,$stok){
-        $hasil=$this->db->query("UPDATE mst_barang SET nama_barang='$nabar',kategori='$kategori',satuan='$satuan',stok='$stok' WHERE id_barang='$kobar'");
+    function update_tmp_trans($id, $jumlah, $subtotal){
+        $hasil=$this->db->query("UPDATE tmp_transaksi SET jumlah='$jumlah',subtotal='$subtotal' WHERE id='$id'");
         return $hasil;
     }
  
-    function hapus_barang($kobar){
-        $hasil=$this->db->query("DELETE FROM mst_barang WHERE id_barang='$kobar'");
+    function hapus_tmp_trans($kobar){
+        $hasil=$this->db->query("DELETE FROM tmp_transaksi WHERE id='$kobar'");
         return $hasil;
     }
 	

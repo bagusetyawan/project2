@@ -522,6 +522,7 @@
     <script src="<?php echo base_url(); ?>assets/vendors/pdfmake/build/vfs_fonts.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url(); ?>assets/build/js/custom.min.js"></script>
+
     <script type="text/javascript">
     $(document).ready(function(){
         tampil_data_barang();   //pemanggilan fungsi tampil barang.
