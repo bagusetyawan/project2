@@ -13,6 +13,12 @@ class Transaksi extends CI_Controller{
         $this->m_transaksi->getID();
     }
 
+    function sumTrans(){
+        $id = $this->m_transaksi->getID();
+        $total = $this->m_transaksi->sumTrans($id);
+        echo json_encode($total);
+    }
+
     function getAutocomplete(){
         
         if (isset($_GET['term'])) {
@@ -23,6 +29,22 @@ class Transaksi extends CI_Controller{
                     "id" => $row->id_barang,
                     "label" => $row->nama_barang,
                     "harga" => $row->harga
+                );
+            }
+                echo json_encode($arr_result);
+            }
+        }
+    }
+
+    function getAutocompleteCust(){
+        
+        if (isset($_GET['term'])) {
+            $result = $this->m_transaksi->getSuggestionCust($_GET['term']);
+            if (count($result) > 0) {
+            foreach ($result as $row){
+                $arr_result[] = array(
+                    "id" => $row->id,
+                    "label" => $row->nama
                 );
             }
                 echo json_encode($arr_result);
@@ -47,9 +69,20 @@ class Transaksi extends CI_Controller{
         $namaBarang = $this->input->post('namaBarang');
         $idTrans = $this->m_transaksi->getID();
         $jumlah = $this->input->post('jumlah');
+        $diskon = $this->input->post('diskon');
         $harga = $this->input->post('harga');
         $subTotal = $this->input->post('subTotal');
-        $data=$this->m_transaksi->add_barang($idTrans, $idBarang, $namaBarang, $jumlah, $harga, $subTotal);
+        $data=$this->m_transaksi->add_barang($idTrans, $idBarang, $namaBarang, $jumlah, $diskon, $harga, $subTotal);
+        echo json_encode($data);
+    }
+
+    function saveTrans(){
+        $idPel = $this->input->post('idPel');
+        $total = $this->input->post('total');
+        $pembayaran = $this->input->post('pembayaran');
+        $pelanggan = $this->input->post('pelanggan');
+        $deadline = date("Y-m-d", strtotime($this->input->post('jatuh_tempo')));
+        $data = $this->m_transaksi->saveTrans($idPel, $total, $pembayaran, $pelanggan, $deadline);
         echo json_encode($data);
     }
  

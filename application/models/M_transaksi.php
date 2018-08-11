@@ -6,6 +6,14 @@ class M_transaksi extends CI_Model{
 		return $hasil->result();
 	}
 
+    function getSuggestionCust($nama){
+        $this->db->select("id,nama");
+        $this->db->like('nama', $nama , 'both');
+        $this->db->from('mst_customers');
+        $this->db->where("1","1");
+        return $this->db->get()->result();
+    }
+
     function getID(){
         $this->db->select("id");
         $this->db->from("trans_master");
@@ -19,9 +27,21 @@ class M_transaksi extends CI_Model{
         } else{
             $id = 1;
         }
+        $this->session->set_userdata('id_transaksi', $id);
         return $id;
         
     }
+
+    function sumTrans($id){
+        $this->db->select_sum("subtotal");
+        $this->db->from("tmp_transaksi");
+        $this->db->where("id_transaksi", $id);
+        $result = $this->db->get()->result();
+        // $grandTotal = $result->subtotal;
+        return $result;
+    }
+
+
 
     function getSuggestionBarang($nama){
         $this->db->select("id_barang,nama_barang, kategori, harga");
@@ -33,10 +53,43 @@ class M_transaksi extends CI_Model{
         
     }
 
-	function add_barang($id_transaksi, $id_barang, $nama_barang, $jumlah, $harga_satuan, $subtotal){
-        $hasil = $this->db->query("INSERT INTO tmp_transaksi (id_transaksi, id_barang, nama_barang, jumlah, harga_satuan, subtotal, created_at) VALUES ('$id_transaksi', '$id_barang', '$nama_barang', '$jumlah', '$harga_satuan', '$subtotal', NOW())");
+	function add_barang($id_transaksi, $id_barang, $nama_barang, $jumlah, $diskon, $harga_satuan, $subtotal){
+        $this->db->trans_start();
+        $hasil = $this->db->query("INSERT INTO tmp_transaksi (id_transaksi, id_barang, nama_barang, jumlah, diskon, harga_satuan, subtotal, created_at) VALUES ('$id_transaksi', '$id_barang', '$nama_barang', '$jumlah', '$diskon', '$harga_satuan', '$subtotal', NOW())");
+        $q2 = "INSERT INTO trans_barang(id_barang, nama_barang, jenis, jumlah, created_at) VALUES ('$id_barang', '$nama_barang', 'OUT', '$jumlah', NOW())";
+        $q3 = "SELECT stok FROM mst_barang where id_barang = '$id_barang'";
+        $hasil2 = $this->db->query($q3)->row();
+        $stok = $hasil2->stok;
+        $updateStok = $stok - $jumlah;
+        $q4 = "UPDATE mst_barang SET stok = '$updateStok' WHERE id_barang = '$id_barang'";
+        $this->db->query($q4);
+        $this->db->query($q2);
+        $this->db->trans_complete();
+    }
+
+    function saveTrans($idPel, $total, $pembayaran, $pelanggan, $deadline){
+        $id_transaksi = $this->session->userdata('id_transaksi');
+        $q1 = 'INSERT INTO detail_trans(id_transaksi, id_barang, nama_barang, jumlah, harga_satuan, diskon, subtotal, created_at) SELECT id_transaksi, id_barang, nama_barang, jumlah, harga_satuan, diskon, subtotal, NOW() FROM tmp_transaksi';
+        $q2 = 'TRUNCATE tmp_transaksi';
+        $q3 = "INSERT INTO trans_master(id_customer, total, created_at) VALUES ('$idPel', '$total', NOW())";
+        $q4 = "INSERT INTO trans_piutang(id_transaksi, id_customer, nama_customer, deadline, total, created_at) VALUES ('$id_transaksi', '$idPel', '$pelanggan', '$deadline', '$total', NOW())";
         
-        return $hasil;
+        if($pembayaran == 'hutang'){
+            //start transaction
+            $this->db->trans_start();
+            $this->db->query($q1);
+            $this->db->query($q3);
+            $this->db->query($q4);
+            $this->db->query($q2);
+            $this->db->trans_complete();
+        } else{
+            $this->db->trans_start();
+            $this->db->query($q1);
+            $this->db->query($q3);
+            $this->db->query($q2);
+            $this->db->trans_complete();
+        }
+        //complete transaction
     }
  
     function get_barang_by_kode($kobar){

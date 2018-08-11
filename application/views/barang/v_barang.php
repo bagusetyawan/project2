@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Soft Sale v 1.0! | </title>
+    <title>Aplikasi Penjualan! | </title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url(); ?>assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -282,17 +282,6 @@
               <div class="title_left">
                 <h3>Data Barang</h3>
               </div>
-
-              <!--<div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
-              </div> -->
             </div>
 
             <div class="clearfix"></div>
@@ -328,6 +317,7 @@
                               <tr>
                                   <th>ID</th>
                                   <th>Nama Barang</th>
+                                  <th>Harga</th>
                                   <th>Kategori</th>
                                   <th>Satuan</th>
                                   <th>Stok</th>
@@ -356,6 +346,13 @@
                                       <label class="control-label col-xs-3" >Nama Barang</label>
                                       <div class="col-xs-9">
                                           <input name="nabar" id="nama_barang" class="form-control" type="text" placeholder="Nama Barang" style="width:335px;" required>
+                                      </div>
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label class="control-label col-xs-3" >Harga</label>
+                                      <div class="col-xs-9">
+                                          <input name="harga" id="harga" class="form-control" type="text" placeholder="Rp." style="width:335px;" required>
                                       </div>
                                   </div>
                
@@ -416,25 +413,32 @@
                                           <input name="nabar_edit" id="nama_barang2" class="form-control" type="text" placeholder="Nama Barang" style="width:335px;" required>
                                       </div>
                                   </div>
+
+                                  <div class="form-group">
+                                      <label class="control-label col-xs-3" >Harga</label>
+                                      <div class="col-xs-9">
+                                          <input name="harga_edit" id="harga2" class="form-control" type="text" placeholder="Rp." style="width:335px;" required>
+                                      </div>
+                                  </div>
                
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Kategori</label>
                                       <div class="col-xs-9">
-                                          <input name="kat_edit" id="kategori2" class="form-control" type="text" placeholder="Harga" style="width:335px;" required>
+                                          <input name="kat_edit" id="kategori2" class="form-control" type="text" placeholder="Kategori" style="width:335px;" required>
                                       </div>
                                   </div>
 
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Satuan</label>
                                       <div class="col-xs-9">
-                                          <input name="sat_edit" id="satuan2" class="form-control" type="text" placeholder="Harga" style="width:335px;" required>
+                                          <input name="sat_edit" id="satuan2" class="form-control" type="text" placeholder="Satuan" style="width:335px;" required>
                                       </div>
                                   </div>
 
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Stok</label>
                                       <div class="col-xs-9">
-                                          <input name="stk_edit" id="stok2" class="form-control" type="text" placeholder="Harga" style="width:335px;" required>
+                                          <input name="stk_edit" id="stok2" class="form-control" type="text" placeholder="Stok" style="width:335px;" required>
                                       </div>
                                   </div>
                
@@ -563,6 +567,7 @@
                         html += '<tr>'+
                                 '<td>'+data[i].id_barang+'</td>'+
                                 '<td>'+data[i].nama_barang+'</td>'+
+                                '<td>'+data[i].harga+'</td>'+
                                 '<td>'+data[i].kategori+'</td>'+
                                 '<td>'+data[i].satuan+'</td>'+
                                 '<td>'+data[i].stok+'</td>'+
@@ -587,10 +592,11 @@
                 dataType : "JSON",
                 data : {id:id},
                 success: function(data){
-                    $.each(data,function(id_barang, nama_barang, kategori, satuan, stok){
+                    $.each(data,function(id_barang, nama_barang, harga, kategori, satuan, stok){
                         $('#ModalaEdit').modal('show');
                         $('[name="id_edit"]').val(data.id_barang);
                         $('[name="nabar_edit"]').val(data.nama_barang);
+                        $('[name="harga_edit"]').val(data.harga);
                         $('[name="kat_edit"]').val(data.kategori);
                         $('[name="sat_edit"]').val(data.satuan);
                         $('[name="stk_edit"]').val(data.stok);
@@ -611,6 +617,7 @@
         //Simpan Barang
         $('#btn_simpan').on('click',function(){
             var nabar=$('#nama_barang').val();
+            var harga=$('#harga').val();
             var kat=$('#kategori').val();
             var sat=$('#satuan').val();
             var stk=$('#stok').val();
@@ -618,9 +625,10 @@
                 type : "POST",
                 url  : "<?php echo base_url('index.php/barang/simpan_barang')?>",
                 dataType : "JSON",
-                data : {nabar:nabar , kat:kat, sat:sat, stk:stk},
+                data : {nabar:nabar, harga:harga, kat:kat, sat:sat, stk:stk},
                 success: function(data){
                     $('[name="nabar"]').val("");
+                    $('[name="harga"]').val("");
                     $('[name="kat"]').val("");
                     $('[name="sat"]').val("");
                     $('[name="stk"]').val("");
@@ -635,6 +643,7 @@
         $('#btn_update').on('click',function(){
             var kobar=$('#id_barang2').val();
             var nabar=$('#nama_barang2').val();
+            var harga=$('#harga2').val();
             var kat=$('#kategori2').val();
             var sat=$('#satuan2').val();
             var stk=$('#stok2').val();
@@ -642,14 +651,14 @@
                 type : "POST",
                 url  : "<?php echo base_url('index.php/barang/update_barang')?>",
                 dataType : "JSON",
-                data : {kobar:kobar , nabar:nabar, kat:kat, sat:sat, stk:stk},
+                data : {kobar:kobar , nabar:nabar, harga:harga, kat:kat, sat:sat, stk:stk},
                 success: function(data){
                     $('[name="id_edit"]').val("");
                     $('[name="nabar_edit"]').val("");
+                    $('[name="harga_edit"]').val("");
                     $('[name="kat_edit"]').val("");
                     $('[name="sat_edit"]').val("");
                     $('[name="stk_edit"]').val("");
-
                     $('#ModalaEdit').modal('hide');
                     tampil_data_barang();
                 }

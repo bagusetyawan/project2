@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Soft Sale v 1.0! | </title>
+    <title>Aplikasi Penjualan! | </title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url(); ?>assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,6 +17,10 @@
     <link href="<?php echo base_url(); ?>assets/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
     <link href="<?php echo base_url(); ?>assets/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-daterangepicker -->
+    <link href="<?php echo base_url(); ?>assets/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- bootstrap-datetimepicker -->
+    <link href="<?php echo base_url(); ?>assets/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
     <!-- Datatables -->
     <link href="<?php echo base_url(); ?>assets/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
@@ -303,6 +307,10 @@
                           <label>Jumlah</label>
                           <input type="text" name="jumlah" class="form-control" id="jumlah" placeholder="...">
                         </div>
+                        <div class="form-group col-md-1">
+                          <label>Diskon</label>
+                          <input type="text" name="diskon" class="form-control" id="diskon" placeholder="...">
+                        </div>
                         <div class="form-group col-md-2">
                           <label>Harga</label>
                           <input type="text" name="harga" readonly="" class="form-control" id="harga" placeholder="Rp.">
@@ -313,8 +321,7 @@
                         </div>
                         <div class="form-group col-md-3">
                           <label>&nbsp;</label><br/>
-                          <button type="button" class="btn btn-info" id="btn_add">Tambahkan</button
-
+                          <button type="button" class="btn btn-info" id="btn_add">Tambahkan</button>
                         </div>
                       </form>
                     </div>
@@ -322,25 +329,138 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                      
-                      <div class="row">
-                          <div id="reload">
+                    <div class="row">
+                        <div id="reload">
                           <table class="table table-striped jambo_table bulk_action" id="mydata">
-                          <thead>
-                              <tr>
-                                  <th>Nama Barang</th>
-                                  <th>Harga Satuan</th>
-                                  <th>Jumlah</th>
-                                  <th>Subtotal</th>
-                                  <th>Action</th>
-                              </tr>
-                          </thead>
-                          <tbody id="show_data">
-                          <!-- Datatable content goes here -->
-                          </tbody>
+                            <thead>
+                                <tr>
+                                    <th>Nama Barang</th>
+                                    <th>Harga Satuan</th>
+                                    <th>Jumlah</th>
+                                    <th>Diskon</th>
+                                    <th>Subtotal</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="show_data">
+                            <!-- Datatable content goes here -->
+                            </tbody>
                           </table>
+                        </div>
+                        <div class="divider-dashed"></div>
+                        <form action="#" class="form-horizontal">
+
+                          <div class="col-md-12 pull-right">
+                            <div class="form-group">
+                              <label class="col-md-2 col-sm-2 col-xs-2">Metode Pembayaran</label>
+                              <div class="col-md-4 col-sm-4 col-xs-4">
+                                <input type="radio" name="pembayaran" id="pembayaran" value="tunai" checked=""> Tunai
+                                <input type="radio" name="pembayaran" id="pembayaran" value="hutang"> Hutang
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <label class="col-md-2 col-sm-2 col-xs-2">Nama Pelanggan</label>
+                              <div class="col-md-4 col-sm-4 col-xs-4">
+                                <input type="hidden" name="idPel" id="idPel">
+                                <input type="text" name="pelanggan" id="pelanggan" class="form-control">
+                              </div>
+
+                              <div class="pull-left"><a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ModalaAdd"><span class="fa fa-plus"></span> Tambah Customer</a></div>
+
+                              
+                            </div>
+
+                            <div class="form-group">
+                              <label class="col-md-2 col-sm-2 col-xs-2">Jatuh Tempo</label>
+                              <div class="col-md-4 col-sm-4 col-xs-4">
+                                <div class="input-group date" id="myDatepicker">
+                                  <input type="text" name="jatuh_tempo" id="jatuh_tempo" class="form-control">
+                                  <span class="input-group-addon" style="">
+                                     <span class="glyphicon glyphicon-calendar"></span>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div class="form-group">
+                              <label class="col-md-2 col-sm-2 col-xs-2">Grand Total</label>
+                              <div class="col-md-4 col-sm-4 col-xs-4">
+                                <input type="text" name="total" id="grandtotal" class="form-control" style="font-weight: bold; text-align: right;">
+                                <span class="form-control-feedback left" aria-hidden="true">Rp.</span>
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <div class="col-md-6 col-sm-6 col-xs-6 ln_solid"></div>
+                            </div>
+
+                            
+      
+                            <div class="form-group">
+                              <label class="col-md-2 col-sm-2 col-xs-2"></label>
+                              <div class="col-md-4 col-sm-4 col-xs-4">
+                                <button type="button" class="btn btn-success pull-right" id="btn_save">Proses Data</button>
+                              </div>
+                            </div>
+
+                          </div>
+
+                          
+                        </form>
+
+                    </div>
+
+                    <!-- MODAL ADD CUSTOMER-->
+                      <div class="modal fade" id="ModalaAdd" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+                          <div class="modal-dialog">
+                          <div class="modal-content">
+                          <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                              <h3 class="modal-title" id="myModalLabel">Tambah Customer</h3>
+                          </div>
+                          <form class="form-horizontal">
+                              <div class="modal-body">
+               
+                                  <div class="form-group">
+                                      <label class="control-label col-xs-3" >Nama Customer</label>
+                                      <div class="col-xs-9">
+                                          <input name="nama" id="nama" class="form-control" type="text" placeholder="Nama Customer" style="width:335px;" required>
+                                      </div>
+                                  </div>
+
+                                  <div class="form-group">
+                                      <label class="control-label col-xs-3" >Alamat</label>
+                                      <div class="col-xs-9">
+                                          <input name="alamat" id="alamat" class="form-control" type="text" placeholder="Alamat" style="width:335px;" required>
+                                      </div>
+                                  </div>
+               
+                                  <div class="form-group">
+                                      <label class="control-label col-xs-3" >Kota</label>
+                                      <div class="col-xs-9">
+                                          <input name="kota" id="kota" class="form-control" type="text" placeholder="Kota" style="width:335px;" required>
+                                      </div>
+                                  </div>
+               
+                                  <div class="form-group">
+                                      <label class="control-label col-xs-3" >Telepon</label>
+                                      <div class="col-xs-9">
+                                          <input name="telepon" id="telepon" class="form-control" type="text" placeholder="Telepon" style="width:335px;" required>
+                                      </div>
+                                  </div>
+               
+                              </div>
+               
+                              <div class="modal-footer">
+                                  <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                                  <button class="btn btn-info" id="btn_addCustomer">Simpan</button>
+                              </div>
+                          </form>
+                          </div>
                           </div>
                       </div>
+                      <!--END MODAL ADD CUSTOMER-->
 
                       <!-- MODAL EDIT -->
                       <div class="modal fade" id="ModalaEdit" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
@@ -419,7 +539,30 @@
                       </div>
                       <!--END MODAL HAPUS-->
 
+
+  
+                      <!-- Modal Success -->
+                      <div class="modal fade bs-example-modal-sm" id="ModalaSuccess" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                          <div class="modal-content">
+
+                            <div class="modal-header">
+                              <h4 class="modal-title" id="myModalLabel2">Berhasil</h4>
+                            </div>
+                            <div class="modal-body">
+                              <p>Transaksi Berhsail Ditambahkan</p>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                      <!-- End Modal Success -->
+
                   </div>
+                  <!-- x_content -->
                 </div>
               </div>
             </div>
@@ -469,16 +612,44 @@
 
     <!-- <script src="<?php echo base_url(); ?>assets/build/js/jquery-1.12.4.js"></script> -->
     <script src="<?php echo base_url(); ?>assets/build/js/jquery-ui.js"></script>
+    <script src="<?php echo base_url(); ?>assets/build/js/sum.js"></script>
+
+    <!-- bootstrap-daterangepicker -->
+    <script src="<?php echo base_url(); ?>assets/vendors/moment/min/moment.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap-datetimepicker -->    
+    <script src="<?php echo base_url(); ?>assets/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
 
     <script type="text/javascript">
       $(document).ready(function(){
         resetForm();
         autoCompleteBarang();
+        autoCompleteCust();
         hitungJumlah();
         setDatatable();
         tampil_tmp_trans();
+        $('#tags').focus();
+        disableByRadio();
+        $('#myDatepicker').datetimepicker({
+          format: 'DD-MM-YYYY'
+        });
+        sum_trans();
+
       });
 
+      function disableByRadio(){
+        $('#jatuh_tempo').prop("disabled", true);
+        $('#pembayaran').prop("checked", true);
+        $('#jatuh_tempo').val('');
+        $('input[type=radio][name=pembayaran]').change(function(){
+          if(this.value == 'hutang'){
+            $('#jatuh_tempo').prop("disabled", false);
+          } else if(this.value == 'tunai'){
+            $('#jatuh_tempo').prop("disabled", true);
+          }
+        });
+    }
       //reset form
       function resetForm(){
         $('[name="id"]').val('');
@@ -486,6 +657,10 @@
         $('[name="harga"]').val('');
         $('[name="jumlah"]').val('');
         $('[name="subTotal"]').val('');
+        $('[name="diskon"]').val('');
+        $('[name="pelanggan"]').val('');
+        $('[name="jatuh_tempo"]').val('');
+
       }
 
       function autoCompleteBarang(){
@@ -504,15 +679,33 @@
           });
       }
 
+      function autoCompleteCust(){
+        $('#pelanggan').autocomplete({
+              source: "<?php echo site_url('Transaksi/getAutocompleteCust');?>",
+              select: function (event, ui) {
+                $('#idPel').val(ui.item.id);
+                $('#pelanggan').val(ui.item.label);
+              }
+          });
+      }
+
       function hitungJumlah(){
         $('#jumlah').on('change paste keyup', function(){
-          var maths = $('#jumlah').val() * $('#harga').val();
+          var diskon = ($('#jumlah').val() * $('#harga').val()) * ($('#diskon').val()/100);
+          var maths = ($('#jumlah').val() * $('#harga').val()) - diskon;
           $('#subTotal').val(maths);
         });
 
         $('#ModalaEdit #jumlah2').on('change paste keyup', function(){
           var maths = $('#ModalaEdit #jumlah2').val() * $('#ModalaEdit #harga2').val();
           $('#ModalaEdit #subTotal2').val(maths);
+        });
+
+        //field diskon
+        $('#diskon').on('change paste keyup', function(){
+          var diskon = ($('#jumlah').val() * $('#harga').val()) * ($('#diskon').val()/100);
+          var maths = ($('#jumlah').val() * $('#harga').val()) - diskon;
+          $('#subTotal').val(maths);
         });
       }
 
@@ -546,6 +739,7 @@
                                 '<td>'+data[i].nama_barang+'</td>'+
                                 '<td>'+data[i].harga_satuan+'</td>'+
                                 '<td>'+data[i].jumlah+'</td>'+
+                                '<td>'+data[i].diskon+'</td>'+
                                 '<td>'+data[i].subtotal+'</td>'+
                                 '<td style="text-align:right;">'+
                                     '<a href="javascript:;" class="btn btn-info btn-xs item_edit" data="'+data[i].id+'">Edit</a>'+' '+
@@ -559,11 +753,27 @@
             });
         }
 
+        function sum_trans(){
+            $.ajax({
+                type  : 'ajax',
+                url   : '<?php echo base_url()?>index.php/Transaksi/sumTrans',
+                async : false,
+                dataType : 'json',
+                success : function(data){
+                  var total = data[0].subtotal;
+                  $('#grandtotal').val(total);
+
+                }
+ 
+            });
+        }
+
         //add barang to transaksi
         $('#btn_add').on('click',function(){
           var jid = $('#idBarang').val();
           var jnama = $('#tags').val();
           var jjml = $('#jumlah').val();
+          var jdiskon = $('#diskon').val();
           var jharga = $('#harga').val();
           var jsubTotal = $('#subTotal').val();
 
@@ -571,10 +781,36 @@
                 type : "POST",
                 url  : "<?php echo base_url('index.php/transaksi/add_barang')?>",
                 dataType : "JSON",
-                data : {idBarang:jid, namaBarang:jnama, jumlah:jjml, harga:jharga, subTotal:jsubTotal},
+                data : {idBarang:jid, namaBarang:jnama, jumlah:jjml, diskon:jdiskon, harga:jharga, subTotal:jsubTotal},
                 success: function(data){
                     resetForm();
                     tampil_tmp_trans();
+                    sum_trans();
+                    $('#tags').focus();
+                }
+            });
+            return false;
+        });
+
+        //add barang to transaksi
+        $('#btn_save').on('click',function(){
+          var jid = $('#idPel').val();
+          var jtotal = $('#grandtotal').val();
+          var jBayar = $('input[name="pembayaran"]:checked').val();
+          var jPelanggan = $('#pelanggan').val();
+          var jJatuhTempo = $('#jatuh_tempo').val();
+
+            $.ajax({
+                type : "POST",
+                url  : "<?php echo base_url('index.php/transaksi/saveTrans')?>",
+                dataType : "JSON",
+                data : {idPel:jid, total:jtotal, pembayaran:jBayar, pelanggan:jPelanggan, jatuh_tempo:jJatuhTempo},
+                success: function(data){
+                  resetForm();
+                  tampil_tmp_trans();
+                  sum_trans();
+                  $('#tags').focus();
+                  // $('#ModalaSuccess').modal('show');
                 }
             });
             return false;
@@ -643,196 +879,31 @@
                 });
                 return false;
         });
-        
-/**
-        $('#btn_add').on('click',function(){
-          var jid = $('#idBarang').val();
-          var jnama = $('#tags').val();
-          var jjml = $('#jumlah').val();
-          var jharga = $('#harga').val();
-          var jsubTotal = $('#subTotal').val();
-          $.ajax({
-              type : "POST",
-              url  : "<?php echo base_url('index.php/transaksi/add_barang')?>",
-              dataType : "JSON",
-              data : {idBarang:jid, namaBarang:jnama, jumlah:jjml, harga:jharga, subTotal:jsubTotal},
-              success: function(data){
-                $('[name="id"]').val('');
-                $('[name="title"]').val('');
-                $('[name="harga"]').val('');
-                $('[name="jumlah"]').val('');
-                $('[name="subTotal"]').val('');
-              }
-              error: function (jqXHR, textStatus, errorThrown)
-              {
-                  alert('Error get data from ajax');
-              }
-          });
-            return false;
-        }); */
 
-
-      //calculate harga
-      // $(document).ready(function(){
-      //   $('#jumlah').keypress(function(e){
-      //     if(e.which == 13){
-      //       var maths = $('#jumlah').val() * $('#harga').val();
-      //     $('#subTotal').val(maths);
-      //     }
-      //   });
-      // });
-        
-    </script>
-    
-    <script type="text/javascript">
-    // $(document).ready(function(){});
-        //pemanggilan fungsi tampil barang.
-        // tampil_data_barang();   
-        // tampil_tmp_trans();
-         
-          
-
-        //fungsi tampil barang
-        // function tampil_data_barang(){
-        //     $.ajax({
-        //         type  : 'ajax',
-        //         url   : '<?php echo base_url()?>index.php/Barang/data_barang',
-        //         async : false,
-        //         dataType : 'json',
-        //         success : function(data){
-        //             var html = '';
-        //             var i;
-        //             for(i=0; i<data.length; i++){
-        //                 html += '<tr>'+
-        //                         '<td>'+data[i].id_barang+'</td>'+
-        //                         '<td>'+data[i].nama_barang+'</td>'+
-        //                         '<td>'+data[i].kategori+'</td>'+
-        //                         '<td>'+data[i].satuan+'</td>'+
-        //                         '<td>'+data[i].stok+'</td>'+
-        //                         '<td style="text-align:right;">'+
-        //                             '<a href="javascript:;" class="btn btn-info btn-xs item_edit" data="'+data[i].id_barang+'">Edit</a>'+' '+
-        //                             '<a href="javascript:;" class="btn btn-danger btn-xs item_hapus" data="'+data[i].id_barang+'">Hapus</a>'+
-        //                         '</td>'+
-        //                         '</tr>';
-        //             }
-        //             $('#show_data').html(html);
-        //         }
- 
-        //     });
-        // }
-
-        //fungsi tampil barang
-        
         //Simpan Barang
-        
-
-        //GET UPDATE
-        // $('#show_data').on('click','.item_edit',function(){
-        //     var id=$(this).attr('data');
-        //     $.ajax({
-        //         type : "GET",
-        //         url  : "<?php echo base_url('index.php/barang/get_barang')?>",
-        //         dataType : "JSON",
-        //         data : {id:id},
-        //         success: function(data){
-        //             $.each(data,function(id_barang, nama_barang, kategori, satuan, stok){
-        //                 $('#ModalaEdit').modal('show');
-        //                 $('[name="id_edit"]').val(data.id_barang);
-        //                 $('[name="nabar_edit"]').val(data.nama_barang);
-        //                 $('[name="kat_edit"]').val(data.kategori);
-        //                 $('[name="sat_edit"]').val(data.satuan);
-        //                 $('[name="stk_edit"]').val(data.stok);
-        //             });
-        //         }
-        //     });
-        //     return false;
-        // });
- 
- 
-        //GET HAPUS
-        // $('#show_data').on('click','.item_hapus',function(){
-        //     var id=$(this).attr('data');
-        //     $('#ModalHapus').modal('show');
-        //     $('[name="kode"]').val(id);
-        // });
-
-        // $('#test').on('click',function(){
-        //   resetForm();
-        // });
-
-
-        // //add barang
-        // $('#btn_add').on('click',function(){
-        //   var jid = $('#idBarang').val();
-        //   var jnama = $('#tags').val();
-        //   var jjml = $('#jumlah').val();
-        //   var jharga = $('#harga').val();
-        //   var jsubTotal = $('#subTotal').val();
-        //   $.ajax({
-        //       type : "POST",
-        //       url  : "<?php echo base_url('index.php/transaksi/add_barang')?>",
-        //       dataType : "JSON",
-        //       data : {idBarang:jid, namaBarang:jnama, jumlah:jjml, harga:jharga, subTotal:jsubTotal},
-        //       success: function(data){
-        //         $('[name="id"]').val('');
-        //         $('[name="title"]').val('');
-        //         $('[name="harga"]').val('');
-        //         $('[name="jumlah"]').val('');
-        //         $('[name="subTotal"]').val('');
-        //         // tampil_tmp_trans();
-        //         // resetForm();
-        //         // tampil_data_barang();
-        //       }
-        //       error: function (jqXHR, textStatus, errorThrown)
-        //       {
-        //           alert('Error get data from ajax');
-        //       }
-        //   });
-        //     return false;
-        // });
- 
-        //Update Barang
-        // $('#btn_update').on('click',function(){
-        //     var kobar=$('#id_barang2').val();
-        //     var nabar=$('#nama_barang2').val();
-        //     var kat=$('#kategori2').val();
-        //     var sat=$('#satuan2').val();
-        //     var stk=$('#stok2').val();
-        //     $.ajax({
-        //         type : "POST",
-        //         url  : "<?php echo base_url('index.php/barang/update_barang')?>",
-        //         dataType : "JSON",
-        //         data : {kobar:kobar , nabar:nabar, kat:kat, sat:sat, stk:stk},
-        //         success: function(data){
-        //             $('[name="id_edit"]').val("");
-        //             $('[name="nabar_edit"]').val("");
-        //             $('[name="kat_edit"]').val("");
-        //             $('[name="sat_edit"]').val("");
-        //             $('[name="stk_edit"]').val("");
-
-        //             $('#ModalaEdit').modal('hide');
-        //             tampil_data_barang();
-        //         }
-        //     });
-        //     return false;
-        // });
- 
-        // //Hapus Barang
-        // $('#btn_hapus').on('click',function(){
-        //     var kode=$('#textkode').val();
-        //     $.ajax({
-        //     type : "POST",
-        //     url  : "<?php echo base_url('index.php/barang/hapus_barang')?>",
-        //     dataType : "JSON",
-        //             data : {kode: kode},
-        //             success: function(data){
-        //                     $('#ModalHapus').modal('hide');
-        //                     tampil_data_barang();
-        //             }
-        //         });
-        //         return false;
-        // });
- </script>
+        $('#btn_addCustomer').on('click',function(){
+            var nama=$('#nama').val();
+            var alamat=$('#alamat').val();
+            var kota=$('#kota').val();
+            var telepon=$('#telepon').val();
+            $.ajax({
+                type : "POST",
+                url  : "<?php echo base_url('index.php/Customer/simpan_customer')?>",
+                dataType : "JSON",
+                data : {nama:nama, alamat:alamat, kota:kota, telepon:telepon},
+                success: function(data){
+                    $('[name="nama"]').val("");
+                    $('[name="alamat"]').val("");
+                    $('[name="kota"]').val("");
+                    $('[name="telepon"]').val("");
+                    $('#ModalaAdd').modal('hide');
+                    tampil_data_customer();
+                }
+            });
+            return false;
+        });
+                
+    </script>
 
   </body>
 </html>
