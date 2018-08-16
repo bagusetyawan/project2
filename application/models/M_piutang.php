@@ -2,41 +2,32 @@
 class M_piutang extends CI_Model{
 
 	function piutang_list(){
-		$hasil=$this->db->query("select id, FORMAT(sum(total), 0) as sum_total, nama_customer from trans_piutang group by id_customer, nama_customer");
+		$hasil=$this->db->query("select id_customer, FORMAT(sum(total), 0) as sum_total, FORMAT(sum(pembayaran), 0) as pembayaran, nama_customer from trans_piutang group by id_customer, nama_customer");
 		return $hasil->result();
 	}
-
-    function getSuggestionBarang($nama){
-        $this->db->select("id_barang,nama_barang, kategori, harga");
-        $this->db->like('nama_barang', $nama , 'both');
-        $this->db->from('mst_barang');
-        $this->db->where("1","1");
-        return $this->db->get()->result();
-    }
-
-	function simpan_customer($nama,$alamat,$kota,$telepon){
-        $q1 = "INSERT INTO mst_customers (nama,alamat,kota,telepon,created_at)VALUES('$nama','$alamat','$kota','$telepon',NOW())";
-        $this->db->query($q1);
-    }
  
-    function get_customer_by_kode($id){
-        $hsl=$this->db->query("SELECT * FROM mst_customers WHERE id='$id'");
+    function get_piutang_by_kode($id){
+        $hsl=$this->db->query("SELECT id, id_customer, FORMAT(total, 0) as total, FORMAT(pembayaran, 0) as pembayaran, deadline FROM trans_piutang WHERE id_customer='$id'");
+        return $hsl->result();
+    }
+
+    function get_piutang_by_id($id){
+        $hsl=$this->db->query("SELECT * FROM trans_piutang WHERE id='$id'");
         if($hsl->num_rows()>0){
             foreach ($hsl->result() as $data) {
                 $hasil=array(
                     'id' => $data->id,
-                    'nama' => $data->nama,
-                    'alamat' => $data->alamat,
-                    'kota' => $data->kota,
-                    'telepon' => $data->telepon
+                    'total' => $data->total,
+                    'deadline' => $data->deadline,
+                    'pembayaran' => $data->pembayaran
                     );
             }
         }
         return $hasil;
     }
  
-    function update_customer($id,$nama,$alamat,$kota,$telepon){
-        $hasil=$this->db->query("UPDATE mst_customers SET nama='$nama',alamat='$alamat',kota='$kota',telepon='$telepon', updated_at=NOW() WHERE id='$id'");
+    function bayar_hutang($id,$bayar){
+        $hasil=$this->db->query("UPDATE trans_piutang SET pembayaran='$bayar', updated_at=NOW() WHERE id='$id'");
         return $hasil;
     }
  

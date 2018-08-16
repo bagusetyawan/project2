@@ -287,7 +287,7 @@
             <div class="clearfix"></div>
 
             <div class="row">
-              <div class="col-md-8 col-sm-8 col-xs-8">
+              <div class="col-md-7 col-sm-7 col-xs-7">
                 <div class="x_panel">
                   <div class="x_content">
                     <div class="row">
@@ -298,6 +298,7 @@
                                 <th>ID</th>
                                 <th>Customer</th>
                                 <th>Total</th>
+                                <th>Pembayaran</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -310,7 +311,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-4 col-sm-4 col-xs-4" id="detailDiv" style="display: none">
+              <div class="col-md-5 col-sm-5 col-xs-5" id="detailDiv" style="display: none">
                 <div class="x_panel">
                   <div class="x_content">
                     <div class="row">
@@ -319,12 +320,13 @@
                         <table class="table table-striped" id="mydata">
                         <thead>
                             <tr>
-                                <th>Tanggal</th>
+                                <th>Dealine</th>
                                 <th>Nominal</th>
+                                <th>Pembayaran</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody id="show_data">
+                        <tbody id="show_detail">
                         <!-- Datatable content goes here -->
                         </tbody>
                         </table>
@@ -390,43 +392,43 @@
                   <div class="modal-content">
                   <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                      <h3 class="modal-title" id="myModalLabel">Edit Barang</h3>
+                      <h3 class="modal-title" id="myModalLabel">Bayar Hutang</h3>
                   </div>
                   <form class="form-horizontal">
                       <div class="modal-body">
        
                           <div class="form-group">
-                              <label class="control-label col-xs-3" >Kode</label>
+                              <label class="control-label col-xs-3" >ID</label>
                               <div class="col-xs-9">
-                                  <input name="id_edit" id="id_customer2" class="form-control" type="text" placeholder="Kode Barang" style="width:335px;" readonly>
+                                  <input name="id_edit" id="id_piutang2" class="form-control" type="text" placeholder="Kode Barang" style="width:335px;" readonly>
                               </div>
                           </div>
        
                           <div class="form-group">
-                              <label class="control-label col-xs-3" >Nama Customer</label>
+                              <label class="control-label col-xs-3" >Total Hutang</label>
                               <div class="col-xs-9">
-                                  <input name="nama_edit" id="nama2" class="form-control" type="text" placeholder="Nama Customer" style="width:335px;" required>
+                                  <input name="total_edit" id="total2" class="form-control" type="text" placeholder="" style="width:335px;" required="" readonly="">
                               </div>
                           </div>
 
                           <div class="form-group">
-                              <label class="control-label col-xs-3" >Alamat</label>
+                              <label class="control-label col-xs-3" >Deadline</label>
                               <div class="col-xs-9">
-                                  <input name="alamat_edit" id="alamat2" class="form-control" type="text" placeholder="Alamat" style="width:335px;" required>
+                                  <input name="deadline_edit" id="deadline2" class="form-control" type="text" placeholder="" style="width:335px;" required readonly="">
                               </div>
                           </div>
        
                           <div class="form-group">
-                              <label class="control-label col-xs-3" >Kota</label>
+                              <label class="control-label col-xs-3" >Sudah Dibayar</label>
                               <div class="col-xs-9">
-                                  <input name="kota_edit" id="kota2" class="form-control" type="text" placeholder="Kota" style="width:335px;" required>
+                                  <input name="sudah_dibayar" id="sudah2" class="form-control" type="text" placeholder="" style="width:335px;" required readonly="">
                               </div>
                           </div>
 
                           <div class="form-group">
-                              <label class="control-label col-xs-3" >Telepon</label>
+                              <label class="control-label col-xs-3" >Pembayaran</label>
                               <div class="col-xs-9">
-                                  <input name="telepon_edit" id="telepon2" class="form-control" type="text" placeholder="Telepon" style="width:335px;" required>
+                                  <input name="pembayaran_edit" id="pembayaran2" class="form-control" type="text" placeholder="Rp." style="width:335px;" required>
                               </div>
                           </div>
        
@@ -434,7 +436,7 @@
        
                       <div class="modal-footer">
                           <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-                          <button class="btn btn-info" id="btn_update">Update</button>
+                          <button class="btn btn-info" id="btn_bayar">Bayar!</button>
                       </div>
                   </form>
                   </div>
@@ -523,10 +525,6 @@
           info: false
         });
 
-        $("#cekDetail").click(function() {
-          $("#detailDiv").toggle( "slow" );
-        });
-
 
         //fungsi tampil piutang
         
@@ -541,11 +539,13 @@
                     var i;
                     for(i=0; i<data.length; i++){
                         html += '<tr>'+
-                                '<td>'+data[i].id+'</td>'+
+                                '<td>'+data[i].id_customer+'</td>'+
                                 '<td>'+data[i].nama_customer+'</td>'+
                                 '<td>'+data[i].sum_total+'</td>'+
+                                '<td>'+data[i].pembayaran+'</td>'+
+                                
                                 '<td style="text-align:right;">'+
-                                    '<a href="javascript:;" class="btn btn-info btn-xs item_edit" data="'+data[i].id+'" id="cekDetail">Cek Detail</a>'+
+                                    '<a href="javascript:;" class="btn btn-info btn-xs item_edit" data="'+data[i].id_customer+'" id="cekDetail">Cek Detail</a>'+
                                 '</td>'+
                                 '</tr>';
                     }
@@ -555,29 +555,58 @@
             });
         }
 
-        //GET UPDATE
-        /**
+        //fungsi tampil detail piutang
         $('#show_data').on('click','.item_edit',function(){
             var id=$(this).attr('data');
+            // alert(id);
             $.ajax({
                 type : "GET",
-                url  : "<?php echo base_url('index.php/Customer/get_customer')?>",
+                url  : "<?php echo base_url('index.php/Piutang/get_piutang')?>",
                 dataType : "JSON",
                 data : {id:id},
                 success: function(data){
-                    $.each(data,function(id, nama, alamat, kota, telepon){
+                    var html = '';
+                    var i;
+                    for(i=0; i<data.length; i++){
+                        html += '<tr>'+
+                                '<td>'+data[i].deadline+'</td>'+
+                                '<td>'+data[i].total+'</td>'+
+                                '<td>'+data[i].pembayaran+'</td>'+
+                                '<td style="text-align:right;">'+
+                                    '<a href="javascript:;" class="btn btn-success btn-xs item_edit" data="'+data[i].id+'" id="bayar">Bayar!</a>'+
+                                '</td>'+
+                                '</tr>';
+                    }
+                    $('#show_detail').html(html);
+                }
+            });
+
+            $("#detailDiv").toggle( "slow" );
+            
+            return false;
+        });
+
+        $('#show_detail').on('click','.item_edit',function(){
+            var id=$(this).attr('data');
+            $.ajax({
+                type : "GET",
+                url  : "<?php echo base_url('index.php/Piutang/get_piutang_id')?>",
+                dataType : "JSON",
+                data : {id:id},
+                success: function(data){
+                    $.each(data,function(id, total, deadline, pembayaran){
                         $('#ModalaEdit').modal('show');
                         $('[name="id_edit"]').val(data.id);
-                        $('[name="nama_edit"]').val(data.nama);
-                        $('[name="alamat_edit"]').val(data.alamat);
-                        $('[name="kota_edit"]').val(data.kota);
-                        $('[name="telepon_edit"]').val(data.telepon);
+                        $('[name="total_edit"]').val(data.total);
+                        $('[name="deadline_edit"]').val(data.deadline);
+                        $('[name="sudah_dibayar"]').val(data.pembayaran);
+                        $('[name="pembayaran_edit"]').val('');
                     });
                 }
             });
             return false;
         });
-        */
+
  
  
         //GET HAPUS
@@ -611,25 +640,26 @@
         });
  
         //Update Barang
-        $('#btn_update').on('click',function(){
-            var id=$('#id_customer2').val();
-            var nama=$('#nama2').val();
-            var alamat=$('#alamat2').val();
-            var kota=$('#kota2').val();
-            var telepon=$('#telepon2').val();
+        $('#btn_bayar').on('click',function(){
+            var id=$('#id_piutang2').val();
+            var pembayaran=$('#pembayaran2').val();
+            var sudah=$('#sudah2').val();
+            var newBayar = parseInt(pembayaran) + parseInt(sudah);
+            
             $.ajax({
                 type : "POST",
-                url  : "<?php echo base_url('index.php/Customer/update_customer')?>",
+                url  : "<?php echo base_url('index.php/Piutang/bayar_hutang')?>",
                 dataType : "JSON",
-                data : {id:id , nama:nama, alamat:alamat, kota:kota, telepon:telepon},
+                data : {id:id , bayar:newBayar},
                 success: function(data){
                     $('[name="id_edit"]').val("");
-                    $('[name="nama_edit"]').val("");
-                    $('[name="alamat_edit"]').val("");
-                    $('[name="kota_edit"]').val("");
-                    $('[name="telepon_edit"]').val("");
+                    $('[name="total_edit"]').val("");
+                    $('[name="deadline_edit"]').val("");
+                    $('[name="sudah_dibayar"]').val("");
+                    $('[name="pembayaran_edit"]').val("");
                     $('#ModalaEdit').modal('hide');
-                    tampil_data_customer();
+                    tampil_data_piutang();
+                    $("#detailDiv").toggle( "slow" );
                 }
             });
             return false;
@@ -650,6 +680,8 @@
                 });
                 return false;
         });
+
+        
  
     });
  
