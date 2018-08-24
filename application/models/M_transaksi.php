@@ -67,11 +67,11 @@ class M_transaksi extends CI_Model{
         $this->db->trans_complete();
     }
 
-    function saveTrans($idPel, $total, $pembayaran, $pelanggan, $deadline){
+    function saveTrans($id, $idPel, $total, $pembayaran, $pelanggan, $deadline){
         $id_transaksi = $this->session->userdata('id_transaksi');
         $q1 = 'INSERT INTO detail_trans(id_transaksi, id_barang, nama_barang, jumlah, harga_satuan, diskon, subtotal, created_at) SELECT id_transaksi, id_barang, nama_barang, jumlah, harga_satuan, diskon, subtotal, NOW() FROM tmp_transaksi';
         $q2 = 'TRUNCATE tmp_transaksi';
-        $q3 = "INSERT INTO trans_master(id_customer, total, created_at) VALUES ('$idPel', '$total', NOW())";
+        $q3 = "INSERT INTO trans_master(id, id_customer, total, created_at) VALUES ('$id', '$idPel', '$total', NOW())";
         $q4 = "INSERT INTO trans_piutang(id_transaksi, id_customer, nama_customer, deadline, total, created_at) VALUES ('$id_transaksi', '$idPel', '$pelanggan', '$deadline', '$total', NOW())";
         
         if($pembayaran == 'hutang'){
@@ -116,6 +116,11 @@ class M_transaksi extends CI_Model{
  
     function hapus_tmp_trans($kobar){
         $hasil=$this->db->query("DELETE FROM tmp_transaksi WHERE id='$kobar'");
+        return $hasil;
+    }
+
+    public function getDetail($idTrans){
+        $hasil=$this->db->query("SELECT * FROM detail_trans WHERE id_transaksi='$idTrans'")->result();
         return $hasil;
     }
 	

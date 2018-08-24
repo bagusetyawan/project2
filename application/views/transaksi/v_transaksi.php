@@ -318,6 +318,7 @@
                         <div class="form-group col-md-2">
                           <label>Sub-Total</label>
                           <input type="text" name="subTotal" readonly="" class="form-control" id="subTotal" placeholder="Rp.">
+                          <input type="hidden" name="idTrans" id="idTrans" value="<?=$idTrans; ?>">
                         </div>
                         <div class="form-group col-md-3">
                           <label>&nbsp;</label><br/>
@@ -771,6 +772,7 @@
         //add barang to transaksi
         $('#btn_add').on('click',function(){
           var jid = $('#idBarang').val();
+          var jIDTrans = $('#idTrans').val();
           var jnama = $('#tags').val();
           var jjml = $('#jumlah').val();
           var jdiskon = $('#diskon').val();
@@ -781,7 +783,7 @@
                 type : "POST",
                 url  : "<?php echo base_url('index.php/transaksi/add_barang')?>",
                 dataType : "JSON",
-                data : {idBarang:jid, namaBarang:jnama, jumlah:jjml, diskon:jdiskon, harga:jharga, subTotal:jsubTotal},
+                data : {idBarang:jid, idTrans:jIDTrans, namaBarang:jnama, jumlah:jjml, diskon:jdiskon, harga:jharga, subTotal:jsubTotal},
                 success: function(data){
                     resetForm();
                     tampil_tmp_trans();
@@ -795,22 +797,24 @@
         //add barang to transaksi
         $('#btn_save').on('click',function(){
           var jid = $('#idPel').val();
+          var jIDTrans = $('#idTrans').val();
           var jtotal = $('#grandtotal').val();
           var jBayar = $('input[name="pembayaran"]:checked').val();
           var jPelanggan = $('#pelanggan').val();
           var jJatuhTempo = $('#jatuh_tempo').val();
+          
 
             $.ajax({
                 type : "POST",
                 url  : "<?php echo base_url('index.php/transaksi/saveTrans')?>",
                 dataType : "JSON",
-                data : {idPel:jid, total:jtotal, pembayaran:jBayar, pelanggan:jPelanggan, jatuh_tempo:jJatuhTempo},
+                data : {idPel:jid, idTrans:jIDTrans, total:jtotal, pembayaran:jBayar, pelanggan:jPelanggan, jatuh_tempo:jJatuhTempo},
                 success: function(data){
                   resetForm();
                   tampil_tmp_trans();
                   sum_trans();
                   $('#tags').focus();
-                  // $('#ModalaSuccess').modal('show');
+                  window.open('<?=site_url(); ?>/transaksi/cetakPDF?kodeTrans='+jIDTrans+'&kodePel='+jid, '_blank');
                 }
             });
             return false;
@@ -838,7 +842,7 @@
             return false;
         });
 
-        //Update Barang
+        //Update Trans
         $('#btn_update').on('click',function(){
             var id=$('#id2').val();
             var jumlah=$('#jumlah2').val();
@@ -864,7 +868,7 @@
             $('[name="kode"]').val(id);
         });
 
-        // //Hapus Barang
+        // //Hapus Trans
         $('#btn_hapus').on('click',function(){
             var kode=$('#textkode').val();
             $.ajax({
@@ -880,7 +884,7 @@
                 return false;
         });
 
-        //Simpan Barang
+        //Simpan Customer
         $('#btn_addCustomer').on('click',function(){
             var nama=$('#nama').val();
             var alamat=$('#alamat').val();

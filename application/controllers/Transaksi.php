@@ -6,7 +6,8 @@ class Transaksi extends CI_Controller{
         $this->load->model('m_barang');
 	}
 	function index(){
-		$this->load->view('transaksi/v_transaksi');
+        $data['idTrans'] = $this->m_transaksi->getID();
+		$this->load->view('transaksi/v_transaksi', $data);
 	}
 
     function getID(){
@@ -67,7 +68,7 @@ class Transaksi extends CI_Controller{
     function add_barang(){
         $idBarang = $this->input->post('idBarang');
         $namaBarang = $this->input->post('namaBarang');
-        $idTrans = $this->m_transaksi->getID();
+        $idTrans = $this->input->post('idTrans'); //$this->m_transaksi->getID();
         $jumlah = $this->input->post('jumlah');
         $diskon = $this->input->post('diskon');
         $harga = $this->input->post('harga');
@@ -77,12 +78,13 @@ class Transaksi extends CI_Controller{
     }
 
     function saveTrans(){
+        $id = $this->input->post('idTrans');
         $idPel = $this->input->post('idPel');
         $total = $this->input->post('total');
         $pembayaran = $this->input->post('pembayaran');
         $pelanggan = $this->input->post('pelanggan');
         $deadline = date("Y-m-d", strtotime($this->input->post('jatuh_tempo')));
-        $data = $this->m_transaksi->saveTrans($idPel, $total, $pembayaran, $pelanggan, $deadline);
+        $data = $this->m_transaksi->saveTrans($id, $idPel, $total, $pembayaran, $pelanggan, $deadline);
         echo json_encode($data);
     }
  
@@ -99,5 +101,23 @@ class Transaksi extends CI_Controller{
         $kobar=$this->input->post('kode');
         $data=$this->m_transaksi->hapus_tmp_trans($kobar);
         echo json_encode($data);
+    }
+
+    public function test()
+    {
+        echo 'ini';
+    }
+
+    public function cetakPDF(){
+        $this->load->model('M_customer');
+        $this->load->model('M_transaksi');
+
+        $idPel = $this->input->get('kodePel');
+        $idTrans = $this->input->get('kodeTrans');
+        $data['customer'] = $this->M_customer->get_customer_by_kode($idPel);
+        $data['items'] = $this->M_transaksi->getDetail($idTrans);
+        // print_r($data['items']);
+        $this->load->library('Pdf');
+        $this->load->view('transaksi/cetakDO', $data);
     }
 }

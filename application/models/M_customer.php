@@ -21,6 +21,7 @@ class M_customer extends CI_Model{
  
     function get_customer_by_kode($id){
         $hsl=$this->db->query("SELECT * FROM mst_customers WHERE id='$id'");
+        $hasil = 0;
         if($hsl->num_rows()>0){
             foreach ($hsl->result() as $data) {
                 $hasil=array(
@@ -32,6 +33,7 @@ class M_customer extends CI_Model{
                     );
             }
         }
+        // return $hsl;
         return $hasil;
     }
  
