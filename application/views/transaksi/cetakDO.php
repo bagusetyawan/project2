@@ -15,29 +15,33 @@ $pdf->AddPage();
 $pdf->setFont('helvetica', 'B', 10);
 $pdf->Cell(110, 0, 'PT. PRAWIRATAMA MANDIRI', 0, 0, 'L', 0, '', 0);
 $pdf->Cell(30, 0, '', 0, 0, 'L', 0, '', 0);
-$pdf->Cell(50, 0, 'Jakarta, 24 Agustus 2018', 0, 1, 'L', 0, '', 0);
+
+$tgl = (!empty($transaksi)?$transaksi->created_at:date("d M Y"));
+$pdf->Cell(50, 0, 'Jakarta,  '.(!empty($transaksi)?$transaksi->created_at:date("d M Y")), 0, 1, 'L', 0, '', 0);
 $pdf->setFont('helvetica', '', 10);
 $pdf->Cell(110, 0, 'Jl. Raya Baru Pemda No. 94 Kabupaten Bogor', 0, 0, 'L', 0, '', 0);
 $pdf->Cell(30, 0, '', 0, 0, 'L', 0, '', 0);
-$pdf->Cell(50, 0, 'Kepada Yth.', 0, 1, 'L', 0, '', 0);
+
+
+$pdf->Cell(50, 0, (!empty($customer)?'Kepada Yth':''), 0, 1, 'L', 0, '', 0);
 $pdf->Cell(110, 0, 'Telp. 021 - 29333966', 0, 0, 'L', 0, '', 0);
 $pdf->Cell(30, 0, '', 0, 0, 'L', 0, '', 0);
-$pdf->Cell(50, 0, $customer['nama'], 0, 1, 'L', 0, '', 0);
+$pdf->Cell(50, 0, (!empty($customer)?$customer['nama']:''), 0, 1, 'L', 0, '', 0);
 $pdf->setFont('helvetica', 'B', 12);
 $pdf->Cell(50, 0, '', 0, 0, 'L', 0, '', 0);
 
 $pdf->Cell(90, 0, 'FAKTUR PENJUALAN', 0, 0, 'C', 0, '', 0);
 $pdf->setFont('helvetica', '', 10);
-$pdf->Cell(50, 0, $customer['alamat'], 0, 1, 'L', 0, '', 0);
+$pdf->Cell(50, 0, (!empty($customer)?$customer['alamat']:''), 0, 1, 'L', 0, '', 0);
 $pdf->setFont('helvetica', '', 8);
 $pdf->Cell(50, 0, '', 0, 0, 'L', 0, '', 0);
-$pdf->Cell(90, 5, '02/FJ/06/2018/015', 0, 0, 'C', 0, '', 0);
+$pdf->Cell(90, 5, 'FJ/'.date("m").'/'.date("Y").'/015', 0, 0, 'C', 0, '', 0);
 $pdf->setFont('helvetica', '', 10);
-$pdf->Cell(50, 0, $customer['kota'], 0, 1, 'L', 0, '', 0);
+$pdf->Cell(50, 0, (!empty($customer)?$customer['kota']:''), 0, 1, 'L', 0, '', 0);
 
 $pdf->Ln();
 $pdf->setFont('helvetica', '', 8);
-$pdf->Cell(190, 0, 'Jatuh Tempo 30 hari tanggal 23 September 2018', 0, 1, 'L', 0, '', 0);
+$pdf->Cell(190, 0, (!empty($piutang)?'Jatuh Tempo '.$piutang->tenggat.' hari tanggal '.$piutang->deadline.'':'') , 0, 1, 'L', 0, '', 0);
 $pdf->Ln();
 $pdf->setFont('helvetica', 'B', 10);
 $pdf->Cell(10, 0, 'No', 1, 0, 'C', 0, '', 0);
@@ -51,26 +55,26 @@ $pdf->Cell(40, 0, 'Total', 1, 1, 'C', 0, '', 0);
 foreach ($items as $key) {
 $pdf->setFont('helvetica', '', 8);
 $pdf->Cell(10, 5, '1', 1, 0, 'C', 0, '', 0);
-$pdf->Cell(15, 5, 'ORI10401', 1, 0, 'C', 0, '', 0);
+$pdf->Cell(15, 5, $key->id_barang, 1, 0, 'C', 0, '', 0);
 $pdf->Cell(70, 5, $key->nama_barang, 1, 0, 'L', 0, '', 0);
 $pdf->Cell(15, 5, $key->jumlah, 1, 0, 'C', 0, '', 0);
-$pdf->Cell(30, 5, $key->harga_satuan, 1, 0, 'R', 0, '', 0);
-$pdf->Cell(10, 5, $key->diskon, 1, 0, 'C', 0, '', 0);
-$pdf->Cell(40, 5, $key->subtotal, 1, 1, 'R', 0, '', 0);
+$pdf->Cell(30, 5, 'Rp. '.$key->harga_satuan, 1, 0, 'R', 0, '', 0);
+$pdf->Cell(10, 5, $key->diskon.'%', 1, 0, 'C', 0, '', 0);
+$pdf->Cell(40, 5, 'Rp. '.$key->subtotal, 1, 1, 'R', 0, '', 0);
 }
 
 $pdf->Ln();
 $pdf->setFont('helvetica', 'B', 10);
-$pdf->Cell(10, 5, 'TER :', 0, 0, 'L', 0, '', 0);
+$pdf->Cell(10, 5, 'Ket :', 0, 0, 'L', 0, '', 0);
 $pdf->setFont('helvetica', '', 8);
-$pdf->Cell(120, 6, 'Dua puluh juta tiga ratus tujuh puluh ribu rupiah', 0, 0, 'L', 0, '', 0);
+$pdf->Cell(120, 6, '', 0, 0, 'L', 0, '', 0);
 $pdf->setFont('helvetica', 'B', 10);
 $pdf->Cell(20, 5, 'Total :', 0, 0, 'R', 0, '', 0);
-$pdf->Cell(40, 5, 'Rp. 20,370,000', 0, 1, 'R', 0, '', 0);
+$pdf->Cell(40, 5, 'Rp. '.$sum->subtotal, 0, 1, 'R', 0, '', 0);
 
 $pdf->Ln();
 $pdf->setFont('helvetica', 'B', 10);
-$pdf->Cell(10, 5, 'KET :', 0, 0, 'L', 0, '', 0);
+$pdf->Cell(10, 5, '', 0, 0, 'L', 0, '', 0);
 $pdf->setFont('helvetica', '', 8);
 $pdf->Cell(100, 5, '', 0, 0, 'L', 0, '', 0);
 $pdf->setFont('helvetica', '', 6);
@@ -88,7 +92,7 @@ $pdf->Cell(80, 5, '2. Barang yang diterima dan belum lunas (pembayaran dengan Bi
 $pdf->Cell(110, 5, '', 0, 0, 'L', 0, '', 0);
 $pdf->Cell(80, 5, 'Cheque belum cair ), maka barang tersebut masih merupakan barang titipan', 0, 1, 'L', 0, '', 0);
 $pdf->Cell(110, 5, '', 0, 0, 'L', 0, '', 0);
-$pdf->Cell(80, 5, '3. Tranfer dapat dilakukan melalui no rek :', 0, 1, 'L', 0, '', 0);
+$pdf->Cell(80, 5, '3. Transfer dapat dilakukan melalui no rek :', 0, 1, 'L', 0, '', 0);
 $pdf->setFont('helvetica', '', 8);
 $pdf->Cell(55, 5, '(....................................)', 0, 0, 'C', 0, '', 0);
 $pdf->Cell(55, 5, '(....................................)', 0, 0, 'C', 0, '', 0);

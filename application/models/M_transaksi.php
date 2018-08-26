@@ -2,7 +2,7 @@
 class M_transaksi extends CI_Model{
 
 	function tmp_trans_list(){
-		$hasil=$this->db->query("SELECT * FROM tmp_transaksi where 1 = 1 order by id_barang desc");
+		$hasil=$this->db->query("SELECT id, id_transaksi, id_barang, nama_barang, jumlah, FORMAT(harga_satuan,0) as harga_satuan, FORMAT(subtotal,0) as subtotal, diskon FROM tmp_transaksi where 1 = 1 order by id_barang desc");
 		return $hasil->result();
 	}
 
@@ -33,11 +33,13 @@ class M_transaksi extends CI_Model{
     }
 
     function sumTrans($id){
-        $this->db->select_sum("subtotal");
-        $this->db->from("tmp_transaksi");
-        $this->db->where("id_transaksi", $id);
-        $result = $this->db->get()->result();
-        // $grandTotal = $result->subtotal;
+        // $this->db->select_sum("subtotal");
+        // $this->db->from("tmp_transaksi");
+        // $this->db->where("id_transaksi", $id);
+        // $result = $this->db->get()->result();
+        
+        $result = $this->db->query("SELECT FORMAT(SUM(subtotal),0) as subtotal FROM tmp_transaksi WHERE id_transaksi = '$id'")->result();
+
         return $result;
     }
 
@@ -120,8 +122,29 @@ class M_transaksi extends CI_Model{
     }
 
     public function getDetail($idTrans){
-        $hasil=$this->db->query("SELECT * FROM detail_trans WHERE id_transaksi='$idTrans'")->result();
+        $hasil=$this->db->query("SELECT a.id, a.id_transaksi, a.id_barang, a.nama_barang, CONCAT(a.jumlah, ' ', b.satuan) as jumlah, FORMAT(a.harga_satuan,0) as harga_satuan, FORMAT(a.subtotal,0) as subtotal, a.diskon FROM detail_trans a LEFT JOIN mst_barang b ON a.id_barang = b.id_barang WHERE a.id_transaksi='$idTrans'")->result();
         return $hasil;
     }
+
+    public function sumDetail($idTrans){
+        // $this->db->select_sum("FORMAT(subtotal, 0) as subtotal");
+        // $this->db->from("detail_trans");
+        // $this->db->where("id_transaksi", $idTrans);
+        // $result = $this->db->get()->row();
+        $result = $this->db->query("SELECT FORMAT(SUM(subtotal),0) as subtotal FROM detail_trans WHERE id_transaksi = '$idTrans'")->row();
+        return $result;
+    }
+
+    public function getPiutang($idTrans){
+        $q1 = $this->db->query("SELECT created_at FROM trans_master WHERE id = '$idTrans'")->row();
+        $tgl = $q1->created_at;
+        $hari = date("Y-m-d");
+        $result = $this->db->query("SELECT DATEDIFF(deadline, '$tgl') as tenggat, DATE_FORMAT(deadline, '%d %M %Y') deadline FROM trans_piutang WHERE id_transaksi= '$idTrans'")->row();
+        return $result;
+    }
 	
+    public function getTransByKode($idTrans){
+        $result = $this->db->query("SELECT id, id_customer total, DATE_FORMAT(created_at, '%d %M %Y') as created_at, created_by FROM trans_master WHERE id = '$idTrans'")->row();
+        return $result;
+    }
 }

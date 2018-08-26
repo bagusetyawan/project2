@@ -20,12 +20,13 @@ class Barang extends CI_Controller{
     }
  
     function simpan_barang(){
+        $idbar=$this->input->post('idbar');
         $nabar=$this->input->post('nabar');
         $harga=$this->input->post('harga');
         $kat=$this->input->post('kat');
         $sat=$this->input->post('sat');
         $stok=$this->input->post('stk');
-        $data=$this->m_barang->simpan_barang($nabar, $harga, $kat, $sat, $stok);
+        $data=$this->m_barang->simpan_barang($idbar, $nabar, $harga, $kat, $sat, $stok);
         echo json_encode($data);
     }
  

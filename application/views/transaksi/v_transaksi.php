@@ -323,6 +323,7 @@
                         <div class="form-group col-md-3">
                           <label>&nbsp;</label><br/>
                           <button type="button" class="btn btn-info" id="btn_add">Tambahkan</button>
+                          <button type="button" class="btn btn-danger" id="btn_reset">Reset</button>
                         </div>
                       </form>
                     </div>
@@ -348,6 +349,7 @@
                             </tbody>
                           </table>
                         </div>
+                        
                         <div class="divider-dashed"></div>
                         <form action="#" class="form-horizontal">
 
@@ -402,6 +404,7 @@
                               <label class="col-md-2 col-sm-2 col-xs-2"></label>
                               <div class="col-md-4 col-sm-4 col-xs-4">
                                 <button type="button" class="btn btn-success pull-right" id="btn_save">Proses Data</button>
+
                               </div>
                             </div>
 
@@ -738,10 +741,10 @@
                     for(i=0; i<data.length; i++){
                         html += '<tr>'+
                                 '<td>'+data[i].nama_barang+'</td>'+
-                                '<td>'+data[i].harga_satuan+'</td>'+
+                                '<td>Rp. '+data[i].harga_satuan+'</td>'+
                                 '<td>'+data[i].jumlah+'</td>'+
-                                '<td>'+data[i].diskon+'</td>'+
-                                '<td>'+data[i].subtotal+'</td>'+
+                                '<td>'+data[i].diskon+'%</td>'+
+                                '<td>Rp. '+data[i].subtotal+'</td>'+
                                 '<td style="text-align:right;">'+
                                     '<a href="javascript:;" class="btn btn-info btn-xs item_edit" data="'+data[i].id+'">Edit</a>'+' '+
                                     '<a href="javascript:;" class="btn btn-danger btn-xs item_hapus" data="'+data[i].id+'">Hapus</a>'+
@@ -770,6 +773,23 @@
         }
 
         //add barang to transaksi
+        $('#btn_reset').on('click',function(){
+            $.ajax({
+                type : "POST",
+                url  : "<?php echo base_url('index.php/transaksi/add_barang')?>",
+                dataType : "JSON",
+                data : {idBarang:jid, idTrans:jIDTrans, namaBarang:jnama, jumlah:jjml, diskon:jdiskon, harga:jharga, subTotal:jsubTotal},
+                success: function(data){
+                    resetForm();
+                    tampil_tmp_trans();
+                    sum_trans();
+                    $('#tags').focus();
+                }
+            });
+            return false;
+        });
+
+        //add barang to transaksi
         $('#btn_add').on('click',function(){
           var jid = $('#idBarang').val();
           var jIDTrans = $('#idTrans').val();
@@ -789,6 +809,7 @@
                     tampil_tmp_trans();
                     sum_trans();
                     $('#tags').focus();
+
                 }
             });
             return false;
@@ -814,6 +835,7 @@
                   tampil_tmp_trans();
                   sum_trans();
                   $('#tags').focus();
+                  window.location.reload(true);
                   window.open('<?=site_url(); ?>/transaksi/cetakPDF?kodeTrans='+jIDTrans+'&kodePel='+jid, '_blank');
                 }
             });

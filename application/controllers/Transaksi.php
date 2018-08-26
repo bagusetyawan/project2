@@ -81,6 +81,7 @@ class Transaksi extends CI_Controller{
         $id = $this->input->post('idTrans');
         $idPel = $this->input->post('idPel');
         $total = $this->input->post('total');
+        $total = str_replace(',', '', $total);
         $pembayaran = $this->input->post('pembayaran');
         $pelanggan = $this->input->post('pelanggan');
         $deadline = date("Y-m-d", strtotime($this->input->post('jatuh_tempo')));
@@ -116,7 +117,10 @@ class Transaksi extends CI_Controller{
         $idTrans = $this->input->get('kodeTrans');
         $data['customer'] = $this->M_customer->get_customer_by_kode($idPel);
         $data['items'] = $this->M_transaksi->getDetail($idTrans);
-        // print_r($data['items']);
+        $data['sum'] = $this->M_transaksi->sumDetail($idTrans);
+        $data['piutang'] = $this->M_transaksi->getPiutang($idTrans);
+        $data['transaksi'] = $this->M_transaksi->getTransByKode($idTrans);
+        // print_r($data['transaksi']);
         $this->load->library('Pdf');
         $this->load->view('transaksi/cetakDO', $data);
     }

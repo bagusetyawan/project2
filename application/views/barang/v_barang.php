@@ -341,7 +341,14 @@
                           </div>
                           <form class="form-horizontal">
                               <div class="modal-body">
-               
+
+                                  <div class="form-group">
+                                      <label class="control-label col-xs-3" >ID Barang</label>
+                                      <div class="col-xs-9">
+                                          <input name="idBarang" id="idBarang" class="form-control" type="text" placeholder="ID Barang" style="width:335px;" required>
+                                      </div>
+                                  </div>
+                 
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Nama Barang</label>
                                       <div class="col-xs-9">
@@ -567,7 +574,7 @@
                         html += '<tr>'+
                                 '<td>'+data[i].id_barang+'</td>'+
                                 '<td>'+data[i].nama_barang+'</td>'+
-                                '<td>'+data[i].harga+'</td>'+
+                                '<td>Rp. '+data[i].harga+'</td>'+
                                 '<td>'+data[i].kategori+'</td>'+
                                 '<td>'+data[i].satuan+'</td>'+
                                 '<td>'+data[i].stok+'</td>'+
@@ -616,6 +623,7 @@
 
         //Simpan Barang
         $('#btn_simpan').on('click',function(){
+            var idbar=$('#idBarang').val();
             var nabar=$('#nama_barang').val();
             var harga=$('#harga').val();
             var kat=$('#kategori').val();
@@ -625,8 +633,9 @@
                 type : "POST",
                 url  : "<?php echo base_url('index.php/barang/simpan_barang')?>",
                 dataType : "JSON",
-                data : {nabar:nabar, harga:harga, kat:kat, sat:sat, stk:stk},
+                data : {idbar:idbar, nabar:nabar, harga:harga, kat:kat, sat:sat, stk:stk},
                 success: function(data){
+                    $('#idBarang').val("");
                     $('[name="nabar"]').val("");
                     $('[name="harga"]').val("");
                     $('[name="kat"]').val("");

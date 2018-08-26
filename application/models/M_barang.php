@@ -2,7 +2,7 @@
 class M_barang extends CI_Model{
 
 	function barang_list(){
-		$hasil=$this->db->query("SELECT * FROM mst_barang order by id_barang desc");
+		$hasil=$this->db->query("SELECT id_barang, nama_barang, FORMAT(harga,0) as harga, kategori, satuan, stok FROM mst_barang order by id_barang desc");
 		return $hasil->result();
 	}
 
@@ -14,16 +14,16 @@ class M_barang extends CI_Model{
         return $this->db->get()->result();
     }
 
-	function simpan_barang($nama_barang,$harga,$kategori,$satuan,$stok){
-        $q1 = "INSERT INTO mst_barang (nama_barang,harga,kategori,satuan,stok)VALUES('$nama_barang','$harga','$kategori','$satuan','$stok')";
+	function simpan_barang($idBarang, $nama_barang,$harga,$kategori,$satuan,$stok){
+        $q1 = "INSERT INTO mst_barang (id_barang, nama_barang,harga,kategori,satuan,stok)VALUES('$idBarang', '$nama_barang','$harga','$kategori','$satuan','$stok')";
         
         $q2 = "SELECT id_barang FROM mst_barang ORDER BY id_barang DESC LIMIT 1";
 
         $this->db->trans_start();
         $this->db->query($q1);
-        $res1 = $this->db->query($q2)->row();
-        $id_barang = $res1->id_barang;
-        $q3 = "INSERT INTO trans_barang(id_barang, nama_barang, jenis, jumlah, created_at) VALUES ('$id_barang', '$nama_barang', 'IN', '$stok', NOW())";
+        // $res1 = $this->db->query($q2)->row();
+        // $id_barang = $res1->id_barang;
+        $q3 = "INSERT INTO trans_barang(id_barang, nama_barang, jenis, jumlah, created_at) VALUES ('$idBarang', '$nama_barang', 'IN', '$stok', NOW())";
         $this->db->query($q3);
         $this->db->trans_complete();
         // return $hasil;
