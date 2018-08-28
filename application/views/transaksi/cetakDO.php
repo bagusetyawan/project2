@@ -1,17 +1,19 @@
 <?php
+$pageLayout = array(400, 600); //  or array($height, $width) 
+$pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
-$pdf = new Pdf('L', PDF_UNIT, array(400, 300), true, 'UTF-8', false);
+// $pdf = new Pdf('L', PDF_UNIT, array(400, 300), true, 'UTF-8', false);
 $pdf->SetTitle('My Title');
 // $pdf->SetHeaderMargin(10);
 // $pdf->SetTopMargin(10);
 $pdf->setPrintHeader(false);
-$pdf->setFooterMargin(20);
+// $pdf->setFooterMargin(20);
 $pdf->SetAutoPageBreak(true);
 $pdf->SetAuthor('Author');
 $pdf->SetDisplayMode('real', 'default');
 
-$pdf->AddPage();
-
+// $pdf->AddPage();
+$pdf->AddPage('L', 'A5');
 $pdf->setFont('helvetica', 'B', 10);
 $pdf->Cell(110, 0, 'PT. PRAWIRATAMA MANDIRI', 0, 0, 'L', 0, '', 0);
 $pdf->Cell(30, 0, '', 0, 0, 'L', 0, '', 0);

@@ -124,4 +124,15 @@ class Transaksi extends CI_Controller{
         $this->load->library('Pdf');
         $this->load->view('transaksi/cetakDO', $data);
     }
+
+    public function listTransaksi(){
+        
+        $this->load->view('transaksi/listTransaksi');
+    }
+
+    public function getList(){
+        $this->load->model('M_transaksi');
+        $data=$this->M_transaksi->getList();
+        echo json_encode($data);
+    }
 }

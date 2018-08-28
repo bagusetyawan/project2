@@ -147,4 +147,9 @@ class M_transaksi extends CI_Model{
         $result = $this->db->query("SELECT id, id_customer total, DATE_FORMAT(created_at, '%d %M %Y') as created_at, created_by FROM trans_master WHERE id = '$idTrans'")->row();
         return $result;
     }
+
+    public function getList(){
+        $hasil=$this->db->query("SELECT a.id, IF(b.nama IS NULL, '', b.nama) as nama, a.total, DATE_FORMAT(a.created_at, '%d %M %Y') as tanggal FROM trans_master a LEFT JOIN mst_customers b ON a.id_customer = b.id order by a.created_at desc");
+        return $hasil->result();
+    }
 }
