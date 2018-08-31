@@ -280,7 +280,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>List Transaksi</h3>
+                <h3>Data Transaksi</h3>
               </div>
             </div>
 
@@ -289,6 +289,7 @@
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
+                  
                   <div class="x_content">
                       
                       <div class="row">
@@ -296,10 +297,12 @@
                           <table class="table table-striped" id="mydata">
                           <thead>
                               <tr>
+                                  <th></th>
                                   <th>ID</th>
-                                  <th>Tanggal Transaksi</th>
-                                  <th>Jumlah</th>
-                                  <th>Customer</th>
+                                  <th>Nama Barang</th>
+                                  <th>Harga</th>
+                                  <th>Kategori</th>
+                                  <th>Satuan</th>
                                   <th>Action</th>
                               </tr>
                           </thead>
@@ -517,9 +520,21 @@
     $(document).ready(function(){
         tampil_data_barang();   //pemanggilan fungsi tampil barang.
          
-          
+        var t =  $('#mydata').dataTable({
+          "columnDefs":[
+          {
+            "targets":[0],
+            "orderable": true
+          },
+          {
+            "visible":false,
+            "targets":[1]
+          }
+          ]
+        });
+
+
         //fungsi tampil barang
-        
         function tampil_data_barang(){
             $.ajax({
                 type  : 'ajax',
@@ -529,16 +544,23 @@
                 success : function(data){
                     var html = '';
                     var i;
+                    var a = 1;
                     for(i=0; i<data.length; i++){
                         html += '<tr>'+
+                                '<td>'+a+'</td>'+
                                 '<td>'+data[i].id+'</td>'+
+                                
                                 '<td>'+data[i].tanggal+'</td>'+
                                 '<td>Rp. '+data[i].total+'</td>'+
                                 '<td>'+data[i].nama+'</td>'+
+                                '<td>'+data[i].kodePel+'</td>'+
                                 '<td style="text-align:right;">'+
-                                    '<a href="javascript:;" class="btn btn-info btn-xs item_edit" data="'+data[i].id+'">Cetak Faktur</a>'+' '+
+                                    
+                                    '<a href="javascript:;" class="btn btn-info btn-xs item_edit" kodePel="'+data[i].kodePel+'" idTrans="'+data[i].id+'">Cetak Faktur</a>'+
                                 '</td>'+
                                 '</tr>';
+                                a = a+1;
+
                     }
                     $('#show_data').html(html);
                 }
@@ -546,106 +568,16 @@
             });
         }
 
-        //GET UPDATE
         $('#show_data').on('click','.item_edit',function(){
-            var id=$(this).attr('data');
-            $.ajax({
-                type : "GET",
-                url  : "<?php echo base_url('index.php/barang/get_barang')?>",
-                dataType : "JSON",
-                data : {id:id},
-                success: function(data){
-                    $.each(data,function(id_barang, nama_barang, harga, kategori, satuan, stok){
-                        $('#ModalaEdit').modal('show');
-                        $('[name="id_edit"]').val(data.id_barang);
-                        $('[name="nabar_edit"]').val(data.nama_barang);
-                        $('[name="harga_edit"]').val(data.harga);
-                        $('[name="kat_edit"]').val(data.kategori);
-                        $('[name="sat_edit"]').val(data.satuan);
-                        $('[name="stk_edit"]').val(data.stok);
-                    });
-                }
-            });
+            var id=$(this).attr('idTrans');
+            var kode =$(this).attr('kodePel');
+            window.open('<?=site_url(); ?>/transaksi/cetakPDF?kodeTrans='+id+'&kodePel='+kode, '_blank');
             return false;
-        });
- 
- 
-        //GET HAPUS
-        $('#show_data').on('click','.item_hapus',function(){
-            var id=$(this).attr('data');
-            $('#ModalHapus').modal('show');
-            $('[name="kode"]').val(id);
         });
 
-        //Simpan Barang
-        $('#btn_simpan').on('click',function(){
-            var idbar=$('#idBarang').val();
-            var nabar=$('#nama_barang').val();
-            var harga=$('#harga').val();
-            var kat=$('#kategori').val();
-            var sat=$('#satuan').val();
-            var stk=$('#stok').val();
-            $.ajax({
-                type : "POST",
-                url  : "<?php echo base_url('index.php/barang/simpan_barang')?>",
-                dataType : "JSON",
-                data : {idbar:idbar, nabar:nabar, harga:harga, kat:kat, sat:sat, stk:stk},
-                success: function(data){
-                    $('#idBarang').val("");
-                    $('[name="nabar"]').val("");
-                    $('[name="harga"]').val("");
-                    $('[name="kat"]').val("");
-                    $('[name="sat"]').val("");
-                    $('[name="stk"]').val("");
-                    $('#ModalaAdd').modal('hide');
-                    tampil_data_barang();
-                }
-            });
-            return false;
-        });
+        // 
  
-        //Update Barang
-        $('#btn_update').on('click',function(){
-            var kobar=$('#id_barang2').val();
-            var nabar=$('#nama_barang2').val();
-            var harga=$('#harga2').val();
-            var kat=$('#kategori2').val();
-            var sat=$('#satuan2').val();
-            var stk=$('#stok2').val();
-            $.ajax({
-                type : "POST",
-                url  : "<?php echo base_url('index.php/barang/update_barang')?>",
-                dataType : "JSON",
-                data : {kobar:kobar , nabar:nabar, harga:harga, kat:kat, sat:sat, stk:stk},
-                success: function(data){
-                    $('[name="id_edit"]').val("");
-                    $('[name="nabar_edit"]').val("");
-                    $('[name="harga_edit"]').val("");
-                    $('[name="kat_edit"]').val("");
-                    $('[name="sat_edit"]').val("");
-                    $('[name="stk_edit"]').val("");
-                    $('#ModalaEdit').modal('hide');
-                    tampil_data_barang();
-                }
-            });
-            return false;
-        });
- 
-        //Hapus Barang
-        $('#btn_hapus').on('click',function(){
-            var kode=$('#textkode').val();
-            $.ajax({
-            type : "POST",
-            url  : "<?php echo base_url('index.php/barang/hapus_barang')?>",
-            dataType : "JSON",
-                    data : {kode: kode},
-                    success: function(data){
-                            $('#ModalHapus').modal('hide');
-                            tampil_data_barang();
-                    }
-                });
-                return false;
-        });
+        
  
     });
  

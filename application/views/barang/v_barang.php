@@ -26,6 +26,12 @@
 
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url(); ?>assets/build/css/custom.min.css" rel="stylesheet">
+
+    <style type="text/css">
+      .error{
+        color: red;
+      }
+    </style>
     
   </head>
 
@@ -339,48 +345,54 @@
                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                               <h3 class="modal-title" id="myModalLabel">Tambah Barang</h3>
                           </div>
-                          <form class="form-horizontal">
+                          <form class="form-horizontal" id="formAdd">
                               <div class="modal-body">
 
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >ID Barang</label>
                                       <div class="col-xs-9">
-                                          <input name="idBarang" id="idBarang" class="form-control" type="text" placeholder="ID Barang" style="width:335px;" required>
+                                          <input name="idBarang" data-parsley-error-message="Mohon Isi ID" id="idBarang" class="form-control has-feedback-left" type="text" placeholder="ID Barang" style="width:335px;" required>
+                                          <span class="fa fa-keyboard form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                  
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Nama Barang</label>
                                       <div class="col-xs-9">
-                                          <input name="nabar" id="nama_barang" class="form-control" type="text" placeholder="Nama Barang" style="width:335px;" required>
+                                          <input name="nabar" data-parsley-error-message="Mohon Isi Nama Barang" id="nama_barang" class="form-control has-feedback-left" type="text" placeholder="Nama Barang" style="width:335px;" required>
+                                          <span class="fa fa-edit form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
 
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Harga</label>
                                       <div class="col-xs-9">
-                                          <input name="harga" id="harga" class="form-control" type="text" placeholder="Rp." style="width:335px;" required>
+                                          <input name="harga" data-parsley-error-message="Mohon Isi Hanya Angka" data-parsley-type="number" id="harga" class="form-control has-feedback-left" type="text" placeholder="Rp." style="width:335px;" required>
+                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Kategori</label>
                                       <div class="col-xs-9">
-                                          <input name="kat" id="kategori" class="form-control" type="text" placeholder="Kategori" style="width:335px;" required>
+                                          <input name="kat" data-parsley-error-message="Mohon Isi Kategori" id="kategori" class="form-control has-feedback-left" type="text" placeholder="Kategori" style="width:335px;" required>
+                                          <span class="fa fa-hand-lizard form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Satuan</label>
                                       <div class="col-xs-9">
-                                          <input name="sat" id="satuan" class="form-control" type="text" placeholder="Satuan" style="width:335px;" required>
+                                          <input name="sat" data-parsley-error-message="Mohon Isi Satuan Barang" id="satuan" class="form-control has-feedback-left" type="text" placeholder="Satuan" style="width:335px;" required>
+                                          <span class="fa fa-circle form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
 
                                   <div class="form-group">
-                                      <label class="control-label col-xs-3" >Stok</label>
+                                      <label class="control-label col-xs-3" >Stok Awal</label>
                                       <div class="col-xs-9">
-                                          <input name="stk" id="stok" class="form-control" type="text" placeholder="Stok" style="width:335px;" required>
+                                          <input name="stk" data-parsley-error-message="Mohon Isi Stok Awal" id="stok" class="form-control has-feedback-left" type="text" placeholder="Stok" style="width:335px;" required>
+                                          <span class="fa fa-flag form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
@@ -404,7 +416,7 @@
                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                               <h3 class="modal-title" id="myModalLabel">Edit Barang</h3>
                           </div>
-                          <form class="form-horizontal">
+                          <form class="form-horizontal" id="formEdit">
                               <div class="modal-body">
                
                                   <div class="form-group">
@@ -424,7 +436,7 @@
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Harga</label>
                                       <div class="col-xs-9">
-                                          <input name="harga_edit" id="harga2" class="form-control" type="text" placeholder="Rp." style="width:335px;" required>
+                                          <input name="harga_edit" data-parsley-type="number" id="harga2" class="form-control" type="text" placeholder="Rp." style="width:335px;" required>
                                       </div>
                                   </div>
                
@@ -533,12 +545,17 @@
     <script src="<?php echo base_url(); ?>assets/vendors/pdfmake/build/vfs_fonts.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url(); ?>assets/build/js/custom.min.js"></script>
+    <!-- <script src="<?php echo base_url(); ?>assets/jquery-validation/dist/jquery.validate.min.js"></script> -->
+    <script src="<?php echo base_url(); ?>assets/jquery-validation/parsley.min.js"></script>
 
     <script type="text/javascript">
     $(document).ready(function(){
         tampil_data_barang();   //pemanggilan fungsi tampil barang.
+        $("#formAdd").parsley();
+        $("#formEdit").parsley();
+        
          
-          $('#mydata').dataTable({
+        $('#mydata').dataTable({
           "order":[[0, "desc"]], 
           "columnDefs":[
           {
@@ -622,58 +639,113 @@
         });
 
         //Simpan Barang
-        $('#btn_simpan').on('click',function(){
-            var idbar=$('#idBarang').val();
-            var nabar=$('#nama_barang').val();
-            var harga=$('#harga').val();
-            var kat=$('#kategori').val();
-            var sat=$('#satuan').val();
-            var stk=$('#stok').val();
-            $.ajax({
-                type : "POST",
-                url  : "<?php echo base_url('index.php/barang/simpan_barang')?>",
-                dataType : "JSON",
-                data : {idbar:idbar, nabar:nabar, harga:harga, kat:kat, sat:sat, stk:stk},
-                success: function(data){
-                    $('#idBarang').val("");
-                    $('[name="nabar"]').val("");
-                    $('[name="harga"]').val("");
-                    $('[name="kat"]').val("");
-                    $('[name="sat"]').val("");
-                    $('[name="stk"]').val("");
-                    $('#ModalaAdd').modal('hide');
-                    tampil_data_barang();
-                }
-            });
-            return false;
+        $("#formAdd").submit(function(e){
+          var idbar=$('#idBarang').val();
+          var nabar=$('#nama_barang').val();
+          var harga=$('#harga').val();
+          var kat=$('#kategori').val();
+          var sat=$('#satuan').val();
+          var stk=$('#stok').val();
+          $.ajax({
+              type : "POST",
+              url  : "<?php echo base_url('index.php/barang/simpan_barang')?>",
+              dataType : "JSON",
+              data : {idbar:idbar, nabar:nabar, harga:harga, kat:kat, sat:sat, stk:stk},
+              success: function(data){
+                  $('#idBarang').val("");
+                  $('[name="nabar"]').val("");
+                  $('[name="harga"]').val("");
+                  $('[name="kat"]').val("");
+                  $('[name="sat"]').val("");
+                  $('[name="stk"]').val("");
+                  $('#ModalaAdd').modal('hide');
+                  tampil_data_barang();
+              }
+          });
+          // return false;
+          e.preventDefault();
+        });
+        // $('#btn_simpan').on('click',function(){
+          
+        //     // var idbar=$('#idBarang').val();
+        //     // var nabar=$('#nama_barang').val();
+        //     // var harga=$('#harga').val();
+        //     // var kat=$('#kategori').val();
+        //     // var sat=$('#satuan').val();
+        //     // var stk=$('#stok').val();
+        //     // $.ajax({
+        //     //     type : "POST",
+        //     //     url  : "<?php echo base_url('index.php/barang/simpan_barang')?>",
+        //     //     dataType : "JSON",
+        //     //     data : {idbar:idbar, nabar:nabar, harga:harga, kat:kat, sat:sat, stk:stk},
+        //     //     success: function(data){
+        //     //         $('#idBarang').val("");
+        //     //         $('[name="nabar"]').val("");
+        //     //         $('[name="harga"]').val("");
+        //     //         $('[name="kat"]').val("");
+        //     //         $('[name="sat"]').val("");
+        //     //         $('[name="stk"]').val("");
+        //     //         $('#ModalaAdd').modal('hide');
+        //     //         tampil_data_barang();
+        //     //     }
+        //     // });
+        //     // return false;
+        // });
+
+        $("#formEdit").submit(function(e){
+
+          var kobar=$('#id_barang2').val();
+          var nabar=$('#nama_barang2').val();
+          var harga=$('#harga2').val();
+          var kat=$('#kategori2').val();
+          var sat=$('#satuan2').val();
+          var stk=$('#stok2').val();
+          $.ajax({
+              type : "POST",
+              url  : "<?php echo base_url('index.php/barang/update_barang')?>",
+              dataType : "JSON",
+              data : {kobar:kobar , nabar:nabar, harga:harga, kat:kat, sat:sat, stk:stk},
+              success: function(data){
+                  $('[name="id_edit"]').val("");
+                  $('[name="nabar_edit"]').val("");
+                  $('[name="harga_edit"]').val("");
+                  $('[name="kat_edit"]').val("");
+                  $('[name="sat_edit"]').val("");
+                  $('[name="stk_edit"]').val("");
+                  $('#ModalaEdit').modal('hide');
+                  tampil_data_barang();
+              }
+          });
+          // return false;
+          e.preventDefault();
         });
  
         //Update Barang
-        $('#btn_update').on('click',function(){
-            var kobar=$('#id_barang2').val();
-            var nabar=$('#nama_barang2').val();
-            var harga=$('#harga2').val();
-            var kat=$('#kategori2').val();
-            var sat=$('#satuan2').val();
-            var stk=$('#stok2').val();
-            $.ajax({
-                type : "POST",
-                url  : "<?php echo base_url('index.php/barang/update_barang')?>",
-                dataType : "JSON",
-                data : {kobar:kobar , nabar:nabar, harga:harga, kat:kat, sat:sat, stk:stk},
-                success: function(data){
-                    $('[name="id_edit"]').val("");
-                    $('[name="nabar_edit"]').val("");
-                    $('[name="harga_edit"]').val("");
-                    $('[name="kat_edit"]').val("");
-                    $('[name="sat_edit"]').val("");
-                    $('[name="stk_edit"]').val("");
-                    $('#ModalaEdit').modal('hide');
-                    tampil_data_barang();
-                }
-            });
-            return false;
-        });
+        // $('#btn_update').on('click',function(){
+        //     var kobar=$('#id_barang2').val();
+        //     var nabar=$('#nama_barang2').val();
+        //     var harga=$('#harga2').val();
+        //     var kat=$('#kategori2').val();
+        //     var sat=$('#satuan2').val();
+        //     var stk=$('#stok2').val();
+        //     $.ajax({
+        //         type : "POST",
+        //         url  : "<?php echo base_url('index.php/barang/update_barang')?>",
+        //         dataType : "JSON",
+        //         data : {kobar:kobar , nabar:nabar, harga:harga, kat:kat, sat:sat, stk:stk},
+        //         success: function(data){
+        //             $('[name="id_edit"]').val("");
+        //             $('[name="nabar_edit"]').val("");
+        //             $('[name="harga_edit"]').val("");
+        //             $('[name="kat_edit"]').val("");
+        //             $('[name="sat_edit"]').val("");
+        //             $('[name="stk_edit"]').val("");
+        //             $('#ModalaEdit').modal('hide');
+        //             tampil_data_barang();
+        //         }
+        //     });
+        //     return false;
+        // });
  
         //Hapus Barang
         $('#btn_hapus').on('click',function(){

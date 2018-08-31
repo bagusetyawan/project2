@@ -15,7 +15,7 @@ class M_barang extends CI_Model{
     }
 
 	function simpan_barang($idBarang, $nama_barang,$harga,$kategori,$satuan,$stok){
-        $q1 = "INSERT INTO mst_barang (id_barang, nama_barang,harga,kategori,satuan,stok)VALUES('$idBarang', '$nama_barang','$harga','$kategori','$satuan','$stok')";
+        $q1 = "INSERT INTO mst_barang (id_barang, nama_barang,harga,kategori,satuan,stok, created_at)VALUES('$idBarang', '$nama_barang','$harga','$kategori','$satuan','$stok', NOW())";
         
         $q2 = "SELECT id_barang FROM mst_barang ORDER BY id_barang DESC LIMIT 1";
 
