@@ -222,11 +222,11 @@
                         <div class="form-group col-md-3">
                           <label>Nama Barang</label>
                           <input type="hidden" id="idBarang" name="id">
-                          <input required="" type="text" name="title" class="form-control" id="tags" placeholder="Masukkan Nama Barang">
+                          <input required="" data-parsley-error-message="Isi Nama / Kode Barang" type="text" name="title" class="form-control" id="tags" placeholder="Masukkan Nama/Kode Barang">
                         </div>
                         <div class="form-group col-md-1">
                           <label>Jumlah</label>
-                          <input type="text" required="" data-parsley-validation-threshold="1" data-parsley-trigger="change" data-parsley-type="number" name="jumlah" class="form-control" id="jumlah" placeholder="...">
+                          <input type="text" required="" data-parsley-type="number" name="jumlah" class="form-control" id="jumlah" placeholder="...">
                         </div>
                         <div class="form-group col-md-1">
                           <label>Diskon</label>
@@ -286,7 +286,7 @@
                               <label class="col-md-2 col-sm-2 col-xs-2">Nama Pelanggan</label>
                               <div class="col-md-4 col-sm-4 col-xs-4">
                                 <input type="hidden" name="idPel" id="idPel">
-                                <input type="text" name="pelanggan" id="pelanggan" class="form-control">
+                                <input type="text" data-parsley-error-message="Isi Nama Pelanggan" name="pelanggan" id="pelanggan" class="form-control">
                               </div>
                               <div class="pull-left"><a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ModalaAdd"><span class="fa fa-plus"></span> Tambah Customer</a></div>
                             </div>
@@ -295,7 +295,7 @@
                               <label class="col-md-2 col-sm-2 col-xs-2">Jatuh Tempo</label>
                               <div class="col-md-4 col-sm-4 col-xs-4">
                                 <div class="input-group date" id="myDatepicker">
-                                  <input type="text" name="jatuh_tempo" id="jatuh_tempo" class="form-control">
+                                  <input type="text" data-parsley-error-message="Isi Tanggal Jatuh Tempo" name="jatuh_tempo" id="jatuh_tempo" class="form-control">
                                   <span class="input-group-addon" style="">
                                      <span class="glyphicon glyphicon-calendar"></span>
                                   </span>
@@ -329,7 +329,7 @@
                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                               <h3 class="modal-title" id="myModalLabel">Tambah Customer</h3>
                           </div>
-                          <form class="form-horizontal">
+                          <form class="form-horizontal" id="tambahCustomer">
                               <div class="modal-body">
                
                                   <div class="form-group">
@@ -380,7 +380,7 @@
                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                               <h3 class="modal-title" id="myModalLabel">Edit Barang</h3>
                           </div>
-                          <form class="form-horizontal">
+                          <form class="form-horizontal" id="formEdit">
                               <div class="modal-body">
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Kode</label>
@@ -447,31 +447,7 @@
                               </div>
                           </div>
                       </div>
-                      <!--END MODAL HAPUS-->
-
-
-  
-                      <!-- Modal Success -->
-                      <div class="modal fade bs-example-modal-sm" id="ModalaSuccess" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog modal-sm">
-                          <div class="modal-content">
-
-                            <div class="modal-header">
-                              <h4 class="modal-title" id="myModalLabel2">Berhasil</h4>
-                            </div>
-                            <div class="modal-body">
-                              <p>Transaksi Berhsail Ditambahkan</p>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-
-                          </div>
-                        </div>
-                      </div>
-                      <!-- End Modal Success -->
-
-                      
+                      <!--END MODAL HAPUS-->                     
 
                   </div>
                   <!-- x_content -->
@@ -581,33 +557,76 @@
 
               }
           });
-          // e.preventDefault();
           return false;
       });
 
-        $('#prosesTransaksi').parsley().on('form:submit', function(e) {
-          var jid = $('#idPel').val();
-          var jIDTrans = $('#idTrans').val();
-          var jtotal = $('#grandtotal').val();
-          var jBayar = $('input[name="pembayaran"]:checked').val();
-          var jPelanggan = $('#pelanggan').val();
-          var jJatuhTempo = $('#jatuh_tempo').val();
+      //proses transaksi
+      $('#prosesTransaksi').parsley().on('form:submit', function(e) {
+        var jid = $('#idPel').val();
+        var jIDTrans = $('#idTrans').val();
+        var jtotal = $('#grandtotal').val();
+        var jBayar = $('input[name="pembayaran"]:checked').val();
+        var jPelanggan = $('#pelanggan').val();
+        var jJatuhTempo = $('#jatuh_tempo').val();
+        $.ajax({
+            type : "POST",
+            url  : "<?php echo base_url('index.php/transaksi/saveTrans')?>",
+            dataType : "JSON",
+            data : {idPel:jid, idTrans:jIDTrans, total:jtotal, pembayaran:jBayar, pelanggan:jPelanggan, jatuh_tempo:jJatuhTempo},
+            success: function(data){
+              resetForm();
+              tampil_tmp_trans();
+              sum_trans();
+              $('#tags').focus();
+              window.location.reload(true);
+              window.open('<?=site_url(); ?>/transaksi/cetakPDF?kodeTrans='+jIDTrans+'&kodePel='+jid, '_blank');
+            }
+        });
+
+        return false;
+      });
+
+      //Update Trans
+      $('#formEdit').parsley().on('form:submit', function(e) {
+          var id=$('#id2').val();
+          var jumlah=$('#jumlah2').val();
+          var subtotal=$('#subTotal2').val();
           $.ajax({
               type : "POST",
-              url  : "<?php echo base_url('index.php/transaksi/saveTrans')?>",
+              url  : "<?php echo base_url('index.php/transaksi/update_tmp_trans')?>",
               dataType : "JSON",
-              data : {idPel:jid, idTrans:jIDTrans, total:jtotal, pembayaran:jBayar, pelanggan:jPelanggan, jatuh_tempo:jJatuhTempo},
+              data : {id:id, jumlah:jumlah, subtotal:subtotal},
               success: function(data){
-                resetForm();
-                tampil_tmp_trans();
-                sum_trans();
-                $('#tags').focus();
-                window.location.reload(true);
-                window.open('<?=site_url(); ?>/transaksi/cetakPDF?kodeTrans='+jIDTrans+'&kodePel='+jid, '_blank');
+                  resetForm();
+                  $('#ModalaEdit').modal('hide');
+                  tampil_tmp_trans();
+                  sum_trans();
               }
           });
-
           return false;
+      });
+
+      //Simpan Customer
+        $('#tambahCustomer').parsley().on('form:submit', function(e) {
+            var nama=$('#nama').val();
+            var alamat=$('#alamat').val();
+            var kota=$('#kota').val();
+            var telepon=$('#telepon').val();
+            $.ajax({
+                type : "POST",
+                url  : "<?php echo base_url('index.php/Customer/simpan_customer')?>",
+                dataType : "JSON",
+                data : {nama:nama, alamat:alamat, kota:kota, telepon:telepon},
+                success: function(data){
+                    $('[name="nama"]').val("");
+                    $('[name="alamat"]').val("");
+                    $('[name="kota"]').val("");
+                    $('[name="telepon"]').val("");
+                    $('#ModalaAdd').modal('hide');
+                    tampil_data_customer();
+                }
+            });
+            return false;
         });
 
 
@@ -619,7 +638,9 @@
             $("#jatuh_tempo").attr("required", true);
             $("#pelanggan").attr("required", true);
           } else{
+            $("#pelanggan").attr("required", false);
             $("#jatuh_tempo").attr("disabled", true);
+            $("#jatuh_tempo").attr("required", false);
           }
         });
       }
@@ -742,63 +763,6 @@
             });
         }
 
-
-        //add barang to transaksi
-        $('#formAdd').on('submit', function(e){
-          var jid = $('#idBarang').val();
-          var jIDTrans = $('#idTrans').val();
-          var jnama = $('#tags').val();
-          var jjml = $('#jumlah').val();
-          var jdiskon = $('#diskon').val();
-          var jharga = $('#harga').val();
-          var jsubTotal = $('#subTotal').val();
-
-            $.ajax({
-                type : "POST",
-                url  : "<?php echo base_url('index.php/transaksi/add_barang')?>",
-                dataType : "JSON",
-                data : {idBarang:jid, idTrans:jIDTrans, namaBarang:jnama, jumlah:jjml, diskon:jdiskon, harga:jharga, subTotal:jsubTotal},
-                success: function(data){
-                    resetForm();
-                    tampil_tmp_trans();
-                    sum_trans();
-                    $('#tags').focus();
-
-                }
-            });
-            e.preventDefault();
-        });
-
-
-
-
-        
-        //proses transaksi
-        $("#prosesTransaksi").submit(function(e){
-          var jid = $('#idPel').val();
-          var jIDTrans = $('#idTrans').val();
-          var jtotal = $('#grandtotal').val();
-          var jBayar = $('input[name="pembayaran"]:checked').val();
-          var jPelanggan = $('#pelanggan').val();
-          var jJatuhTempo = $('#jatuh_tempo').val();
-          $.ajax({
-              type : "POST",
-              url  : "<?php echo base_url('index.php/transaksi/saveTrans')?>",
-              dataType : "JSON",
-              data : {idPel:jid, idTrans:jIDTrans, total:jtotal, pembayaran:jBayar, pelanggan:jPelanggan, jatuh_tempo:jJatuhTempo},
-              success: function(data){
-                resetForm();
-                tampil_tmp_trans();
-                sum_trans();
-                $('#tags').focus();
-                window.location.reload(true);
-                window.open('<?=site_url(); ?>/transaksi/cetakPDF?kodeTrans='+jIDTrans+'&kodePel='+jid, '_blank');
-              }
-          });
-          e.preventDefault();
-        });
-
-
         //GET UPDATE
         $('#show_data').on('click','.item_edit',function(){
             var id=$(this).attr('data');
@@ -821,24 +785,7 @@
             return false;
         });
 
-        //Update Trans
-        $('#btn_update').on('click',function(){
-            var id=$('#id2').val();
-            var jumlah=$('#jumlah2').val();
-            var subtotal=$('#subTotal2').val();
-            $.ajax({
-                type : "POST",
-                url  : "<?php echo base_url('index.php/transaksi/update_tmp_trans')?>",
-                dataType : "JSON",
-                data : {id:id, jumlah:jumlah, subtotal:subtotal},
-                success: function(data){
-                    resetForm();
-                    $('#ModalaEdit').modal('hide');
-                    tampil_tmp_trans();
-                }
-            });
-            return false;
-        });
+        
 
         //GET HAPUS
         $('#show_data').on('click','.item_hapus',function(){
@@ -858,33 +805,13 @@
                     success: function(data){
                             $('#ModalHapus').modal('hide');
                             tampil_tmp_trans();
+                            sum_trans();
                     }
                 });
                 return false;
         });
 
-        //Simpan Customer
-        $('#btn_addCustomer').on('click',function(){
-            var nama=$('#nama').val();
-            var alamat=$('#alamat').val();
-            var kota=$('#kota').val();
-            var telepon=$('#telepon').val();
-            $.ajax({
-                type : "POST",
-                url  : "<?php echo base_url('index.php/Customer/simpan_customer')?>",
-                dataType : "JSON",
-                data : {nama:nama, alamat:alamat, kota:kota, telepon:telepon},
-                success: function(data){
-                    $('[name="nama"]').val("");
-                    $('[name="alamat"]').val("");
-                    $('[name="kota"]').val("");
-                    $('[name="telepon"]').val("");
-                    $('#ModalaAdd').modal('hide');
-                    tampil_data_customer();
-                }
-            });
-            return false;
-        });
+        
                 
     </script>
 

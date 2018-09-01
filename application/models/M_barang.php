@@ -7,11 +7,15 @@ class M_barang extends CI_Model{
 	}
 
     function getSuggestionBarang($nama){
-        $this->db->select("id_barang,nama_barang, kategori, harga");
-        $this->db->like('nama_barang', $nama , 'both');
-        $this->db->from('mst_barang');
-        $this->db->where("1","1");
-        return $this->db->get()->result();
+        // $this->db->select("id_barang,nama_barang, kategori, harga");
+        // $this->db->like('nama_barang', $nama , 'both');
+        // $this->db->from('mst_barang');
+        // $this->db->where("1","1");
+
+        // return $this->db->get()->result();
+
+        $a = $this->db->query("SELECT id_barang, nama_barang, kategori, harga FROM mst_barang WHERE nama_barang LIKE '%".$nama."%' OR id_barang LIKE '%".$nama."%'");
+        return $a->result();
     }
 
 	function simpan_barang($idBarang, $nama_barang,$harga,$kategori,$satuan,$stok){

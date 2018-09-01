@@ -117,7 +117,17 @@ class M_transaksi extends CI_Model{
     }
  
     function hapus_tmp_trans($kobar){
-        $hasil=$this->db->query("DELETE FROM tmp_transaksi WHERE id='$kobar'");
+        $this->db->trans_start();
+        $item = $this->db->query("SELECT * FROM tmp_transaksi WHERE id = '$kobar'")->row();
+        $jumlah = $item->jumlah;
+        $idBarang = $item->id_barang;
+        $itemUpdate = $this->db->query("SELECT * FROM mst_barang WHERE id_barang = '$idBarang'")->row();
+        $stok = $itemUpdate->stok;
+        $newStok = $stok + $jumlah;
+
+        $update = $this->db->query("UPDATE mst_barang SET stok = '$newStok' WHERE id_barang = '$idBarang'");
+        $hapus=$this->db->query("DELETE FROM tmp_transaksi WHERE id='$kobar'");
+        $hasil = $this->db->trans_complete();
         return $hasil;
     }
 
