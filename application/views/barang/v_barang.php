@@ -13,6 +13,7 @@
     <link href="<?php echo base_url(); ?>assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="<?php echo base_url(); ?>assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- <link href="<?php echo base_url(); ?>assets/vendors/font-awesome-free-web/css/fontawesome.min.css" rel="stylesheet"> -->
     <!-- NProgress -->
     <link href="<?php echo base_url(); ?>assets/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
@@ -262,7 +263,7 @@
                                       <label class="control-label col-xs-3" >ID Barang</label>
                                       <div class="col-xs-9">
                                           <input name="idBarang" data-parsley-error-message="Mohon Isi ID" id="idBarang" class="form-control has-feedback-left" type="text" placeholder="ID Barang" style="width:335px;" required>
-                                          <span class="fa fa-keyboard form-control-feedback left" aria-hidden="true"></span>
+                                          <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                  
@@ -286,7 +287,7 @@
                                       <label class="control-label col-xs-3" >Kategori</label>
                                       <div class="col-xs-9">
                                           <input name="kat" data-parsley-error-message="Mohon Isi Kategori" id="kategori" class="form-control has-feedback-left" type="text" placeholder="Kategori" style="width:335px;" required>
-                                          <span class="fa fa-hand-lizard form-control-feedback left" aria-hidden="true"></span>
+                                          <span class="fa fa-list form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
@@ -302,7 +303,7 @@
                                       <label class="control-label col-xs-3" >Stok Awal</label>
                                       <div class="col-xs-9">
                                           <input name="stk" data-parsley-error-message="Mohon Isi Stok Awal" id="stok" class="form-control has-feedback-left" type="text" placeholder="Stok" style="width:335px;" required>
-                                          <span class="fa fa-flag form-control-feedback left" aria-hidden="true"></span>
+                                          <span class="fa fa-digital-tachograph form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
@@ -461,8 +462,6 @@
     <script type="text/javascript">
     $(document).ready(function(){
         tampil_data_barang();   //pemanggilan fungsi tampil barang.
-        $("#formAdd").parsley();
-        $("#formEdit").parsley();
         
          
         $('#mydata').dataTable({
@@ -549,7 +548,8 @@
         });
 
         //Simpan Barang
-        $("#formAdd").submit(function(e){
+        $('#formAdd').parsley().on('form:submit', function() {
+        // $("#formAdd").submit(function(e){
           var idbar=$('#idBarang').val();
           var nabar=$('#nama_barang').val();
           var harga=$('#harga').val();
@@ -572,13 +572,11 @@
                   tampil_data_barang();
               }
           });
-          // return false;
-          e.preventDefault();
+          return false;
         });
         
 
-        $("#formEdit").submit(function(e){
-
+        $('#formEdit').parsley().on('form:submit', function() {
           var kobar=$('#id_barang2').val();
           var nabar=$('#nama_barang2').val();
           var harga=$('#harga2').val();
@@ -601,8 +599,7 @@
                   tampil_data_barang();
               }
           });
-          // return false;
-          e.preventDefault();
+          return false;
         });
  
         

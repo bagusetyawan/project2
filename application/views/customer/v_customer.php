@@ -259,34 +259,38 @@
                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                               <h3 class="modal-title" id="myModalLabel">Tambah Customer</h3>
                           </div>
-                          <form class="form-horizontal">
+                          <form class="form-horizontal" id="formAdd">
                               <div class="modal-body">
                
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Nama Customer</label>
                                       <div class="col-xs-9">
-                                          <input name="nama" id="nama" class="form-control" type="text" placeholder="Nama Customer" style="width:335px;" required>
+                                          <input name="nama" id="nama" class="form-control has-feedback-left" type="text" placeholder="Nama Customer" style="width:335px;" required>
+                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
 
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Alamat</label>
                                       <div class="col-xs-9">
-                                          <input name="alamat" id="alamat" class="form-control" type="text" placeholder="Alamat" style="width:335px;" required>
+                                          <input name="alamat" id="alamat" class="form-control has-feedback-left" type="text" placeholder="Alamat" style="width:335px;" required>
+                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Kota</label>
                                       <div class="col-xs-9">
-                                          <input name="kota" id="kota" class="form-control" type="text" placeholder="Kota" style="width:335px;" required>
+                                          <input name="kota" id="kota" class="form-control has-feedback-left" type="text" placeholder="Kota" style="width:335px;" required>
+                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Telepon</label>
                                       <div class="col-xs-9">
-                                          <input name="telepon" id="telepon" class="form-control" type="text" placeholder="Telepon" style="width:335px;" required>
+                                          <input name="telepon" id="telepon" class="form-control has-feedback-left" type="text" placeholder="Telepon" style="width:335px;" required>
+                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
@@ -310,41 +314,46 @@
                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                               <h3 class="modal-title" id="myModalLabel">Edit Barang</h3>
                           </div>
-                          <form class="form-horizontal">
+                          <form class="form-horizontal" id="formEdit">
                               <div class="modal-body">
                
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Kode</label>
                                       <div class="col-xs-9">
-                                          <input name="id_edit" id="id_customer2" class="form-control" type="text" placeholder="Kode Barang" style="width:335px;" readonly>
+                                          <input name="id_edit" id="id_customer2" class="form-control has-feedback-left" type="text" placeholder="Kode Barang" style="width:335px;" readonly>
+                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Nama Customer</label>
                                       <div class="col-xs-9">
-                                          <input name="nama_edit" id="nama2" class="form-control" type="text" placeholder="Nama Customer" style="width:335px;" required>
+                                          <input name="nama_edit" id="nama2" class="form-control has-feedback-left" type="text" placeholder="Nama Customer" style="width:335px;" required>
+                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
 
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Alamat</label>
                                       <div class="col-xs-9">
-                                          <input name="alamat_edit" id="alamat2" class="form-control" type="text" placeholder="Alamat" style="width:335px;" required>
+                                          <input name="alamat_edit" id="alamat2" class="form-control has-feedback-left" type="text" placeholder="Alamat" style="width:335px;" required>
+                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Kota</label>
                                       <div class="col-xs-9">
-                                          <input name="kota_edit" id="kota2" class="form-control" type="text" placeholder="Kota" style="width:335px;" required>
+                                          <input name="kota_edit" id="kota2" class="form-control has-feedback-left" type="text" placeholder="Kota" style="width:335px;" required>
+                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
 
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Telepon</label>
                                       <div class="col-xs-9">
-                                          <input name="telepon_edit" id="telepon2" class="form-control" type="text" placeholder="Telepon" style="width:335px;" required>
+                                          <input name="telepon_edit" id="telepon2" class="form-control has-feedback-left" type="text" placeholder="Telepon" style="width:335px;" required>
+                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
@@ -433,6 +442,8 @@
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url(); ?>assets/build/js/custom.min.js"></script>
 
+    <script src="<?php echo base_url(); ?>assets/jquery-validation/parsley.min.js"></script>
+
     <script type="text/javascript">
     $(document).ready(function(){
         tampil_data_customer();   //pemanggilan fungsi tampil barang.
@@ -518,8 +529,9 @@
             $('[name="kode"]').val(id);
         });
 
-        //Simpan Barang
-        $('#btn_simpan').on('click',function(){
+        //Simpan Customer
+        $('#formAdd').parsley().on('form:submit', function() {
+        // $('#btn_simpan').on('click',function(){
             var nama=$('#nama').val();
             var alamat=$('#alamat').val();
             var kota=$('#kota').val();
@@ -541,8 +553,9 @@
             return false;
         });
  
-        //Update Barang
-        $('#btn_update').on('click',function(){
+        //Update Customer
+        $('#formEdit').parsley().on('form:submit', function() {
+        // $('#btn_update').on('click',function(){
             var id=$('#id_customer2').val();
             var nama=$('#nama2').val();
             var alamat=$('#alamat2').val();

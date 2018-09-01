@@ -315,41 +315,46 @@
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                       <h3 class="modal-title" id="myModalLabel">Bayar Hutang</h3>
                   </div>
-                  <form class="form-horizontal">
+                  <form class="form-horizontal" id="formBayar">
                       <div class="modal-body">
        
                           <div class="form-group">
                               <label class="control-label col-xs-3" >ID</label>
                               <div class="col-xs-9">
-                                  <input name="id_edit" id="id_piutang2" class="form-control" type="text" placeholder="Kode Barang" style="width:335px;" readonly>
+                                  <input name="id_edit" id="id_piutang2" class="form-control has-feedback-left" type="text" placeholder="Kode Barang" style="width:335px;" readonly>
+                                  <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                               </div>
                           </div>
        
                           <div class="form-group">
                               <label class="control-label col-xs-3" >Total Hutang</label>
                               <div class="col-xs-9">
-                                  <input name="total_edit" id="total2" class="form-control" type="text" placeholder="" style="width:335px;" required="" readonly="">
+                                  <input name="total_edit" id="total2" class="form-control has-feedback-left" type="text" placeholder="" style="width:335px;" required="" readonly="">
+                                  <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                               </div>
                           </div>
 
                           <div class="form-group">
                               <label class="control-label col-xs-3" >Deadline</label>
                               <div class="col-xs-9">
-                                  <input name="deadline_edit" id="deadline2" class="form-control" type="text" placeholder="" style="width:335px;" required readonly="">
+                                  <input name="deadline_edit" id="deadline2" class="form-control has-feedback-left" type="text" placeholder="" style="width:335px;" required readonly="">
+                                  <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                               </div>
                           </div>
        
                           <div class="form-group">
                               <label class="control-label col-xs-3" >Sudah Dibayar</label>
                               <div class="col-xs-9">
-                                  <input name="sudah_dibayar" id="sudah2" class="form-control" type="text" placeholder="" style="width:335px;" required readonly="">
+                                  <input name="sudah_dibayar" id="sudah2" class="form-control has-feedback-left" type="text" placeholder="" style="width:335px;" required readonly="">
+                                  <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                               </div>
                           </div>
 
                           <div class="form-group">
                               <label class="control-label col-xs-3" >Pembayaran</label>
                               <div class="col-xs-9">
-                                  <input name="pembayaran_edit" id="pembayaran2" class="form-control" type="text" placeholder="Rp." style="width:335px;" required>
+                                  <input name="pembayaran_edit" id="pembayaran2" class="form-control has-feedback-left" type="text" placeholder="Rp." style="width:335px;" required="" data-parsley-error-message="Tidak bisa melakukan Pembayaran dg nominal 0.">
+                                  <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                               </div>
                           </div>
        
@@ -434,6 +439,8 @@
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url(); ?>assets/build/js/custom.min.js"></script>
 
+    <script src="<?php echo base_url(); ?>assets/jquery-validation/parsley.min.js"></script>
+
     <script type="text/javascript">
     $(document).ready(function(){
         tampil_data_piutang();   //pemanggilan fungsi tampil piutang.
@@ -448,7 +455,6 @@
 
 
         //fungsi tampil piutang
-        
         function tampil_data_piutang(){
             $.ajax({
                 type  : 'ajax',
@@ -528,40 +534,8 @@
             return false;
         });
 
- 
- 
-        //GET HAPUS
-        $('#show_data').on('click','.item_hapus',function(){
-            var id=$(this).attr('data');
-            $('#ModalHapus').modal('show');
-            $('[name="kode"]').val(id);
-        });
-
-        //Simpan Barang
-        $('#btn_simpan').on('click',function(){
-            var nama=$('#nama').val();
-            var alamat=$('#alamat').val();
-            var kota=$('#kota').val();
-            var telepon=$('#telepon').val();
-            $.ajax({
-                type : "POST",
-                url  : "<?php echo base_url('index.php/Customer/simpan_customer')?>",
-                dataType : "JSON",
-                data : {nama:nama, alamat:alamat, kota:kota, telepon:telepon},
-                success: function(data){
-                    $('[name="nama"]').val("");
-                    $('[name="alamat"]').val("");
-                    $('[name="kota"]').val("");
-                    $('[name="telepon"]').val("");
-                    $('#ModalaAdd').modal('hide');
-                    tampil_data_customer();
-                }
-            });
-            return false;
-        });
- 
-        //Update Barang
-        $('#btn_bayar').on('click',function(){
+        //Bayar Hutang
+        $('#formBayar').parsley().on('form:submit', function() {
             var id=$('#id_piutang2').val();
             var pembayaran=$('#pembayaran2').val();
             var sudah=$('#sudah2').val();
@@ -584,25 +558,7 @@
                 }
             });
             return false;
-        });
- 
-        //Hapus Barang
-        $('#btn_hapus').on('click',function(){
-            var kode=$('#textkode').val();
-            $.ajax({
-            type : "POST",
-            url  : "<?php echo base_url('index.php/customer/hapus_customer')?>",
-            dataType : "JSON",
-                    data : {id: kode},
-                    success: function(data){
-                            $('#ModalHapus').modal('hide');
-                            tampil_data_customer();
-                    }
-                });
-                return false;
-        });
-
-        
+        });        
  
     });
  

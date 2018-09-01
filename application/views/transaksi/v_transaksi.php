@@ -385,31 +385,36 @@
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Kode</label>
                                       <div class="col-xs-9">
-                                          <input name="id_edit" id="id2" class="form-control" type="text" placeholder="Kode Barang" style="width:335px;" readonly="">
+                                          <input name="id_edit" id="id2" class="form-control has-feedback-left" type="text" placeholder="Kode Barang" style="width:335px;" readonly="">
+                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Nama Barang</label>
                                       <div class="col-xs-9">
-                                          <input name="nabar_edit" id="nama_barang2" class="form-control" type="text" placeholder="Nama Barang" style="width:335px;" readonly="">
+                                          <input name="nabar_edit" id="nama_barang2" class="form-control has-feedback-left" type="text" placeholder="Nama Barang" style="width:335px;" readonly="">
+                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Harga Satuan</label>
                                       <div class="col-xs-9">
-                                          <input name="harga_edit" id="harga2" class="form-control" type="text" placeholder="Harga" style="width:335px;" readonly="">
+                                          <input name="harga_edit" id="harga2" class="form-control has-feedback-left" type="text" placeholder="Harga" style="width:335px;" readonly="">
+                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Jumlah</label>
                                       <div class="col-xs-9">
-                                          <input name="jumlah_edit" id="jumlah2" class="form-control" type="text" placeholder="Harga" style="width:335px;" required>
+                                          <input name="jumlah_edit" id="jumlah2" class="form-control has-feedback-left" type="text" placeholder="Harga" style="width:335px;" required>
+                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Subtotal</label>
                                       <div class="col-xs-9">
-                                          <input name="stt_edit" id="subTotal2" class="form-control" type="text" placeholder="Harga" style="width:335px;" readonly="">
+                                          <input name="stt_edit" id="subTotal2" class="form-control has-feedback-left" type="text" placeholder="Harga" style="width:335px;" readonly="">
+                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
@@ -529,13 +534,11 @@
           format: 'DD-MM-YYYY'
         });
         sum_trans();
-        
-        
-
       });
 
+
       //add barang to transaksi
-      $('#formAdd').parsley().on('form:submit', function(e) {
+      $('#formAdd').parsley().on('form:submit', function() {
         var jid = $('#idBarang').val();
         var jIDTrans = $('#idTrans').val();
         var jnama = $('#tags').val();
@@ -561,7 +564,7 @@
       });
 
       //proses transaksi
-      $('#prosesTransaksi').parsley().on('form:submit', function(e) {
+      $('#prosesTransaksi').parsley().on('form:submit', function() {
         var jid = $('#idPel').val();
         var jIDTrans = $('#idTrans').val();
         var jtotal = $('#grandtotal').val();
@@ -587,7 +590,7 @@
       });
 
       //Update Trans
-      $('#formEdit').parsley().on('form:submit', function(e) {
+      $('#formEdit').parsley().on('form:submit', function() {
           var id=$('#id2').val();
           var jumlah=$('#jumlah2').val();
           var subtotal=$('#subTotal2').val();
@@ -607,7 +610,7 @@
       });
 
       //Simpan Customer
-        $('#tambahCustomer').parsley().on('form:submit', function(e) {
+        $('#tambahCustomer').parsley().on('form:submit', function() {
             var nama=$('#nama').val();
             var alamat=$('#alamat').val();
             var kota=$('#kota').val();
@@ -810,9 +813,6 @@
                 });
                 return false;
         });
-
-        
-                
     </script>
 
   </body>
