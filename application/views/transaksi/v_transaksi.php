@@ -66,99 +66,20 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Halaman Utama <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-desktop"></i> Transaksi <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="index.html">Dashboard</a></li>
-                      <!-- <li><a href="index2.html">Dashboard2</a></li> -->
-                      <!-- <li><a href="index3.html">Dashboard3</a></li> -->
+                      <li><a href="<?=base_url(); ?>index.php/transaksi">Entry Transaksi</a></li>
+                      <li><a href="<?=base_url(); ?>index.php/transaksi/listTransaksi">List Transaksi</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i> Data Barang <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="form.html">General Form</a></li>
-                      <li><a href="form_advanced.html">Advanced Components</a></li>
-                      <li><a href="form_validation.html">Form Validation</a></li>
-                      <li><a href="form_wizards.html">Form Wizard</a></li>
-                      <li><a href="form_upload.html">Form Upload</a></li>
-                      <li><a href="form_buttons.html">Form Buttons</a></li>
-                    </ul>
+                  <li><a href="<?=base_url(); ?>index.php/barang"><i class="fa fa-edit"></i> Data Barang</a>
                   </li>
-                  <li><a><i class="fa fa-desktop"></i> Laporan <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="general_elements.html">General Elements</a></li>
-                      <li><a href="media_gallery.html">Media Gallery</a></li>
-                      <li><a href="typography.html">Typography</a></li>
-                      <li><a href="icons.html">Icons</a></li>
-                      <li><a href="glyphicons.html">Glyphicons</a></li>
-                      <li><a href="widgets.html">Widgets</a></li>
-                      <li><a href="invoice.html">Invoice</a></li>
-                      <li><a href="inbox.html">Inbox</a></li>
-                      <li><a href="calendar.html">Calendar</a></li>
-                    </ul>
+                  <li><a href="<?=base_url(); ?>index.php/piutang"><i class="fa fa-table"></i> Piutang </a>
                   </li>
-                  <li><a><i class="fa fa-table"></i> Transaksi <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="tables.html">Tables</a></li>
-                      <li><a href="tables_dynamic.html">Table Dynamic</a></li>
-                    </ul>
+                  <li><a href="<?=base_url(); ?>index.php/customer"><i class="fa fa-bar-chart-o"></i> Customer</a>
                   </li>
-                  <li><a><i class="fa fa-bar-chart-o"></i> Laba/Rugi <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
-                      <li><a href="morisjs.html">Moris JS</a></li>
-                      <li><a href="echarts.html">ECharts</a></li>
-                      <li><a href="other_charts.html">Other Charts</a></li>
-                    </ul>
+                  <li><a><i class="fa fa-clone"></i>Log Out </a>
                   </li>
-                  <li><a><i class="fa fa-clone"></i>Stok Gudang <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>
-                      <li><a href="fixed_footer.html">Fixed Footer</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-              <div class="menu_section">
-                <h3>Pengaturan Extra</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-bug"></i> Retur Barang <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="e_commerce.html">E-commerce</a></li>
-                      <li><a href="projects.html">Projects</a></li>
-                      <li><a href="project_detail.html">Project Detail</a></li>
-                      <li><a href="contacts.html">Contacts</a></li>
-                      <li><a href="profile.html">Profile</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-windows"></i> Smart Warning System <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="page_403.html">403 Error</a></li>
-                      <li><a href="page_404.html">404 Error</a></li>
-                      <li><a href="page_500.html">500 Error</a></li>
-                      <li><a href="plain_page.html">Plain Page</a></li>
-                      <li><a href="login.html">Login Page</a></li>
-                      <li><a href="pricing_tables.html">Pricing Tables</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-sitemap"></i> Manajemen Pengguna <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="#level1_1">Level One</a>
-                        <li><a>Level One<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="level2.html">Level Two</a>
-                            </li>
-                            <li><a href="#level2_1">Level Two</a>
-                            </li>
-                            <li><a href="#level2_2">Level Two</a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li><a href="#level1_2">Level One</a>
-                        </li>
-                    </ul>
-                  </li>                  
-                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
                 </ul>
               </div>
 
@@ -297,15 +218,15 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <div class="col-md-12 center-margin">
-                      <form class="form-vertical form-label-left">
+                      <form class="form-vertical form-label-left" id="formAdd">
                         <div class="form-group col-md-3">
                           <label>Nama Barang</label>
                           <input type="hidden" id="idBarang" name="id">
-                          <input type="text" name="title" class="form-control" id="tags" placeholder="Masukkan Nama Barang">
+                          <input required="" type="text" name="title" class="form-control" id="tags" placeholder="Masukkan Nama Barang">
                         </div>
                         <div class="form-group col-md-1">
                           <label>Jumlah</label>
-                          <input type="text" name="jumlah" class="form-control" id="jumlah" placeholder="...">
+                          <input type="text" required="" data-parsley-validation-threshold="1" data-parsley-trigger="change" data-parsley-type="number" name="jumlah" class="form-control" id="jumlah" placeholder="...">
                         </div>
                         <div class="form-group col-md-1">
                           <label>Diskon</label>
@@ -322,8 +243,7 @@
                         </div>
                         <div class="form-group col-md-3">
                           <label>&nbsp;</label><br/>
-                          <button type="button" class="btn btn-info" id="btn_add">Tambahkan</button>
-                          <button type="button" class="btn btn-danger" id="btn_reset">Reset</button>
+                          <button class="btn btn-info" id="btn_add">Tambahkan</button>
                         </div>
                       </form>
                     </div>
@@ -351,9 +271,9 @@
                         </div>
                         
                         <div class="divider-dashed"></div>
-                        <form action="#" class="form-horizontal">
 
-                          <div class="col-md-12 pull-right">
+                        <form id="prosesTransaksi" class="form-horizontal">
+                          <div class="col-xs-12 pull-right">
                             <div class="form-group">
                               <label class="col-md-2 col-sm-2 col-xs-2">Metode Pembayaran</label>
                               <div class="col-md-4 col-sm-4 col-xs-4">
@@ -368,10 +288,7 @@
                                 <input type="hidden" name="idPel" id="idPel">
                                 <input type="text" name="pelanggan" id="pelanggan" class="form-control">
                               </div>
-
                               <div class="pull-left"><a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ModalaAdd"><span class="fa fa-plus"></span> Tambah Customer</a></div>
-
-                              
                             </div>
 
                             <div class="form-group">
@@ -389,30 +306,19 @@
                             <div class="form-group">
                               <label class="col-md-2 col-sm-2 col-xs-2">Grand Total</label>
                               <div class="col-md-4 col-sm-4 col-xs-4">
-                                <input type="text" name="total" id="grandtotal" class="form-control" style="font-weight: bold; text-align: right;">
+                                <input type="text" name="total" id="grandtotal" class="form-control" style="font-weight: bold; text-align: right;" required="" data-parsley-error-message="Tidak bisa melakukan  Transaksi dg nominal 0.">
                                 <span class="form-control-feedback left" aria-hidden="true">Rp.</span>
                               </div>
                             </div>
 
                             <div class="form-group">
-                              <div class="col-md-6 col-sm-6 col-xs-6 ln_solid"></div>
-                            </div>
-
-                            
-      
-                            <div class="form-group">
                               <label class="col-md-2 col-sm-2 col-xs-2"></label>
                               <div class="col-md-4 col-sm-4 col-xs-4">
-                                <button type="button" class="btn btn-success pull-right" id="btn_save">Proses Data</button>
-
+                                <button class="btn btn-success pull-right" id="btn_save">Proses Data</button>
                               </div>
                             </div>
-
                           </div>
-
-                          
                         </form>
-
                     </div>
 
                     <!-- MODAL ADD CUSTOMER-->
@@ -565,6 +471,8 @@
                       </div>
                       <!-- End Modal Success -->
 
+                      
+
                   </div>
                   <!-- x_content -->
                 </div>
@@ -624,9 +532,15 @@
     <!-- bootstrap-datetimepicker -->    
     <script src="<?php echo base_url(); ?>assets/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 
+    <script src="<?php echo base_url(); ?>assets/jquery-validation/parsley.min.js"></script>
+
 
     <script type="text/javascript">
       $(document).ready(function(){
+        // $("#formAdd").parsley();
+
+        $("#jatuh_tempo").attr("disabled", true);
+        $("#jatuh_tempo").attr("required", false);
         resetForm();
         autoCompleteBarang();
         autoCompleteCust();
@@ -634,26 +548,82 @@
         setDatatable();
         tampil_tmp_trans();
         $('#tags').focus();
-        disableByRadio();
+        disable2();
         $('#myDatepicker').datetimepicker({
           format: 'DD-MM-YYYY'
         });
         sum_trans();
+        
+        
 
       });
 
-      function disableByRadio(){
-        $('#jatuh_tempo').prop("disabled", true);
-        $('#pembayaran').prop("checked", true);
-        $('#jatuh_tempo').val('');
-        $('input[type=radio][name=pembayaran]').change(function(){
-          if(this.value == 'hutang'){
-            $('#jatuh_tempo').prop("disabled", false);
-          } else if(this.value == 'tunai'){
-            $('#jatuh_tempo').prop("disabled", true);
+      //add barang to transaksi
+      $('#formAdd').parsley().on('form:submit', function(e) {
+        var jid = $('#idBarang').val();
+        var jIDTrans = $('#idTrans').val();
+        var jnama = $('#tags').val();
+        var jjml = $('#jumlah').val();
+        var jdiskon = $('#diskon').val();
+        var jharga = $('#harga').val();
+        var jsubTotal = $('#subTotal').val();
+
+          $.ajax({
+              type : "POST",
+              url  : "<?php echo base_url('index.php/transaksi/add_barang')?>",
+              dataType : "JSON",
+              data : {idBarang:jid, idTrans:jIDTrans, namaBarang:jnama, jumlah:jjml, diskon:jdiskon, harga:jharga, subTotal:jsubTotal},
+              success: function(data){
+                  resetForm();
+                  tampil_tmp_trans();
+                  sum_trans();
+                  $('#tags').focus();
+
+              }
+          });
+          // e.preventDefault();
+          return false;
+      });
+
+        $('#prosesTransaksi').parsley().on('form:submit', function(e) {
+          var jid = $('#idPel').val();
+          var jIDTrans = $('#idTrans').val();
+          var jtotal = $('#grandtotal').val();
+          var jBayar = $('input[name="pembayaran"]:checked').val();
+          var jPelanggan = $('#pelanggan').val();
+          var jJatuhTempo = $('#jatuh_tempo').val();
+          $.ajax({
+              type : "POST",
+              url  : "<?php echo base_url('index.php/transaksi/saveTrans')?>",
+              dataType : "JSON",
+              data : {idPel:jid, idTrans:jIDTrans, total:jtotal, pembayaran:jBayar, pelanggan:jPelanggan, jatuh_tempo:jJatuhTempo},
+              success: function(data){
+                resetForm();
+                tampil_tmp_trans();
+                sum_trans();
+                $('#tags').focus();
+                window.location.reload(true);
+                window.open('<?=site_url(); ?>/transaksi/cetakPDF?kodeTrans='+jIDTrans+'&kodePel='+jid, '_blank');
+              }
+          });
+
+          return false;
+        });
+
+
+      //enable/disable field jatuh tempo
+      function disable2(){
+        $("form input:radio").change(function(){
+          if($(this).val() == "hutang"){
+            $("#jatuh_tempo").attr("disabled", false);
+            $("#jatuh_tempo").attr("required", true);
+            $("#pelanggan").attr("required", true);
+          } else{
+            $("#jatuh_tempo").attr("disabled", true);
           }
         });
-    }
+      }
+
       //reset form
       function resetForm(){
         $('[name="id"]').val('');
@@ -772,25 +742,9 @@
             });
         }
 
-        //add barang to transaksi
-        $('#btn_reset').on('click',function(){
-            $.ajax({
-                type : "POST",
-                url  : "<?php echo base_url('index.php/transaksi/add_barang')?>",
-                dataType : "JSON",
-                data : {idBarang:jid, idTrans:jIDTrans, namaBarang:jnama, jumlah:jjml, diskon:jdiskon, harga:jharga, subTotal:jsubTotal},
-                success: function(data){
-                    resetForm();
-                    tampil_tmp_trans();
-                    sum_trans();
-                    $('#tags').focus();
-                }
-            });
-            return false;
-        });
 
         //add barang to transaksi
-        $('#btn_add').on('click',function(){
+        $('#formAdd').on('submit', function(e){
           var jid = $('#idBarang').val();
           var jIDTrans = $('#idTrans').val();
           var jnama = $('#tags').val();
@@ -812,35 +766,38 @@
 
                 }
             });
-            return false;
+            e.preventDefault();
         });
 
-        //add barang to transaksi
-        $('#btn_save').on('click',function(){
+
+
+
+        
+        //proses transaksi
+        $("#prosesTransaksi").submit(function(e){
           var jid = $('#idPel').val();
           var jIDTrans = $('#idTrans').val();
           var jtotal = $('#grandtotal').val();
           var jBayar = $('input[name="pembayaran"]:checked').val();
           var jPelanggan = $('#pelanggan').val();
           var jJatuhTempo = $('#jatuh_tempo').val();
-          
-
-            $.ajax({
-                type : "POST",
-                url  : "<?php echo base_url('index.php/transaksi/saveTrans')?>",
-                dataType : "JSON",
-                data : {idPel:jid, idTrans:jIDTrans, total:jtotal, pembayaran:jBayar, pelanggan:jPelanggan, jatuh_tempo:jJatuhTempo},
-                success: function(data){
-                  resetForm();
-                  tampil_tmp_trans();
-                  sum_trans();
-                  $('#tags').focus();
-                  window.location.reload(true);
-                  window.open('<?=site_url(); ?>/transaksi/cetakPDF?kodeTrans='+jIDTrans+'&kodePel='+jid, '_blank');
-                }
-            });
-            return false;
+          $.ajax({
+              type : "POST",
+              url  : "<?php echo base_url('index.php/transaksi/saveTrans')?>",
+              dataType : "JSON",
+              data : {idPel:jid, idTrans:jIDTrans, total:jtotal, pembayaran:jBayar, pelanggan:jPelanggan, jatuh_tempo:jJatuhTempo},
+              success: function(data){
+                resetForm();
+                tampil_tmp_trans();
+                sum_trans();
+                $('#tags').focus();
+                window.location.reload(true);
+                window.open('<?=site_url(); ?>/transaksi/cetakPDF?kodeTrans='+jIDTrans+'&kodePel='+jid, '_blank');
+              }
+          });
+          e.preventDefault();
         });
+
 
         //GET UPDATE
         $('#show_data').on('click','.item_edit',function(){

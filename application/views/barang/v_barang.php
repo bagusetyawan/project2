@@ -41,7 +41,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Prawiratama Mandiri!</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -66,99 +66,20 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Halaman Utama <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-desktop"></i> Transaksi <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="index.html">Dashboard</a></li>
-                      <!-- <li><a href="index2.html">Dashboard2</a></li> -->
-                      <!-- <li><a href="index3.html">Dashboard3</a></li> -->
+                      <li><a href="<?=base_url(); ?>index.php/transaksi">Entry Transaksi</a></li>
+                      <li><a href="<?=base_url(); ?>index.php/transaksi/listTransaksi">List Transaksi</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i> Data Barang <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="form.html">General Form</a></li>
-                      <li><a href="form_advanced.html">Advanced Components</a></li>
-                      <li><a href="form_validation.html">Form Validation</a></li>
-                      <li><a href="form_wizards.html">Form Wizard</a></li>
-                      <li><a href="form_upload.html">Form Upload</a></li>
-                      <li><a href="form_buttons.html">Form Buttons</a></li>
-                    </ul>
+                  <li><a href="<?=base_url(); ?>index.php/barang"><i class="fa fa-edit"></i> Data Barang</a>
                   </li>
-                  <li><a><i class="fa fa-desktop"></i> Laporan <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="general_elements.html">General Elements</a></li>
-                      <li><a href="media_gallery.html">Media Gallery</a></li>
-                      <li><a href="typography.html">Typography</a></li>
-                      <li><a href="icons.html">Icons</a></li>
-                      <li><a href="glyphicons.html">Glyphicons</a></li>
-                      <li><a href="widgets.html">Widgets</a></li>
-                      <li><a href="invoice.html">Invoice</a></li>
-                      <li><a href="inbox.html">Inbox</a></li>
-                      <li><a href="calendar.html">Calendar</a></li>
-                    </ul>
+                  <li><a href="<?=base_url(); ?>index.php/piutang"><i class="fa fa-table"></i> Piutang </a>
                   </li>
-                  <li><a><i class="fa fa-table"></i> Transaksi <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="tables.html">Tables</a></li>
-                      <li><a href="tables_dynamic.html">Table Dynamic</a></li>
-                    </ul>
+                  <li><a href="<?=base_url(); ?>index.php/customer"><i class="fa fa-bar-chart-o"></i> Customer</a>
                   </li>
-                  <li><a><i class="fa fa-bar-chart-o"></i> Laba/Rugi <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                      <li><a href="chartjs2.html">Chart JS2</a></li>
-                      <li><a href="morisjs.html">Moris JS</a></li>
-                      <li><a href="echarts.html">ECharts</a></li>
-                      <li><a href="other_charts.html">Other Charts</a></li>
-                    </ul>
+                  <li><a><i class="fa fa-clone"></i>Log Out </a>
                   </li>
-                  <li><a><i class="fa fa-clone"></i>Stok Gudang <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>
-                      <li><a href="fixed_footer.html">Fixed Footer</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-              <div class="menu_section">
-                <h3>Pengaturan Extra</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-bug"></i> Retur Barang <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="e_commerce.html">E-commerce</a></li>
-                      <li><a href="projects.html">Projects</a></li>
-                      <li><a href="project_detail.html">Project Detail</a></li>
-                      <li><a href="contacts.html">Contacts</a></li>
-                      <li><a href="profile.html">Profile</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-windows"></i> Smart Warning System <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="page_403.html">403 Error</a></li>
-                      <li><a href="page_404.html">404 Error</a></li>
-                      <li><a href="page_500.html">500 Error</a></li>
-                      <li><a href="plain_page.html">Plain Page</a></li>
-                      <li><a href="login.html">Login Page</a></li>
-                      <li><a href="pricing_tables.html">Pricing Tables</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-sitemap"></i> Manajemen Pengguna <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="#level1_1">Level One</a>
-                        <li><a>Level One<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="level2.html">Level Two</a>
-                            </li>
-                            <li><a href="#level2_1">Level Two</a>
-                            </li>
-                            <li><a href="#level2_2">Level Two</a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li><a href="#level1_2">Level One</a>
-                        </li>
-                    </ul>
-                  </li>                  
-                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
                 </ul>
               </div>
 
@@ -298,19 +219,8 @@
                   <div class="x_title">
                     <div class="pull-left"><a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#ModalaAdd"><span class="fa fa-plus"></span> Tambah Barang</a></div>
                      <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
+                      
+                      
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -545,7 +455,7 @@
     <script src="<?php echo base_url(); ?>assets/vendors/pdfmake/build/vfs_fonts.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?php echo base_url(); ?>assets/build/js/custom.min.js"></script>
-    <!-- <script src="<?php echo base_url(); ?>assets/jquery-validation/dist/jquery.validate.min.js"></script> -->
+    
     <script src="<?php echo base_url(); ?>assets/jquery-validation/parsley.min.js"></script>
 
     <script type="text/javascript">
@@ -665,32 +575,7 @@
           // return false;
           e.preventDefault();
         });
-        // $('#btn_simpan').on('click',function(){
-          
-        //     // var idbar=$('#idBarang').val();
-        //     // var nabar=$('#nama_barang').val();
-        //     // var harga=$('#harga').val();
-        //     // var kat=$('#kategori').val();
-        //     // var sat=$('#satuan').val();
-        //     // var stk=$('#stok').val();
-        //     // $.ajax({
-        //     //     type : "POST",
-        //     //     url  : "<?php echo base_url('index.php/barang/simpan_barang')?>",
-        //     //     dataType : "JSON",
-        //     //     data : {idbar:idbar, nabar:nabar, harga:harga, kat:kat, sat:sat, stk:stk},
-        //     //     success: function(data){
-        //     //         $('#idBarang').val("");
-        //     //         $('[name="nabar"]').val("");
-        //     //         $('[name="harga"]').val("");
-        //     //         $('[name="kat"]').val("");
-        //     //         $('[name="sat"]').val("");
-        //     //         $('[name="stk"]').val("");
-        //     //         $('#ModalaAdd').modal('hide');
-        //     //         tampil_data_barang();
-        //     //     }
-        //     // });
-        //     // return false;
-        // });
+        
 
         $("#formEdit").submit(function(e){
 
@@ -720,32 +605,7 @@
           e.preventDefault();
         });
  
-        //Update Barang
-        // $('#btn_update').on('click',function(){
-        //     var kobar=$('#id_barang2').val();
-        //     var nabar=$('#nama_barang2').val();
-        //     var harga=$('#harga2').val();
-        //     var kat=$('#kategori2').val();
-        //     var sat=$('#satuan2').val();
-        //     var stk=$('#stok2').val();
-        //     $.ajax({
-        //         type : "POST",
-        //         url  : "<?php echo base_url('index.php/barang/update_barang')?>",
-        //         dataType : "JSON",
-        //         data : {kobar:kobar , nabar:nabar, harga:harga, kat:kat, sat:sat, stk:stk},
-        //         success: function(data){
-        //             $('[name="id_edit"]').val("");
-        //             $('[name="nabar_edit"]').val("");
-        //             $('[name="harga_edit"]').val("");
-        //             $('[name="kat_edit"]').val("");
-        //             $('[name="sat_edit"]').val("");
-        //             $('[name="stk_edit"]').val("");
-        //             $('#ModalaEdit').modal('hide');
-        //             tampil_data_barang();
-        //         }
-        //     });
-        //     return false;
-        // });
+        
  
         //Hapus Barang
         $('#btn_hapus').on('click',function(){
