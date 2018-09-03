@@ -131,71 +131,6 @@
                     <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
-
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a>
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
               </ul>
             </nav>
           </div>
@@ -239,7 +174,7 @@
                         <div class="form-group col-md-2">
                           <label>Sub-Total</label>
                           <input type="text" name="subTotal" readonly="" class="form-control" id="subTotal" placeholder="Rp.">
-                          <input type="hidden" name="idTrans" id="idTrans" value="<?=$idTrans; ?>">
+                          <input type="hidden" name="idTrans" id="idTrans">
                         </div>
                         <div class="form-group col-md-3">
                           <label>&nbsp;</label><br/>
@@ -320,6 +255,7 @@
                           </div>
                         </form>
                     </div>
+                    <?php echo $this->session->userdata('username'); ?>
 
                     <!-- MODAL ADD CUSTOMER-->
                       <div class="modal fade" id="ModalaAdd" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
@@ -519,7 +455,7 @@
     <script type="text/javascript">
       $(document).ready(function(){
         // $("#formAdd").parsley();
-
+        getID_trans();
         $("#jatuh_tempo").attr("disabled", true);
         $("#jatuh_tempo").attr("required", false);
         resetForm();
@@ -581,7 +517,8 @@
               tampil_tmp_trans();
               sum_trans();
               $('#tags').focus();
-              window.location.reload(true);
+              getID_trans();
+              // window.location.reload(true);
               window.open('<?=site_url(); ?>/transaksi/cetakPDF?kodeTrans='+jIDTrans+'&kodePel='+jid, '_blank');
             }
         });
@@ -761,6 +698,21 @@
                   var total = data[0].subtotal;
                   $('#grandtotal').val(total);
 
+                }
+ 
+            });
+        }
+
+        function getID_trans(){
+            $.ajax({
+                type  : 'ajax',
+                url   : '<?php echo base_url()?>index.php/Transaksi/getIDAjax',
+                async : false,
+                dataType : 'json',
+                success : function(data){
+                  // var total = data[0].subtotal;
+                  $('#idTrans').val(data);
+                  // alert(data);
                 }
  
             });

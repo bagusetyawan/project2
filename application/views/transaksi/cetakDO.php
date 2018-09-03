@@ -37,7 +37,7 @@ $pdf->setFont('helvetica', '', 10);
 $pdf->Cell(50, 0, (!empty($customer)?$customer['alamat']:''), 0, 1, 'L', 0, '', 0);
 $pdf->setFont('helvetica', '', 8);
 $pdf->Cell(50, 0, '', 0, 0, 'L', 0, '', 0);
-$pdf->Cell(90, 5, 'FJ/'.date("m").'/'.date("Y").'/015', 0, 0, 'C', 0, '', 0);
+$pdf->Cell(90, 5, 'FJ/'.date("m").'/'.date("Y").'/'.$idTrans, 0, 0, 'C', 0, '', 0);
 $pdf->setFont('helvetica', '', 10);
 $pdf->Cell(50, 0, (!empty($customer)?$customer['kota']:''), 0, 1, 'L', 0, '', 0);
 

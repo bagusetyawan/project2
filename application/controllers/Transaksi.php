@@ -6,9 +6,14 @@ class Transaksi extends CI_Controller{
         $this->load->model('m_barang');
 	}
 	function index(){
-        $data['idTrans'] = $this->m_transaksi->getID();
-		$this->load->view('transaksi/v_transaksi', $data);
+        // $data['idTrans'] = $this->m_transaksi->getID();
+		$this->load->view('transaksi/v_transaksi');
 	}
+
+    function getIDAjax(){
+        $hasil = $this->m_transaksi->getID();
+        echo json_encode($hasil);
+    }
 
     function getID(){
         $this->m_transaksi->getID();
@@ -120,6 +125,7 @@ class Transaksi extends CI_Controller{
         $data['sum'] = $this->M_transaksi->sumDetail($idTrans);
         $data['piutang'] = $this->M_transaksi->getPiutang($idTrans);
         $data['transaksi'] = $this->M_transaksi->getTransByKode($idTrans);
+        $data['idTrans'] = $this->M_transaksi->getID();
         // print_r($data['transaksi']);
         $this->load->library('Pdf');
         $this->load->view('transaksi/cetakDO', $data);
