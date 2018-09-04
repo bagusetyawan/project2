@@ -3,6 +3,9 @@ class Customer extends CI_Controller{
 	function __construct(){
 		parent::__construct();
 		$this->load->model('m_customer');
+        if(empty($this->session->userdata('username'))){
+            redirect(base_url("index.php/login"));
+        }
 	}
 	function index(){
 		$this->load->view('customer/v_customer');

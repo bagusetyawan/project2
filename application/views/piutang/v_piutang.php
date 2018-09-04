@@ -72,7 +72,7 @@
                   </li>
                   <li><a href="<?=base_url(); ?>index.php/customer"><i class="fa fa-bar-chart-o"></i> Customer</a>
                   </li>
-                  <li><a><i class="fa fa-clone"></i>Log Out </a>
+                  <li><a href="<?=base_url(); ?>index.php/login/logout"><i class="fa fa-clone"></i>Log Out </a>
                   </li>
                 </ul>
               </div>
@@ -220,6 +220,7 @@
                                 <th>Customer</th>
                                 <th>Total</th>
                                 <th>Pembayaran</th>
+                                <th>Sisa</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -244,6 +245,7 @@
                                 <th>Dealine</th>
                                 <th>Nominal</th>
                                 <th>Pembayaran</th>
+                                <th>Sisa</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -322,7 +324,7 @@
                               <label class="control-label col-xs-3" >ID</label>
                               <div class="col-xs-9">
                                   <input name="id_edit" id="id_piutang2" class="form-control has-feedback-left" type="text" placeholder="Kode Barang" style="width:335px;" readonly>
-                                  <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+                                  <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
                               </div>
                           </div>
        
@@ -330,7 +332,7 @@
                               <label class="control-label col-xs-3" >Total Hutang</label>
                               <div class="col-xs-9">
                                   <input name="total_edit" id="total2" class="form-control has-feedback-left" type="text" placeholder="" style="width:335px;" required="" readonly="">
-                                  <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+                                  <span class="fa fa-paper-plane form-control-feedback left" aria-hidden="true"></span>
                               </div>
                           </div>
 
@@ -338,7 +340,7 @@
                               <label class="control-label col-xs-3" >Deadline</label>
                               <div class="col-xs-9">
                                   <input name="deadline_edit" id="deadline2" class="form-control has-feedback-left" type="text" placeholder="" style="width:335px;" required readonly="">
-                                  <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+                                  <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                               </div>
                           </div>
        
@@ -346,7 +348,7 @@
                               <label class="control-label col-xs-3" >Sudah Dibayar</label>
                               <div class="col-xs-9">
                                   <input name="sudah_dibayar" id="sudah2" class="form-control has-feedback-left" type="text" placeholder="" style="width:335px;" required readonly="">
-                                  <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+                                  <span class="fa fa-check form-control-feedback left" aria-hidden="true"></span>
                               </div>
                           </div>
 
@@ -465,15 +467,19 @@
                     var html = '';
                     var i;
                     for(i=0; i<data.length; i++){
+                      var sisa = data[i].sisa;
+                      var isi = '<a href="javascript:;" class="btn btn-info btn-xs item_edit" data="'+data[i].id_customer+'" id="cekDetail">Cek Detail</a>';
+                      if(sisa <= '0'){
+                        isi = '<span class="label label-success">LUNAS</span>';
+                      }
+                      
                         html += '<tr>'+
                                 '<td>'+data[i].id_customer+'</td>'+
                                 '<td>'+data[i].nama_customer+'</td>'+
                                 '<td>'+data[i].sum_total+'</td>'+
                                 '<td>'+data[i].pembayaran+'</td>'+
-                                
-                                '<td style="text-align:right;">'+
-                                    '<a href="javascript:;" class="btn btn-info btn-xs item_edit" data="'+data[i].id_customer+'" id="cekDetail">Cek Detail</a>'+
-                                '</td>'+
+                                '<td>'+data[i].sisa+'</td>'+
+                                '<td style="text-align:right;">'+isi+'</td>'+
                                 '</tr>';
                     }
                     $('#show_data').html(html);
@@ -495,13 +501,17 @@
                     var html = '';
                     var i;
                     for(i=0; i<data.length; i++){
+                      var sisa = data[i].sisa;
+                      var isi = '<a href="javascript:;" class="btn btn-success btn-xs item_edit" data="'+data[i].id+'" id="bayar">Bayar!</a>';
+                      if(sisa <= '0'){
+                        isi = '<span class="label label-success">LUNAS</span>';
+                      }
                         html += '<tr>'+
                                 '<td>'+data[i].deadline+'</td>'+
                                 '<td>'+data[i].total+'</td>'+
                                 '<td>'+data[i].pembayaran+'</td>'+
-                                '<td style="text-align:right;">'+
-                                    '<a href="javascript:;" class="btn btn-success btn-xs item_edit" data="'+data[i].id+'" id="bayar">Bayar!</a>'+
-                                '</td>'+
+                                '<td>'+data[i].sisa+'</td>'+
+                                '<td style="text-align:right;">'+isi+'</td>'+
                                 '</tr>';
                     }
                     $('#show_detail').html(html);

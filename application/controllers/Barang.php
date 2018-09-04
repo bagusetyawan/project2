@@ -3,6 +3,9 @@ class Barang extends CI_Controller{
 	function __construct(){
 		parent::__construct();
 		$this->load->model('m_barang');
+        if(empty($this->session->userdata('username'))){
+            redirect(base_url("index.php/login"));
+        }
 	}
 	function index(){
 		$this->load->view('barang/v_barang');

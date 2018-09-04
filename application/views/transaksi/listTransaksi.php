@@ -72,7 +72,7 @@
                   </li>
                   <li><a href="<?=base_url(); ?>index.php/customer"><i class="fa fa-bar-chart-o"></i> Customer</a>
                   </li>
-                  <li><a><i class="fa fa-clone"></i>Log Out </a>
+                  <li><a href="<?=base_url(); ?>index.php/login/logout"><i class="fa fa-clone"></i>Log Out </a>
                   </li>
                 </ul>
               </div>

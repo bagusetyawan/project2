@@ -78,7 +78,7 @@
                   </li>
                   <li><a href="<?=base_url(); ?>index.php/customer"><i class="fa fa-bar-chart-o"></i> Customer</a>
                   </li>
-                  <li><a><i class="fa fa-clone"></i>Log Out </a>
+                  <li><a href="<?=base_url(); ?>index.php/login/logout"><i class="fa fa-clone"></i>Log Out </a>
                   </li>
                 </ul>
               </div>
@@ -255,7 +255,7 @@
                           </div>
                         </form>
                     </div>
-                    <?php echo $this->session->userdata('username'); ?>
+                    <?php print_r($this->session->userdata);  ?>
 
                     <!-- MODAL ADD CUSTOMER-->
                       <div class="modal fade" id="ModalaAdd" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
@@ -271,28 +271,32 @@
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Nama Customer</label>
                                       <div class="col-xs-9">
-                                          <input name="nama" id="nama" class="form-control" type="text" placeholder="Nama Customer" style="width:335px;" required>
+                                          <input name="nama" id="nama" class="form-control has-feedback-left" type="text" placeholder="Nama Customer" style="width:335px;" required>
+                                          <span class="fa fa-edit form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
 
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Alamat</label>
                                       <div class="col-xs-9">
-                                          <input name="alamat" id="alamat" class="form-control" type="text" placeholder="Alamat" style="width:335px;" required>
+                                          <input name="alamat" id="alamat" class="form-control has-feedback-left" type="text" placeholder="Alamat" style="width:335px;" required>
+                                          <span class="fa fa-location-arrow form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Kota</label>
                                       <div class="col-xs-9">
-                                          <input name="kota" id="kota" class="form-control" type="text" placeholder="Kota" style="width:335px;" required>
+                                          <input name="kota" id="kota" class="form-control has-feedback-left" type="text" placeholder="Kota" style="width:335px;" required>
+                                          <span class="fa fa-industry form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Telepon</label>
                                       <div class="col-xs-9">
-                                          <input name="telepon" id="telepon" class="form-control" type="text" placeholder="Telepon" style="width:335px;" required>
+                                          <input name="telepon" id="telepon" class="form-control has-feedback-left" type="text" placeholder="Telepon" style="width:335px;" required>
+                                          <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                

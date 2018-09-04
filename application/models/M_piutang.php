@@ -2,12 +2,12 @@
 class M_piutang extends CI_Model{
 
 	function piutang_list(){
-		$hasil=$this->db->query("select id_customer, FORMAT(sum(total), 0) as sum_total, FORMAT(sum(pembayaran), 0) as pembayaran, nama_customer from trans_piutang group by id_customer, nama_customer");
+		$hasil=$this->db->query("select id_customer, FORMAT(sum(total), 0) as sum_total, FORMAT(sum(pembayaran), 0) as pembayaran, nama_customer, FORMAT(sum(total) - sum(pembayaran),0) as sisa from trans_piutang group by id_customer, nama_customer");
 		return $hasil->result();
 	}
  
     function get_piutang_by_kode($id){
-        $hsl=$this->db->query("SELECT id, id_customer, FORMAT(total, 0) as total, FORMAT(pembayaran, 0) as pembayaran, deadline FROM trans_piutang WHERE id_customer='$id'");
+        $hsl=$this->db->query("SELECT id, id_customer, FORMAT(total, 0) as total, FORMAT(pembayaran, 0) as pembayaran, FORMAT(total - pembayaran,0) as sisa, deadline FROM trans_piutang WHERE id_customer='$id'");
         return $hsl->result();
     }
 

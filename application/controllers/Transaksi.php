@@ -4,9 +4,11 @@ class Transaksi extends CI_Controller{
 		parent::__construct();
 		$this->load->model('m_transaksi');
         $this->load->model('m_barang');
+        if(empty($this->session->userdata('username'))){
+            redirect(base_url("index.php/login"));
+        }
 	}
 	function index(){
-        // $data['idTrans'] = $this->m_transaksi->getID();
 		$this->load->view('transaksi/v_transaksi');
 	}
 

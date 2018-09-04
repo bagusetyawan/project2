@@ -3,6 +3,9 @@ class Piutang extends CI_Controller{
 	function __construct(){
 		parent::__construct();
 		$this->load->model('m_piutang');
+        if(empty($this->session->userdata('username'))){
+            redirect(base_url("index.php/login"));
+        }
 	}
 	function index(){
 		$this->load->view('piutang/v_piutang');

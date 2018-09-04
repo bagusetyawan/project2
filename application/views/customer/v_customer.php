@@ -72,7 +72,7 @@
                   </li>
                   <li><a href="<?=base_url(); ?>index.php/customer"><i class="fa fa-bar-chart-o"></i> Customer</a>
                   </li>
-                  <li><a><i class="fa fa-clone"></i>Log Out </a>
+                  <li><a href="<?=base_url(); ?>index.php/login/logout"><i class="fa fa-clone"></i>Log Out </a>
                   </li>
                 </ul>
               </div>
@@ -213,19 +213,6 @@
                   <div class="x_title">
                     <div class="pull-left"><a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#ModalaAdd"><span class="fa fa-plus"></span> Tambah Customer</a></div>
                      <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
                     </ul>
                     <div class="clearfix"></div>
                   </div>
@@ -266,7 +253,7 @@
                                       <label class="control-label col-xs-3" >Nama Customer</label>
                                       <div class="col-xs-9">
                                           <input name="nama" id="nama" class="form-control has-feedback-left" type="text" placeholder="Nama Customer" style="width:335px;" required>
-                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+                                          <span class="fa fa-edit form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
 
@@ -274,7 +261,7 @@
                                       <label class="control-label col-xs-3" >Alamat</label>
                                       <div class="col-xs-9">
                                           <input name="alamat" id="alamat" class="form-control has-feedback-left" type="text" placeholder="Alamat" style="width:335px;" required>
-                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+                                          <span class="fa fa-location-arrow form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
@@ -282,7 +269,7 @@
                                       <label class="control-label col-xs-3" >Kota</label>
                                       <div class="col-xs-9">
                                           <input name="kota" id="kota" class="form-control has-feedback-left" type="text" placeholder="Kota" style="width:335px;" required>
-                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+                                          <span class="fa fa-industry form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
@@ -290,7 +277,7 @@
                                       <label class="control-label col-xs-3" >Telepon</label>
                                       <div class="col-xs-9">
                                           <input name="telepon" id="telepon" class="form-control has-feedback-left" type="text" placeholder="Telepon" style="width:335px;" required>
-                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+                                          <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
@@ -329,7 +316,7 @@
                                       <label class="control-label col-xs-3" >Nama Customer</label>
                                       <div class="col-xs-9">
                                           <input name="nama_edit" id="nama2" class="form-control has-feedback-left" type="text" placeholder="Nama Customer" style="width:335px;" required>
-                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+                                          <span class="fa fa-edit form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
 
@@ -337,7 +324,7 @@
                                       <label class="control-label col-xs-3" >Alamat</label>
                                       <div class="col-xs-9">
                                           <input name="alamat_edit" id="alamat2" class="form-control has-feedback-left" type="text" placeholder="Alamat" style="width:335px;" required>
-                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+                                          <span class="fa fa-location-arrow form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
@@ -345,7 +332,7 @@
                                       <label class="control-label col-xs-3" >Kota</label>
                                       <div class="col-xs-9">
                                           <input name="kota_edit" id="kota2" class="form-control has-feedback-left" type="text" placeholder="Kota" style="width:335px;" required>
-                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+                                          <span class="fa fa-industry form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
 
@@ -353,7 +340,7 @@
                                       <label class="control-label col-xs-3" >Telepon</label>
                                       <div class="col-xs-9">
                                           <input name="telepon_edit" id="telepon2" class="form-control has-feedback-left" type="text" placeholder="Telepon" style="width:335px;" required>
-                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+                                          <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
