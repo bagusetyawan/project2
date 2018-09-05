@@ -128,6 +128,7 @@ class Transaksi extends CI_Controller{
         $data['piutang'] = $this->M_transaksi->getPiutang($idTrans);
         $data['transaksi'] = $this->M_transaksi->getTransByKode($idTrans);
         $data['idTrans'] = $this->M_transaksi->getID();
+        $data['idTrans2'] = $idTrans;
         // print_r($data['transaksi']);
         $this->load->library('Pdf');
         $this->load->view('transaksi/cetakDO', $data);
