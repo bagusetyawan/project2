@@ -321,14 +321,14 @@
                                       <label class="control-label col-xs-3" >Kode</label>
                                       <div class="col-xs-9">
                                           <input name="id_edit" id="id2" class="form-control has-feedback-left" type="text" placeholder="Kode Barang" style="width:335px;" readonly="">
-                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+                                          <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Nama Barang</label>
                                       <div class="col-xs-9">
                                           <input name="nabar_edit" id="nama_barang2" class="form-control has-feedback-left" type="text" placeholder="Nama Barang" style="width:335px;" readonly="">
-                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+                                          <span class="fa fa-edit form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                                   <div class="form-group">
@@ -342,14 +342,21 @@
                                       <label class="control-label col-xs-3" >Jumlah</label>
                                       <div class="col-xs-9">
                                           <input name="jumlah_edit" id="jumlah2" class="form-control has-feedback-left" type="text" placeholder="Harga" style="width:335px;" required>
-                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+                                          <span class="fa fa-list form-control-feedback left" aria-hidden="true"></span>
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="control-label col-xs-3" >Diskon</label>
+                                      <div class="col-xs-9">
+                                          <input name="diskon_edit" id="diskon2" class="form-control has-feedback-left" type="text" placeholder="%" style="width:335px;" required>
+                                          <span class="fa fa-percent form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Subtotal</label>
                                       <div class="col-xs-9">
                                           <input name="stt_edit" id="subTotal2" class="form-control has-feedback-left" type="text" placeholder="Harga" style="width:335px;" readonly="">
-                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+                                          <span class="fa fa-circle form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
@@ -530,11 +537,12 @@
           var id=$('#id2').val();
           var jumlah=$('#jumlah2').val();
           var subtotal=$('#subTotal2').val();
+          var diskon = $('#diskon2').val();
           $.ajax({
               type : "POST",
               url  : "<?php echo base_url('index.php/transaksi/update_tmp_trans')?>",
               dataType : "JSON",
-              data : {id:id, jumlah:jumlah, subtotal:subtotal},
+              data : {id:id, jumlah:jumlah, subtotal:subtotal, diskon:diskon},
               success: function(data){
                   resetForm();
                   $('#ModalaEdit').modal('hide');
@@ -641,6 +649,12 @@
           var maths = ($('#jumlah').val() * $('#harga').val()) - diskon;
           $('#subTotal').val(maths);
         });
+
+        $('#ModalaEdit #diskon2').on('change paste keyup', function(){
+          var diskon = ($('#ModalaEdit #jumlah2').val() * $('#ModalaEdit #harga2').val()) * ($('#ModalaEdit #diskon2').val()/100);
+          var maths = ($('#ModalaEdit #jumlah2').val() * $('#ModalaEdit #harga2').val()) - diskon;
+          $('#ModalaEdit #subTotal2').val(maths);
+        });
       }
 
       function setDatatable(){
@@ -733,6 +747,7 @@
                         $('#harga2').val(data.harga_satuan);
                         $('#jumlah2').val(data.jumlah);
                         $('#subTotal2').val(data.subtotal);
+                        $('#diskon2').val(data.diskon);
                     });
                 }
             });

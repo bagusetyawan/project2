@@ -100,8 +100,9 @@ class Transaksi extends CI_Controller{
         $id=$this->input->post('id');
         $jumlah=$this->input->post('jumlah');
         $subtotal=$this->input->post('subtotal');
+        $diskon =$this->input->post('diskon');
         
-        $data=$this->m_transaksi->update_tmp_trans($id, $jumlah, $subtotal);
+        $data=$this->m_transaksi->update_tmp_trans($id, $jumlah, $subtotal, $diskon);
         echo json_encode($data);
     }
  

@@ -263,42 +263,48 @@
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Kode Barang</label>
                                       <div class="col-xs-9">
-                                          <input name="id_edit" id="id_barang2" class="form-control" type="text" placeholder="Kode Barang" style="width:335px;" readonly>
+                                          <input name="id_edit" id="id_barang2" class="form-control has-feedback-left" type="text" placeholder="Kode Barang" style="width:335px;" readonly>
+                                          <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Nama Barang</label>
                                       <div class="col-xs-9">
-                                          <input name="nabar_edit" id="nama_barang2" class="form-control" type="text" placeholder="Nama Barang" style="width:335px;" required>
+                                          <input name="nabar_edit" id="nama_barang2" class="form-control has-feedback-left" type="text" placeholder="Nama Barang" style="width:335px;" required>
+                                          <span class="fa fa-edit form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
 
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Harga</label>
                                       <div class="col-xs-9">
-                                          <input name="harga_edit" data-parsley-type="number" id="harga2" class="form-control" type="text" placeholder="Rp." style="width:335px;" required>
+                                          <input name="harga_edit" data-parsley-type="number" id="harga2" class="form-control has-feedback-left" type="text" placeholder="Rp." style="width:335px;" required>
+                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Kategori</label>
                                       <div class="col-xs-9">
-                                          <input name="kat_edit" id="kategori2" class="form-control" type="text" placeholder="Kategori" style="width:335px;" required>
+                                          <input name="kat_edit" id="kategori2" class="form-control has-feedback-left" type="text" placeholder="Kategori" style="width:335px;" required>
+                                          <span class="fa fa-list form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
 
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Satuan</label>
                                       <div class="col-xs-9">
-                                          <input name="sat_edit" id="satuan2" class="form-control" type="text" placeholder="Satuan" style="width:335px;" required>
+                                          <input name="sat_edit" id="satuan2" class="form-control has-feedback-left" type="text" placeholder="Satuan" style="width:335px;" required>
+                                          <span class="fa fa-circle form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
 
                                   <div class="form-group">
                                       <label class="control-label col-xs-3" >Stok</label>
                                       <div class="col-xs-9">
-                                          <input name="stk_edit" id="stok2" class="form-control" type="text" placeholder="Stok" style="width:335px;" required>
+                                          <input name="stk_edit" id="stok2" class="form-control has-feedback-left" type="text" placeholder="Stok" style="width:335px;" required>
+                                          <span class="fa fa-digital-tachograph form-control-feedback left" aria-hidden="true"></span>
                                       </div>
                                   </div>
                

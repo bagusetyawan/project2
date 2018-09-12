@@ -104,15 +104,16 @@ class M_transaksi extends CI_Model{
                     'nama_barang' => $data->nama_barang,
                     'jumlah' => $data->jumlah,
                     'harga_satuan' => $data->harga_satuan,
-                    'subtotal' => $data->subtotal
+                    'subtotal' => $data->subtotal,
+                    'diskon' => $data->diskon
                     );
             }
         }
         return $hasil;
     }
  
-    function update_tmp_trans($id, $jumlah, $subtotal){
-        $hasil=$this->db->query("UPDATE tmp_transaksi SET jumlah='$jumlah',subtotal='$subtotal' WHERE id='$id'");
+    function update_tmp_trans($id, $jumlah, $subtotal, $diskon){
+        $hasil=$this->db->query("UPDATE tmp_transaksi SET jumlah='$jumlah',subtotal='$subtotal', diskon = '$diskon' WHERE id='$id'");
         return $hasil;
     }
  
