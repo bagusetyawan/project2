@@ -86,10 +86,10 @@
             dataType : "JSON",
             data : {username:user, password:pass},
             success: function(data){
-              if(data === '0'){
+              if(data == '0'){
                 $("#error").html("<span>Maaf, username/password salah</span>");
               } else{
-                window.location.replace("http://localhost/softsale/index.php/transaksi/");
+                window.location.replace("<?php echo base_url(); ?>");
               }
             }
         });

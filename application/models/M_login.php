@@ -8,16 +8,14 @@ class M_login extends CI_Model{
 
 	public function getCredentials($user, $pass){
         
-        $query = "SELECT * FROM mst_users WHERE username = '$user' AND password = '$pass' ";
-        $hasil = $this->db->query($query)->row();
-        // $result = 0;
-        if(!empty($hasil)){
-            $this->session->set_userdata('username', $hasil->username);
-            return $hasil;
+         $query = "SELECT * FROM mst_users WHERE username = '$user' AND password = '$pass' ";
+        $hasil = $this->db->query($query);
+        if($hasil->num_rows() > 0){
+            $result = $hasil->row();
+            $this->session->set_userdata('username', $result->username);
             
-        } else{
-            return '0';
         }
+        return $hasil->num_rows();
     }
 	
 }
