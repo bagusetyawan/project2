@@ -88,8 +88,10 @@
             success: function(data){
               if(data == '0'){
                 $("#error").html("<span>Maaf, username/password salah</span>");
+
               }
-               else{
+              else{
+
                 window.location.replace("<?php echo base_url(); ?>");
               }
             }

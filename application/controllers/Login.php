@@ -15,7 +15,6 @@ class Login extends CI_Controller{
             $this->session->sess_destroy();
             $this->load->view('login/v_login');
         }
-        
     }
 
     public function getCredentials(){
@@ -23,7 +22,6 @@ class Login extends CI_Controller{
         $password = $this->input->post('password');
         $hasil = $this->m_login->getCredentials($username, $password);
         echo json_encode($hasil);
-        
     }
 
     function logout(){
