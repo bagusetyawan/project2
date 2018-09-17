@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Aplikasi Penjualan! | </title>
+    <title>My Store v.1.2!</title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url(); ?>assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -41,7 +41,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-shopping-bag"></i> <span>Prawiratama Mandiri!</span></a>
+              <a href="#" class="site_title"><i class="fa fa-opencart"></i> <span>myStore</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -66,10 +66,31 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-desktop"></i> Transaksi <span class="fa fa-chevron-down"></span></a>
+                  <li><a href="<?=base_url(); ?>index.php/barang"><i class="fa fa-home"></i> Dashboard</a>
+                  <li><a><i class="fa fa-desktop"></i> Penjualan <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="<?=base_url(); ?>index.php/transaksi">Entry Transaksi</a></li>
-                      <li><a href="<?=base_url(); ?>index.php/transaksi/listTransaksi">List Transaksi</a></li>
+                      <li><a href="<?=base_url(); ?>index.php/transaksi/listTransaksi">List Penjualan</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-file"></i>Laporan <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="fixed_sidebar.html">Laporan Penjualan</a></li>
+                      <li><a href="fixed_footer.html">Laporan Barang</a></li>
+                      <li><a href="fixed_footer.html">Laporan Pengeluaran</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-arrow-right"></i>Retur Barang <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="fixed_sidebar.html">Rencana Retur</a></li>
+                      <li><a href="fixed_footer.html">Sudah Retur</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-male"></i>Karyawan <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="fixed_footer.html">Data Karyawan</a></li>
+                      <li><a href="fixed_sidebar.html">Manajemen Gaji</a></li>
+                      
                     </ul>
                   </li>
                   <li><a href="<?=base_url(); ?>index.php/barang"><i class="fa fa-edit"></i> Data Barang</a>
@@ -84,24 +105,7 @@
               </div>
 
             </div>
-            <!-- /sidebar menu -->
 
-            <!-- /menu footer buttons -->
-            <!-- <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div> -->
-            <!-- /menu footer buttons -->
           </div>
         </div>
 
@@ -135,18 +139,15 @@
         <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
-            <div class="page-title">
-              <div class="title_left">
-                <h3>Transaksi Penjualan</h3>
-              </div>
-            </div>
-
-            <div class="clearfix"></div>
 
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
+                    <h2>Transaksi Penjualan</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
                     <div class="col-md-12 center-margin">
                       <form class="form-vertical form-label-left" id="formAdd">
                         <div class="form-group col-md-3">
@@ -177,244 +178,268 @@
                         </div>
                       </form>
                     </div>
-                    
-                    <div class="clearfix"></div>
                   </div>
-                  <div class="x_content">
-                    <div class="row">
-                        <div id="reload">
-                          <table class="table table-striped jambo_table bulk_action" id="mydata">
-                            <thead>
-                                <tr>
-                                    <th>Nama Barang</th>
-                                    <th>Harga Satuan</th>
-                                    <th>Jumlah</th>
-                                    <th>Diskon</th>
-                                    <th>Subtotal</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody id="show_data">
-                            <!-- Datatable content goes here -->
-                            </tbody>
-                          </table>
-                        </div>
-                        
-                        <div class="divider-dashed"></div>
-
-                        <form id="prosesTransaksi" class="form-horizontal">
-                          <div class="col-xs-12 pull-right">
-                            <div class="form-group">
-                              <label class="col-md-2 col-sm-2 col-xs-2">Metode Pembayaran</label>
-                              <div class="col-md-4 col-sm-4 col-xs-4">
-                                <input type="radio" name="pembayaran" id="pembayaran" value="tunai" checked=""> Tunai
-                                <input type="radio" name="pembayaran" id="pembayaran" value="hutang"> Hutang
-                              </div>
-                            </div>
-
-                            <div class="form-group">
-                              <label class="col-md-2 col-sm-2 col-xs-2">Nama Pelanggan</label>
-                              <div class="col-md-4 col-sm-4 col-xs-4">
-                                <input type="hidden" name="idPel" id="idPel">
-                                <input type="text" data-parsley-error-message="Isi Nama Pelanggan" name="pelanggan" id="pelanggan" class="form-control">
-                              </div>
-                              <div class="pull-left"><a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ModalaAdd"><span class="fa fa-plus"></span> Tambah Customer</a></div>
-                            </div>
-
-                            <div class="form-group">
-                              <label class="col-md-2 col-sm-2 col-xs-2">Jatuh Tempo</label>
-                              <div class="col-md-4 col-sm-4 col-xs-4">
-                                <div class="input-group date" id="myDatepicker">
-                                  <input type="text" data-parsley-error-message="Isi Tanggal Jatuh Tempo" name="jatuh_tempo" id="jatuh_tempo" class="form-control">
-                                  <span class="input-group-addon" style="">
-                                     <span class="glyphicon glyphicon-calendar"></span>
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                            
-                            <div class="form-group">
-                              <label class="col-md-2 col-sm-2 col-xs-2">Grand Total</label>
-                              <div class="col-md-4 col-sm-4 col-xs-4">
-                                <input type="text" name="total" id="grandtotal" class="form-control" style="font-weight: bold; text-align: right;" required="" data-parsley-error-message="Tidak bisa melakukan  Transaksi dg nominal 0.">
-                                <span class="form-control-feedback left" aria-hidden="true">Rp.</span>
-                              </div>
-                            </div>
-
-                            <div class="form-group">
-                              <label class="col-md-2 col-sm-2 col-xs-2"></label>
-                              <div class="col-md-4 col-sm-4 col-xs-4">
-                                <button class="btn btn-success pull-right" id="btn_save">Proses Data</button>
-                              </div>
-                            </div>
-                          </div>
-                        </form>
-                    </div>
                     
-
-                    <!-- MODAL ADD CUSTOMER-->
-                      <div class="modal fade" id="ModalaAdd" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
-                          <div class="modal-dialog">
-                          <div class="modal-content">
-                          <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                              <h3 class="modal-title" id="myModalLabel">Tambah Customer</h3>
-                          </div>
-                          <form class="form-horizontal" id="tambahCustomer">
-                              <div class="modal-body">
-               
-                                  <div class="form-group">
-                                      <label class="control-label col-xs-3" >Nama Customer</label>
-                                      <div class="col-xs-9">
-                                          <input name="nama" id="nama" class="form-control has-feedback-left" type="text" placeholder="Nama Customer" style="width:335px;" required>
-                                          <span class="fa fa-edit form-control-feedback left" aria-hidden="true"></span>
-                                      </div>
-                                  </div>
-
-                                  <div class="form-group">
-                                      <label class="control-label col-xs-3" >Alamat</label>
-                                      <div class="col-xs-9">
-                                          <input name="alamat" id="alamat" class="form-control has-feedback-left" type="text" placeholder="Alamat" style="width:335px;" required>
-                                          <span class="fa fa-location-arrow form-control-feedback left" aria-hidden="true"></span>
-                                      </div>
-                                  </div>
-               
-                                  <div class="form-group">
-                                      <label class="control-label col-xs-3" >Kota</label>
-                                      <div class="col-xs-9">
-                                          <input name="kota" id="kota" class="form-control has-feedback-left" type="text" placeholder="Kota" style="width:335px;" required>
-                                          <span class="fa fa-industry form-control-feedback left" aria-hidden="true"></span>
-                                      </div>
-                                  </div>
-               
-                                  <div class="form-group">
-                                      <label class="control-label col-xs-3" >Telepon</label>
-                                      <div class="col-xs-9">
-                                          <input name="telepon" id="telepon" class="form-control has-feedback-left" type="text" placeholder="Telepon" style="width:335px;" required>
-                                          <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
-                                      </div>
-                                  </div>
-               
-                              </div>
-               
-                              <div class="modal-footer">
-                                  <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-                                  <button class="btn btn-info" id="btn_addCustomer">Simpan</button>
-                              </div>
-                          </form>
-                          </div>
-                          </div>
-                      </div>
-                      <!--END MODAL ADD CUSTOMER-->
-
-                      <!-- MODAL EDIT -->
-                      <div class="modal fade" id="ModalaEdit" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
-                          <div class="modal-dialog">
-                          <div class="modal-content">
-                          <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                              <h3 class="modal-title" id="myModalLabel">Edit Barang</h3>
-                          </div>
-                          <form class="form-horizontal" id="formEdit">
-                              <div class="modal-body">
-                                  <div class="form-group">
-                                      <label class="control-label col-xs-3" >Kode</label>
-                                      <div class="col-xs-9">
-                                          <input name="id_edit" id="id2" class="form-control has-feedback-left" type="text" placeholder="Kode Barang" style="width:335px;" readonly="">
-                                          <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label class="control-label col-xs-3" >Nama Barang</label>
-                                      <div class="col-xs-9">
-                                          <input name="nabar_edit" id="nama_barang2" class="form-control has-feedback-left" type="text" placeholder="Nama Barang" style="width:335px;" readonly="">
-                                          <span class="fa fa-edit form-control-feedback left" aria-hidden="true"></span>
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label class="control-label col-xs-3" >Harga Satuan</label>
-                                      <div class="col-xs-9">
-                                          <input name="harga_edit" id="harga2" class="form-control has-feedback-left" type="text" placeholder="Harga" style="width:335px;" readonly="">
-                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label class="control-label col-xs-3" >Jumlah</label>
-                                      <div class="col-xs-9">
-                                          <input name="jumlah_edit" id="jumlah2" class="form-control has-feedback-left" type="text" placeholder="Harga" style="width:335px;" required>
-                                          <span class="fa fa-list form-control-feedback left" aria-hidden="true"></span>
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label class="control-label col-xs-3" >Diskon</label>
-                                      <div class="col-xs-9">
-                                          <input name="diskon_edit" id="diskon2" class="form-control has-feedback-left" type="text" placeholder="%" style="width:335px;" required>
-                                          <span class="fa fa-percent form-control-feedback left" aria-hidden="true"></span>
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-                                      <label class="control-label col-xs-3" >Subtotal</label>
-                                      <div class="col-xs-9">
-                                          <input name="stt_edit" id="subTotal2" class="form-control has-feedback-left" type="text" placeholder="Harga" style="width:335px;" readonly="">
-                                          <span class="fa fa-circle form-control-feedback left" aria-hidden="true"></span>
-                                      </div>
-                                  </div>
-               
-                              </div>
-                              <div class="modal-footer">
-                                  <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-                                  <button class="btn btn-info" id="btn_update">Update</button>
-                              </div>
-                          </form>
-                          </div>
-                          </div>
-                      </div>
-                      <!--END MODAL EDIT-->
-               
-                      <!--MODAL HAPUS-->
-                      <div class="modal fade" id="ModalHapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                          <div class="modal-dialog" role="document">
-                              <div class="modal-content">
-                                  <div class="modal-header">
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
-                                      <h4 class="modal-title" id="myModalLabel">Hapus Barang</h4>
-                                  </div>
-                                  <form class="form-horizontal">
-                                  <div class="modal-body">
-                                                         
-                                          <input type="hidden" name="kode" id="textkode" value="">
-                                          <div class="alert alert-warning"><p>Apakah Anda yakin mau menghapus barang ini?</p></div>
-                                                       
-                                  </div>
-                                  <div class="modal-footer">
-                                      <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                                      <button class="btn_hapus btn btn-danger" id="btn_hapus">Hapus</button>
-                                  </div>
-                                  </form>
-                              </div>
-                          </div>
-                      </div>
-                      <!--END MODAL HAPUS-->                     
-
-                  </div>
-                  <!-- x_content -->
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <!-- /page content -->
 
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            <div class="row">
+              <div class="col-md-8 col-sm-8 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Data Barang</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <div id="reload">
+                      <table class="table table-striped jambo_table bulk_action" id="mydata">
+                        <thead>
+                            <tr>
+                                <th>Nama Barang</th>
+                                <th>Harga Satuan</th>
+                                <th>Jumlah</th>
+                                <th>Diskon</th>
+                                <th>Subtotal</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="show_data">
+                        <!-- Datatable content goes here -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                    
+                </div>
+              </div>
+
+              <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Pembayaran</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <form id="prosesTransaksi" class="form-horizontal form-label-left">
+                      <div class="form-group">
+                        <label>Metode Pembayaran</label>
+                        <div>
+                          <input type="radio" name="pembayaran" id="pembayaran" value="tunai" checked=""> Tunai
+                          <input type="radio" name="pembayaran" id="pembayaran" value="hutang"> Hutang
+                        </div>
+                      </div>
+
+
+                      <div class="form-group">
+                        <label>Nama Pelanggan</label>
+                        <div class="input-group">
+                          <input type="hidden" name="idPel" id="idPel">
+                          <input type="text" data-parsley-error-message="Isi Nama Pelanggan" name="pelanggan" id="pelanggan" class="form-control">
+                          <span class="input-group-btn">
+                              <button type="button" data-toggle="modal" data-target="#ModalaAdd" class="btn btn-primary">Add</button>
+                          </span>
+                        </div>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label>Jatuh Tempo</label>
+                        <div>
+                          <div class="input-group date" id="myDatepicker">
+                            <input type="text" data-parsley-error-message="Isi Tanggal Jatuh Tempo" name="jatuh_tempo" id="jatuh_tempo" class="form-control">
+                            
+                            <span class="input-group-addon" style="">
+                               <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label>Grand Total</label>
+                        <div>
+                          <input placeholder="0" type="text" name="total" id="grandtotal" class="form-control" style="font-weight: bold; text-align: right; font-size: 30px;" required="" data-parsley-error-message="Tidak bisa melakukan  Transaksi dg nominal 0.">
+                          <!-- <span class="form-control-feedback left" aria-hidden="true">Rp.</span> -->
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                          <button class="btn btn-success pull-right" id="btn_save">Proses Data</button>
+                      </div>
+
+                    </form>
+                  </div>
+                  <!-- x_content -->
+                </div>
+                <!-- x_panel -->
+              </div>
+
+            </div>
+
           </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
+
+          <!-- MODAL ADD CUSTOMER-->
+          <div class="modal fade" id="ModalaAdd" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+              <div class="modal-dialog">
+              <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h3 class="modal-title" id="myModalLabel">Tambah Customer</h3>
+              </div>
+              <form class="form-horizontal" id="tambahCustomer">
+                  <div class="modal-body">
+   
+                      <div class="form-group">
+                          <label class="control-label col-xs-3" >Nama Customer</label>
+                          <div class="col-xs-9">
+                              <input name="nama" id="nama" class="form-control has-feedback-left" type="text" placeholder="Nama Customer" style="width:335px;" required>
+                              <span class="fa fa-edit form-control-feedback left" aria-hidden="true"></span>
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+                          <label class="control-label col-xs-3" >Alamat</label>
+                          <div class="col-xs-9">
+                              <input name="alamat" id="alamat" class="form-control has-feedback-left" type="text" placeholder="Alamat" style="width:335px;" required>
+                              <span class="fa fa-location-arrow form-control-feedback left" aria-hidden="true"></span>
+                          </div>
+                      </div>
+   
+                      <div class="form-group">
+                          <label class="control-label col-xs-3" >Kota</label>
+                          <div class="col-xs-9">
+                              <input name="kota" id="kota" class="form-control has-feedback-left" type="text" placeholder="Kota" style="width:335px;" required>
+                              <span class="fa fa-industry form-control-feedback left" aria-hidden="true"></span>
+                          </div>
+                      </div>
+   
+                      <div class="form-group">
+                          <label class="control-label col-xs-3" >Telepon</label>
+                          <div class="col-xs-9">
+                              <input name="telepon" id="telepon" class="form-control has-feedback-left" type="text" placeholder="Telepon" style="width:335px;" required>
+                              <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
+                          </div>
+                      </div>
+   
+                  </div>
+   
+                  <div class="modal-footer">
+                      <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                      <button class="btn btn-info" id="btn_addCustomer">Simpan</button>
+                  </div>
+              </form>
+              </div>
+              </div>
+          </div>
+          <!--END MODAL ADD CUSTOMER-->
+
+          <!-- MODAL EDIT -->
+          <div class="modal fade" id="ModalaEdit" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+              <div class="modal-dialog">
+              <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h3 class="modal-title" id="myModalLabel">Edit Barang</h3>
+              </div>
+              <form class="form-horizontal" id="formEdit">
+                  <div class="modal-body">
+                      <div class="form-group">
+                          <label class="control-label col-xs-3" >Kode</label>
+                          <div class="col-xs-9">
+                              <input name="id_edit" id="id2" class="form-control has-feedback-left" type="text" placeholder="Kode Barang" style="width:335px;" readonly="">
+                              <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-xs-3" >Nama Barang</label>
+                          <div class="col-xs-9">
+                              <input name="nabar_edit" id="nama_barang2" class="form-control has-feedback-left" type="text" placeholder="Nama Barang" style="width:335px;" readonly="">
+                              <span class="fa fa-edit form-control-feedback left" aria-hidden="true"></span>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-xs-3" >Harga Satuan</label>
+                          <div class="col-xs-9">
+                              <input name="harga_edit" id="harga2" class="form-control has-feedback-left" type="text" placeholder="Harga" style="width:335px;" readonly="">
+                              <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-xs-3" >Jumlah</label>
+                          <div class="col-xs-9">
+                              <input name="jumlah_edit" id="jumlah2" class="form-control has-feedback-left" type="text" placeholder="Harga" style="width:335px;" required>
+                              <span class="fa fa-list form-control-feedback left" aria-hidden="true"></span>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-xs-3" >Diskon</label>
+                          <div class="col-xs-9">
+                              <input name="diskon_edit" id="diskon2" class="form-control has-feedback-left" type="text" placeholder="%" style="width:335px;" required>
+                              <span class="fa fa-percent form-control-feedback left" aria-hidden="true"></span>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-xs-3" >Subtotal</label>
+                          <div class="col-xs-9">
+                              <input name="stt_edit" id="subTotal2" class="form-control has-feedback-left" type="text" placeholder="Harga" style="width:335px;" readonly="">
+                              <span class="fa fa-circle form-control-feedback left" aria-hidden="true"></span>
+                          </div>
+                      </div>
+   
+                  </div>
+                  <div class="modal-footer">
+                      <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                      <button class="btn btn-info" id="btn_update">Update</button>
+                  </div>
+              </form>
+              </div>
+              </div>
+          </div>
+          <!--END MODAL EDIT-->
+   
+          <!--MODAL HAPUS-->
+          <div class="modal fade" id="ModalHapus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
+                          <h4 class="modal-title" id="myModalLabel">Hapus Barang</h4>
+                      </div>
+                      <form class="form-horizontal">
+                      <div class="modal-body">
+                                             
+                              <input type="hidden" name="kode" id="textkode" value="">
+                              <div class="alert alert-warning"><p>Apakah Anda yakin mau menghapus barang ini?</p></div>
+                                           
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                          <button class="btn_hapus btn btn-danger" id="btn_hapus">Hapus</button>
+                      </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+          <!--END MODAL HAPUS--> 
+
+        </div>
+        <!-- page content -->
+
       </div>
     </div>
+  </div>
+  <!-- /page content -->
+
+    <!-- footer content -->
+    <footer>
+      <div class="pull-right">
+        Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+      </div>
+      <div class="clearfix"></div>
+    </footer>
+    <!-- /footer content -->
+  </div>
+</div>
 
     <!-- jQuery -->
     <script src="<?php echo base_url(); ?>assets/vendors/jquery/dist/jquery.min.js"></script>

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Aplikasi Penjualan! | </title>
+    <title>My Store v.1.2!</title>
 
 
     <!-- Bootstrap -->
@@ -32,7 +32,7 @@
         
           <section class="login_content">
             <form id="formLogin">
-              <h1>Silahkan Masuk</h1>
+              <h1>Please Login</h1>
               <div>
                 <input type="text" id="username" class="form-control" placeholder="Username" required="" />
               </div>
@@ -52,7 +52,7 @@
               <br />
 
               <div>
-                <h1><i class="fa fa-sellsy"></i> Prawiratama Mandiri</h1>
+                <h1><i class="fa fa-opencart"></i> My Store</h1>
                 <p>©2018 All Rights Reserved.</p>
               </div>
               
@@ -86,10 +86,11 @@
             dataType : "JSON",
             data : {username:user, password:pass},
             success: function(data){
-              if(data === '0'){
+              if(data == '0'){
                 $("#error").html("<span>Maaf, username/password salah</span>");
-              } else{
-                window.location.replace("http://localhost/softsale/index.php/transaksi/");
+              }
+               else{
+                window.location.replace("<?php echo base_url(); ?>");
               }
             }
         });
