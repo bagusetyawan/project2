@@ -44,6 +44,18 @@ class Transaksi extends CI_Controller{
         }
     }
 
+    function testAuto(){
+        $a = $this->db->query("select id_barang, nama_barang, harga from mst_barang")->result();
+        foreach ($a as $key) {
+            $arr_result[] = array(
+                "value" => $key->nama_barang,
+                "data" => $key->id_barang
+            );
+            # code...
+        }
+        echo json_encode($arr_result);
+    }
+
     function getAutocompleteCust(){
         
         if (isset($_GET['term'])) {

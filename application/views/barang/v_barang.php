@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Aplikasi Penjualan! | </title>
+    <title>My Cashier Pro 1.2</title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url(); ?>assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -18,6 +18,8 @@
     <link href="<?php echo base_url(); ?>assets/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
     <link href="<?php echo base_url(); ?>assets/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-datetimepicker -->
+    <link href="<?php echo base_url(); ?>assets/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
     <!-- Datatables -->
     <link href="<?php echo base_url(); ?>assets/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
@@ -42,7 +44,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-shopping-bag"></i> <span>Prawiratama Mandiri!</span></a>
+              <a href="#" class="site_title"><i class="fa fa-shopping-cart"></i> <span>My Cashier Pro</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -50,7 +52,7 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="<?=base_url(); ?>assets/build/images/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="<?=base_url(); ?>assets/build/images/img.png" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Selamat Datang,</span>
@@ -63,45 +65,11 @@
             <br />
 
             <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <h3>General</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-desktop"></i> Transaksi <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="<?=base_url(); ?>index.php/transaksi">Entry Transaksi</a></li>
-                      <li><a href="<?=base_url(); ?>index.php/transaksi/listTransaksi">List Transaksi</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="<?=base_url(); ?>index.php/barang"><i class="fa fa-edit"></i> Data Barang</a>
-                  </li>
-                  <li><a href="<?=base_url(); ?>index.php/piutang"><i class="fa fa-table"></i> Piutang </a>
-                  </li>
-                  <li><a href="<?=base_url(); ?>index.php/customer"><i class="fa fa-bar-chart-o"></i> Customer</a>
-                  </li>
-                  <li><a href="<?=base_url(); ?>index.php/login/logout"><i class="fa fa-clone"></i>Log Out </a>
-                  </li>
-                </ul>
-              </div>
-
-            </div>
+            <?php $this->load->view('components/comp_sidebarMenu', FALSE); ?>
             <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->
-            <!-- <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div> -->
+            <?php $this->load->view('components/comp_footerButtons', FALSE); ?>
             <!-- /menu footer buttons -->
           </div>
         </div>
@@ -146,9 +114,14 @@
 
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
+                <div style="display: <?php echo $this->session->flashdata() == NULL ? 'none':'';  ?>" class="alert <?=$this->session->flashdata("class"); ?> alert-dismissible fade in" role="alert" id="notifications">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                  </button>
+                  <strong><?=$this->session->flashdata("header"); ?>!</strong> <?=$this->session->flashdata("messages"); ?>
+                </div>
                 <div class="x_panel">
                   <div class="x_title">
-                    <div class="pull-left"><a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#ModalaAdd"><span class="fa fa-plus"></span> Tambah Barang</a></div>
+                    <div class="pull-left"><a href="<?=site_url(); ?>barang/addBarang.html" class="btn btn-sm btn-success" data-toggle="modal"><span class="fa fa-plus"></span> Tambah Barang</a></div>
                      <ul class="nav navbar-right panel_toolbox">
                       
                       
@@ -178,76 +151,84 @@
                           </div>
                       </div>
 
-                      <!-- MODAL ADD -->
+                      <!-- MODAL ADD BARANG-->
                       <div class="modal fade" id="ModalaAdd" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
-                          <div class="modal-dialog">
+                        <div class="modal-dialog modal-sm">
                           <div class="modal-content">
-                          <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                              <h3 class="modal-title" id="myModalLabel">Tambah Barang</h3>
-                          </div>
-                          <form class="form-horizontal" id="formAdd">
-                              <div class="modal-body">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h4 class="modal-title" id="myModalLabel">Tambah Barang</h4>
+                            </div>
 
-                                  <div class="form-group">
-                                      <label class="control-label col-xs-3" >ID Barang</label>
-                                      <div class="col-xs-9">
-                                          <input name="idBarang" data-parsley-error-message="Mohon Isi ID" id="idBarang" class="form-control has-feedback-left" type="text" placeholder="ID Barang" style="width:335px;" required>
-                                          <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
-                                      </div>
-                                  </div>
-                 
-                                  <div class="form-group">
-                                      <label class="control-label col-xs-3" >Nama Barang</label>
-                                      <div class="col-xs-9">
-                                          <input name="nabar" data-parsley-error-message="Mohon Isi Nama Barang" id="nama_barang" class="form-control has-feedback-left" type="text" placeholder="Nama Barang" style="width:335px;" required>
-                                          <span class="fa fa-edit form-control-feedback left" aria-hidden="true"></span>
-                                      </div>
-                                  </div>
-
-                                  <div class="form-group">
-                                      <label class="control-label col-xs-3" >Harga</label>
-                                      <div class="col-xs-9">
-                                          <input name="harga" data-parsley-error-message="Mohon Isi Hanya Angka" data-parsley-type="number" id="harga" class="form-control has-feedback-left" type="text" placeholder="Rp." style="width:335px;" required>
-                                          <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
-                                      </div>
-                                  </div>
-               
-                                  <div class="form-group">
-                                      <label class="control-label col-xs-3" >Kategori</label>
-                                      <div class="col-xs-9">
-                                          <input name="kat" data-parsley-error-message="Mohon Isi Kategori" id="kategori" class="form-control has-feedback-left" type="text" placeholder="Kategori" style="width:335px;" required>
-                                          <span class="fa fa-list form-control-feedback left" aria-hidden="true"></span>
-                                      </div>
-                                  </div>
-               
-                                  <div class="form-group">
-                                      <label class="control-label col-xs-3" >Satuan</label>
-                                      <div class="col-xs-9">
-                                          <input name="sat" data-parsley-error-message="Mohon Isi Satuan Barang" id="satuan" class="form-control has-feedback-left" type="text" placeholder="Satuan" style="width:335px;" required>
-                                          <span class="fa fa-circle form-control-feedback left" aria-hidden="true"></span>
-                                      </div>
-                                  </div>
-
-                                  <div class="form-group">
-                                      <label class="control-label col-xs-3" >Stok Awal</label>
-                                      <div class="col-xs-9">
-                                          <input name="stk" data-parsley-error-message="Mohon Isi Stok Awal" id="stok" class="form-control has-feedback-left" type="text" placeholder="Stok" style="width:335px;" required>
-                                          <span class="fa fa-digital-tachograph form-control-feedback left" aria-hidden="true"></span>
-                                      </div>
-                                  </div>
-               
-                              </div>
-               
-                              <div class="modal-footer">
+                            <div class="modal-body">
+                              <form class="form-horizontal form-label-left" id="tambahCustomer">
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                  <label>ID</label>
+                                  <input name="idBarang" id="idBarang" class="form-control has-feedback-left" type="text" placeholder="ID Barang" required>
+                                  <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback" >
+                                  <label>Tanggal Masuk</label>
+                                  <input name="receiveDate" id="receiveDate" data-parsley-error-message="Mohon Isi Hanya Angka" data-parsley-type="number" class="form-control has-feedback-left" type="text" placeholder="dddd-mm-yy">
+                                  <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                  <label>Nama Barang</label>
+                                  <input name="nabar" id="nabar" data-parsley-error-message="Mohon Isi Nama Barang" class="form-control has-feedback-left" type="text" placeholder="Nama Barang" required>
+                                  <span class="fa fa-edit form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                  <label>Harga</label>
+                                  <input name="harga" id="harga" data-parsley-error-message="Mohon Isi Hanya Angka" data-parsley-type="number" class="form-control has-feedback-left" type="text" placeholder="Rp." required>
+                                  <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                  <label>Expired Date</label>
+                                  <input name="expDate" id="expDate" data-parsley-error-message="Mohon Isi Hanya Angka" data-parsley-type="number" class="form-control has-feedback-left" type="text" placeholder="dddd-mm-yy">
+                                  <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                  <label>Kategori</label>
+                                  <select class="form-control has-feedback-left" name="kategori" id="kategori">
+                                    <option value="">Kategori 1</option>
+                                  </select>
+                                  <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                  <label>Satuan</label>
+                                  <select class="form-control has-feedback-left" name="sat" id="satuan">
+                                    <option value="">pcs</option>
+                                  </select>
+                                  <span class="fa fa-joomla form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                  <label>Minimum Stok Warning</label>
+                                  <input name="minimumStok" id="minimumStok" data-parsley-error-message="Mohon Isi Hanya Angka" data-parsley-type="number" class="form-control has-feedback-left" type="text" placeholder="0" required>
+                                  <span class="fa fa-jsfiddle form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                  <label>Stok Awal</label>
+                                  <input name="stk" id="stok" data-parsley-error-message="Mohon Isi Hanya Angka" data-parsley-type="number" class="form-control has-feedback-left" type="text" placeholder="0" required>
+                                  <span class="fa fa-ioxhost form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                                  <label>Lokasi Penyimpanan</label>
+                                  <input name="lokasiSimpan" id="lokasiSimpan" class="form-control has-feedback-left" type="text" placeholder="Misal: A1">
+                                  <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
+                                </div>
+                                
+                              
+                                <div class="form-group pull-right">
                                   <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-                                  <button class="btn btn-info" id="btn_simpan">Simpan</button>
-                              </div>
-                          </form>
+                                  <button class="btn btn-info" id="btn_addCustomer">Simpan</button>
+                                </div>
+                              </form>
+                            </div>
+                            
                           </div>
-                          </div>
+                        </div>
                       </div>
-                      <!--END MODAL ADD-->
+                      <!--END MODAL ADD BARA-->
 
                       <!-- MODAL EDIT -->
                       <div class="modal fade" id="ModalaEdit" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
@@ -395,9 +376,21 @@
     
     <script src="<?php echo base_url(); ?>assets/jquery-validation/parsley.min.js"></script>
 
+    <!-- bootstrap-datetimepicker -->    
+    <script src="<?php echo base_url(); ?>assets/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+
     <script type="text/javascript">
     $(document).ready(function(){
         tampil_data_barang();   //pemanggilan fungsi tampil barang.
+        // $("#ModalaAdd #receiveDate").datetimepicker({
+        //   format:'yyyy-mm-dd'
+        // });
+        // $('#ModalaAdd #receiveDate').click({
+        //   alert('blaaaaaaaa')
+        // });
+        $("#ModalaAdd #receiveDate").on('click', function(){
+         alert('meeeeee');
+        });
         
          
         $('#mydata').dataTable({

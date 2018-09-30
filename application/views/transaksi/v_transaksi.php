@@ -49,7 +49,7 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="<?=base_url(); ?>assets/build/images/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="<?=base_url(); ?>assets/build/images/img.png" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Selamat Datang,</span>
@@ -60,51 +60,14 @@
             <!-- /menu profile quick info -->
 
             <br />
-
+            
             <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <h3>General</h3>
-                <ul class="nav side-menu">
-                  <li><a href="<?=base_url(); ?>index.php/barang"><i class="fa fa-home"></i> Dashboard</a>
-                  <li><a><i class="fa fa-desktop"></i> Penjualan <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="<?=base_url(); ?>index.php/transaksi">Entry Transaksi</a></li>
-                      <li><a href="<?=base_url(); ?>index.php/transaksi/listTransaksi">List Penjualan</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-file"></i>Laporan <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="fixed_sidebar.html">Laporan Penjualan</a></li>
-                      <li><a href="fixed_footer.html">Laporan Barang</a></li>
-                      <li><a href="fixed_footer.html">Laporan Pengeluaran</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-arrow-right"></i>Retur Barang <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="fixed_sidebar.html">Rencana Retur</a></li>
-                      <li><a href="fixed_footer.html">Sudah Retur</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-male"></i>Karyawan <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="fixed_footer.html">Data Karyawan</a></li>
-                      <li><a href="fixed_sidebar.html">Manajemen Gaji</a></li>
-                      
-                    </ul>
-                  </li>
-                  <li><a href="<?=base_url(); ?>index.php/barang"><i class="fa fa-edit"></i> Data Barang</a>
-                  </li>
-                  <li><a href="<?=base_url(); ?>index.php/piutang"><i class="fa fa-table"></i> Piutang </a>
-                  </li>
-                  <li><a href="<?=base_url(); ?>index.php/customer"><i class="fa fa-bar-chart-o"></i> Customer</a>
-                  </li>
-                  <li><a href="<?=base_url(); ?>index.php/login/logout"><i class="fa fa-clone"></i>Log Out </a>
-                  </li>
-                </ul>
-              </div>
+            <?php $this->load->view('components/comp_sidebarMenu', FALSE); ?>
+            <!-- /sidebar menu -->
 
-            </div>
+            <!-- /menu footer buttons -->
+            <?php $this->load->view('components/comp_footerButtons', FALSE); ?>
+            <!-- /menu footer buttons -->
 
           </div>
         </div>
@@ -120,7 +83,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="<?=base_url(); ?>assets/build/images/img.jpg" alt=""><?php echo $this->session->userdata('username'); ?>
+                    <img src="<?=base_url(); ?>assets/build/images/img.png" alt=""><?php echo $this->session->userdata('username'); ?>
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -142,6 +105,11 @@
 
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="alert alert-success alert-dismissible fade in" role="alert" id="notifications">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                  </button>
+                  <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
+                </div>
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Transaksi Penjualan</h2>
@@ -153,7 +121,8 @@
                         <div class="form-group col-md-3">
                           <label>Nama Barang</label>
                           <input type="hidden" id="idBarang" name="id">
-                          <input required="" data-parsley-error-message="Isi Nama / Kode Barang" type="text" name="title" class="form-control" id="tags" placeholder="Masukkan Nama/Kode Barang">
+                          <input class="form-control" required="" data-parsley-error-message="Isi Nama / Kode Barang" type="text" name="title" id="tags" placeholder="Masukkan Nama/Kode Barang" >
+                          <!-- <input type="text" name="coba" id="autocomplete"> -->
                         </div>
                         <div class="form-group col-md-1">
                           <label>Jumlah</label>
@@ -198,8 +167,8 @@
                             <tr>
                                 <th>Nama Barang</th>
                                 <th>Harga Satuan</th>
-                                <th>Jumlah</th>
-                                <th>Diskon</th>
+                                <th>Qty</th>
+                                <th>Disc</th>
                                 <th>Subtotal</th>
                                 <th>Action</th>
                             </tr>
@@ -237,7 +206,7 @@
                           <input type="hidden" name="idPel" id="idPel">
                           <input type="text" data-parsley-error-message="Isi Nama Pelanggan" name="pelanggan" id="pelanggan" class="form-control">
                           <span class="input-group-btn">
-                              <button type="button" data-toggle="modal" data-target="#ModalaAdd" class="btn btn-primary">Add</button>
+                              <button type="button" data-toggle="modal" data-target="#ModalaAdd" class="btn btn-primary"><i class="fa fa-plus"></i></button>
                           </span>
                         </div>
                       </div>
@@ -280,56 +249,49 @@
 
           <!-- MODAL ADD CUSTOMER-->
           <div class="modal fade" id="ModalaAdd" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
-              <div class="modal-dialog">
+            <div class="modal-dialog">
               <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                  <h3 class="modal-title" id="myModalLabel">Tambah Customer</h3>
-              </div>
-              <form class="form-horizontal" id="tambahCustomer">
-                  <div class="modal-body">
-   
-                      <div class="form-group">
-                          <label class="control-label col-xs-3" >Nama Customer</label>
-                          <div class="col-xs-9">
-                              <input name="nama" id="nama" class="form-control has-feedback-left" type="text" placeholder="Nama Customer" style="width:335px;" required>
-                              <span class="fa fa-edit form-control-feedback left" aria-hidden="true"></span>
-                          </div>
-                      </div>
+                <div class="modal-header">
+                    <!-- <a class="close" data-dismiss="modal">&times;</a> -->
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">Tambah Customer</h4>
+                </div>
+                
+                    <div class="modal-body">
+                      <form class="form-horizontal form-label-left" id="tambahCustomer">
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                          <label>Nama Customer</label>
+                          <input name="nama" id="nama" class="form-control has-feedback-left" type="text" placeholder="Nama Customer" required>
+                          <span class="fa fa-edit form-control-feedback left" aria-hidden="true"></span>
+                        </div>
 
-                      <div class="form-group">
-                          <label class="control-label col-xs-3" >Alamat</label>
-                          <div class="col-xs-9">
-                              <input name="alamat" id="alamat" class="form-control has-feedback-left" type="text" placeholder="Alamat" style="width:335px;" required>
-                              <span class="fa fa-location-arrow form-control-feedback left" aria-hidden="true"></span>
-                          </div>
-                      </div>
-   
-                      <div class="form-group">
-                          <label class="control-label col-xs-3" >Kota</label>
-                          <div class="col-xs-9">
-                              <input name="kota" id="kota" class="form-control has-feedback-left" type="text" placeholder="Kota" style="width:335px;" required>
-                              <span class="fa fa-industry form-control-feedback left" aria-hidden="true"></span>
-                          </div>
-                      </div>
-   
-                      <div class="form-group">
-                          <label class="control-label col-xs-3" >Telepon</label>
-                          <div class="col-xs-9">
-                              <input name="telepon" id="telepon" class="form-control has-feedback-left" type="text" placeholder="Telepon" style="width:335px;" required>
-                              <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
-                          </div>
-                      </div>
-   
-                  </div>
-   
-                  <div class="modal-footer">
-                      <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-                      <button class="btn btn-info" id="btn_addCustomer">Simpan</button>
-                  </div>
-              </form>
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                          <label>Alamat</label>
+                          <input name="alamat" id="alamat" class="form-control has-feedback-left" type="text" placeholder="Alamat" required>
+                                <span class="fa fa-location-arrow form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                          <label>Kota</label>
+                          <input name="kota" id="kota" class="form-control has-feedback-left" type="text" placeholder="Kota" required>
+                          <span class="fa fa-industry form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                          <label>Telepon</label>
+                          <input name="telepon" id="telepon" class="form-control has-feedback-left" type="text" placeholder="Telepon" required>
+                          <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                      
+                        <div class="form-group pull-right">
+                          <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+                          <button class="btn btn-info" id="btn_addCustomer">Simpan</button>
+                        </div>
+                      </form>
+                    </div>
+                
               </div>
-              </div>
+            </div>
           </div>
           <!--END MODAL ADD CUSTOMER-->
 
@@ -468,7 +430,7 @@
     <script src="<?php echo base_url(); ?>assets/vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/vendors/pdfmake/build/vfs_fonts.js"></script>
     <!-- Custom Theme Scripts -->
-    <script src="<?php echo base_url(); ?>assets/build/js/custom.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/build/js/custom.js"></script>
 
     <!-- <script src="<?php echo base_url(); ?>assets/build/js/jquery-1.12.4.js"></script> -->
     <script src="<?php echo base_url(); ?>assets/build/js/jquery-ui.js"></script>
@@ -482,9 +444,24 @@
 
     <script src="<?php echo base_url(); ?>assets/jquery-validation/parsley.min.js"></script>
 
+    <!-- jQuery autocomplete -->
+    <!-- <script src="<?php echo base_url(); ?>assets/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script> -->
+
 
     <script type="text/javascript">
       $(document).ready(function(){
+        
+        // var b = JSON.parse(nilai);
+        // alert(nilai);
+        // $('#autocomplete').autocomplete({
+        //   source: "<?php echo site_url('Transaksi/testAuto');?>",
+        //    onSelect: function (suggestion) {
+        //         alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+        //     }
+
+            
+        // })
+        
         // $("#formAdd").parsley();
         getID_trans();
         $("#jatuh_tempo").attr("disabled", true);
@@ -501,7 +478,13 @@
           format: 'DD-MM-YYYY'
         });
         sum_trans();
+        // $('#ModalaAdd').on('keypress', function(e){
+        //   if (e.which == 13){
+        //     $(this).submit()
+        //   }
+        // });
       });
+  
 
 
       //add barang to transaksi
@@ -631,6 +614,7 @@
       }
 
       function autoCompleteBarang(){
+
         $('#tags').autocomplete({
               source: "<?php echo site_url('Transaksi/getAutocomplete');?>",
     
@@ -693,10 +677,28 @@
           {
             "targets":[1],
             "orderable":false
+          },
+          {
+            "width":"45%",
+            "targets":0
+          },
+          {
+            "width":"15%",
+            "targets":1
+          },
+          {
+            "width":"5%",
+            "targets":2
+          },
+          {
+            "width":"5%",
+            "targets":3
           }
           ]
         });
       }
+
+
 
       function tampil_tmp_trans(){
             $.ajax({
@@ -715,8 +717,8 @@
                                 '<td>'+data[i].diskon+'%</td>'+
                                 '<td>Rp. '+data[i].subtotal+'</td>'+
                                 '<td style="text-align:right;">'+
-                                    '<a href="javascript:;" class="btn btn-info btn-xs item_edit" data="'+data[i].id+'">Edit</a>'+' '+
-                                    '<a href="javascript:;" class="btn btn-danger btn-xs item_hapus" data="'+data[i].id+'">Hapus</a>'+
+                                    '<a href="javascript:;" class="btn btn-info btn-xs item_edit" data="'+data[i].id+'"><i class="fa fa-edit"></i></a>'+' '+
+                                    '<a href="javascript:;" class="btn btn-danger btn-xs item_hapus" data="'+data[i].id+'"><i class="fa fa-trash"></i></a>'+
                                 '</td>'+
                                 '</tr>';
                     }

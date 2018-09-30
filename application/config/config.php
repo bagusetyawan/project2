@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+include_once 'vendor/autoload.php';
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
@@ -35,7 +35,7 @@ $config['base_url'] = 'http://localhost/mystore/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -64,7 +64,7 @@ $config['uri_protocol']	= 'REQUEST_URI';
 |
 | https://codeigniter.com/user_guide/general/urls.html
 */
-$config['url_suffix'] = '';
+$config['url_suffix'] = '.html';
 
 /*
 |--------------------------------------------------------------------------
@@ -136,7 +136,7 @@ $config['subclass_prefix'] = 'MY_';
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = FALSE;
+$config['composer_autoload'] = "vendor/autoload.php";
 
 /*
 |--------------------------------------------------------------------------

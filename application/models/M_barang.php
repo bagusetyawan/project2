@@ -18,19 +18,27 @@ class M_barang extends CI_Model{
         return $a->result();
     }
 
-	function simpan_barang($idBarang, $nama_barang,$harga,$kategori,$satuan,$stok){
-        $q1 = "INSERT INTO mst_barang (id_barang, nama_barang,harga,kategori,satuan,stok, created_at)VALUES('$idBarang', '$nama_barang','$harga','$kategori','$satuan','$stok', NOW())";
+	function simpan_barang($idBarang, $receiveDate, $namaBarang, $hpp, $hargaJual, $expDate, $kategori, $satuan, $minimumStok, $stokAwal, $penyimpanan, $supplier, $imgPath){
+        $dataInsert = array(
+            'id'    => $idBarang,
+            'tanggalMasuk'  => $receiveDate,
+            'namaBarang'    => $namaBarang,
+            'HPP'   => $hpp,
+            'hargaJual' => $hargaJual,
+            'expDate'   => $expDate,
+            'idKategori'    => $kategori,
+            'idSatuan'  => $satuan,
+            'minimumStok'   => $minimumStok,
+            'stokAwal'  => $stokAwal,
+            'idPenyimpanan' => $penyimpanan,
+            'idSupplier'    => $supplier,
+            'imgPath'   => $imgPath,
+            'created_at'    => date('Y-m-d H:i:s'),
+            'created_by'    => $this->session->userdata('username')
+        );
+        $this->db->insert('mstBarang', $dataInsert);
+        return $this->db->last_query();
         
-        $q2 = "SELECT id_barang FROM mst_barang ORDER BY id_barang DESC LIMIT 1";
-
-        $this->db->trans_start();
-        $this->db->query($q1);
-        // $res1 = $this->db->query($q2)->row();
-        // $id_barang = $res1->id_barang;
-        $q3 = "INSERT INTO trans_barang(id_barang, nama_barang, jenis, jumlah, created_at) VALUES ('$idBarang', '$nama_barang', 'IN', '$stok', NOW())";
-        $this->db->query($q3);
-        $this->db->trans_complete();
-        // return $hasil;
     }
  
     function get_barang_by_kode($kobar){
